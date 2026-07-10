@@ -96,18 +96,7 @@ Incident Report
 * SIEM investigation
 * MITRE ATT&CK mapping
 * Incident reporting
-
-Project Folder:
-
-```
-SOC-Project-1-Phishing-Investigation/
-```
----
-
-# Future Investigations
-
-Planned projects:
-
+  
 ---
 
 ## Project 2 - PowerShell Attack Investigation

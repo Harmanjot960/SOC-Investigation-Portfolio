@@ -1,187 +1,147 @@
-# SOC-Investigation-Portfolio
+# SOC Investigation Portfolio
 
 ## Overview
 
-This repository contains documented cybersecurity investigations completed through hands-on labs, security training platforms, and publicly available security datasets.
+This repository contains hands-on SOC analyst investigations completed through security labs, training platforms, and publicly available security datasets. The goal of this portfolio is to demonstrate practical experience with security monitoring, threat detection, investigation workflows, and incident response processes.
 
-Each investigation follows a structured SOC analyst workflow, including alert analysis, evidence collection, IOC extraction, timeline creation, threat intelligence analysis, SIEM investigation, MITRE ATT&CK mapping, and incident reporting.
+Each project documents the investigation process, including evidence collection, IOC analysis, threat intelligence research, security tool usage, MITRE ATT&CK mapping, and incident reporting.
 
-The goal of this portfolio is to demonstrate practical experience with security monitoring, threat detection, incident investigation, and security operations workflows.
+
 
 ---
 
-# Investigation Workflow
+# Investigation Approach
 
-Each project follows a standard SOC investigation process:
+Each investigation follows a structured SOC workflow:
 
 ```
-Alert Detection
-      |
-      ▼
+Case / Alert Intake
+        |
+        ▼
 Initial Triage
-      |
-      ▼
+        |
+        ▼
 Evidence Collection
-      |
-      ▼
+        |
+        ▼
 IOC Extraction
-      |
-      ▼
+        |
+        ▼
 Threat Intelligence Analysis
-      |
-      ▼
-SIEM Investigation
-      |
-      ▼
+        |
+        ▼
+Security Tool Investigation
+        |
+        ▼
 MITRE ATT&CK Mapping
-      |
-      ▼
+        |
+        ▼
 Incident Report
 ```
+
 ---
 
 # Tools & Technologies
 
-## SIEM / Log Analysis
-* Splunk Enterprise
-* SPL (Search Processing Language)
-* Windows Event Logs
-* Security Event Analysis
+## SIEM & Log Analysis
+
+- Splunk Enterprise
+- SPL Queries
+- Windows Event Logs
+- Security Event Analysis
 
 ## Endpoint Investigation
-* Sysmon
-* Windows Security Logs
-* PowerShell Logging
-* Process and Command-Line Analysis
+
+- Sysmon
+- Windows Security Logs
+- PowerShell Logging
+- Process Analysis
 
 ## Threat Intelligence & Malware Analysis
-* VirusTotal
-* URLScan
-* WHOIS
-* IP Reputation Analysis
-* Hybrid Analysis
-* ANY.RUN Sandbox
-* MalwareBazaar (where applicable)
+
+- VirusTotal
+- URLScan
+- WHOIS
+- IP Reputation Analysis
+- Hybrid Analysis
+- ANY.RUN
+- MalwareBazaar
 
 ## Network Analysis
-* Wireshark
-* PCAP Analysis
-* Network Traffic Investigation
+
+- Wireshark
+- PCAP Analysis
 
 ## Frameworks
-* MITRE ATT&CK
+
+- MITRE ATT&CK
+
 ---
 
 # Projects
 
-# Project 1 - Phishing Investigation
+## Project 1 - Phishing Email Investigation
 
 **Status:** In Progress
 
-**Environment:**
+Investigated a suspected phishing email by analyzing email headers, sender authentication, malicious attachments, threat intelligence results, and extracted indicators of compromise.
 
-* TryHackMe
-* SOC Simulation Labs
-* Public security datasets (where applicable)
+[View Project](./SOC-Project-1-Phishing-Investigation)
 
-**Focus Areas:**
-
-* Email source analysis
-* Email header investigation
-* Sender and domain reputation analysis
-* Attachment and URL analysis
-* Malware sandbox analysis
-* Threat intelligence research
-* IOC extraction
-* SIEM investigation
-* MITRE ATT&CK mapping
-* Incident reporting
-  
 ---
 
 ## Project 2 - PowerShell Attack Investigation
 
-**Focus:**
+**Status:** Planned
 
-* Suspicious PowerShell activity
-* Process execution analysis
-* Sysmon investigation
-* Command-line analysis
-* Script block logging analysis
-* Detection query development
+Investigation of suspicious PowerShell activity using endpoint telemetry, process analysis, script block logging, and detection techniques.
+
+[View Project](./SOC-Project-2-PowerShell-Investigation)
 
 ---
 
-## Project 3 - Brute Force Detection
+## Project 3 - Brute Force Detection Investigation
 
-**Focus:**
+**Status:** Planned
 
-* Authentication log analysis
-* Failed login investigation
-* Account activity monitoring
-* Suspicious login detection
-* SIEM detection queries
+Analysis of authentication activity to identify brute-force attempts, investigate login patterns, and develop SIEM detection queries.
+
+[View Project](./SOC-Project-3-Brute-Force-Investigation)
 
 ---
 
 ## Project 4 - Malware Investigation
 
-**Focus:**
+**Status:** Planned
 
-* Malware behavior analysis
-* Static and dynamic analysis
-* Sandbox investigation
-* Hybrid Analysis and ANY.RUN reports
-* IOC extraction
-* Endpoint investigation
-* Threat intelligence correlation
-* MITRE ATT&CK mapping
+Analysis of suspicious files using malware analysis techniques, threat intelligence platforms, sandbox reports, IOC extraction, and MITRE ATT&CK mapping.
+
+[View Project](./SOC-Project-4-Malware-Investigation)
 
 ---
 
 ## Project 5 - Windows Endpoint Investigation
 
-**Focus:**
+**Status:** Planned
 
-* Windows Event Log analysis
-* Persistence technique detection
-* Suspicious process investigation
-* Registry and scheduled task analysis
-* Incident response workflow
+Investigation of Windows security events, persistence mechanisms, suspicious processes, and endpoint-based attack activity.
 
----
-
-# Documentation Structure
-
-Each project contains:
-
-```
-Project/
-│
-├── README.md
-├── Screenshots/
-├── Evidence/
-├── SPL-Queries/
-├── MITRE-ATT&CK/
-└── Incident-Report/
-```
+[View Project](./SOC-Project-5-Windows-Endpoint-Investigation)
 
 ---
 
 # About This Portfolio
 
-These investigations are performed in controlled lab environments and training platforms, along with analysis of publicly available security datasets and log artifacts.
+All investigations are performed in controlled lab environments and training platforms.
 
-Each project documents:
+Each project focuses on developing practical SOC analyst skills, including:
 
-* Investigation environment
-* Alert details
-* Investigation methodology
-* Evidence collected
-* IOC analysis
-* Detection queries
-* MITRE ATT&CK mapping
-* Findings
-* Final incident report
+- Security alert investigation
+- Evidence analysis
+- IOC identification
+- Threat intelligence research
+- Detection engineering concepts
+- Incident documentation
+- MITRE ATT&CK mapping
 
-This portfolio demonstrates practical experience with SOC monitoring, threat detection, SIEM investigation, endpoint analysis, and incident response processes.
+

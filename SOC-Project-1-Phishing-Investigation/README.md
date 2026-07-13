@@ -192,8 +192,7 @@ SOC-Project-1-Phishing-Investigation/
 │   └── timeline.md
 │
 ├── Threat-Intelligence/
-│   ├── virustotal_analysis.md
-│   └── infrastructure_analysis.md
+│   └── threat_intelligence.md
 │
 ├── MITRE-ATT&CK/
 │   └── mitre_mapping.md

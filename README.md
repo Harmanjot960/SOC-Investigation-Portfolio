@@ -90,7 +90,17 @@ Investigated a suspected phishing email by analyzing email headers, sender authe
 
 ---
 
-## Project 2 - PowerShell Attack Investigation
+## Project 2 - Brute Force Detection 
+
+**Status:** Planned
+
+Analysis of authentication activity to identify brute-force attempts, investigate login patterns, and develop SIEM detection queries.
+
+[View Project](./SOC-Project-3-Brute-Force-Investigation)
+
+---
+
+## Project 3 - PowerShell Attack Investigation
 
 **Status:** Planned
 
@@ -98,15 +108,6 @@ Investigation of suspicious PowerShell activity using endpoint telemetry, proces
 
 [View Project](./SOC-Project-2-PowerShell-Investigation)
 
----
-
-## Project 3 - Brute Force Detection Investigation
-
-**Status:** Planned
-
-Analysis of authentication activity to identify brute-force attempts, investigate login patterns, and develop SIEM detection queries.
-
-[View Project](./SOC-Project-3-Brute-Force-Investigation)
 
 ---
 

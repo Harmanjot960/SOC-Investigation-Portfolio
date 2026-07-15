@@ -147,7 +147,7 @@ Screenshot:
 1a- Kali_hydra_command.png
 
 ```
-![Hydra Command](Screenshots/kali_hydra_command.png)
+[01a_hydra_command.png](Screenshots/01a_hydra_command.png)
 
 This screenshot shows the command used to simulate repeated RDP authentication attempts.
 
@@ -161,7 +161,7 @@ Screenshot:
 1b- Kali_hydra_result.png
 
 ```
-![Hydra Success](Screenshots/01b_hydra_password_found.png)
+[01b_hydra_password_found.png](Screenshots/01b_hydra_password_found.png)
 
 This screenshot shows the result of the simulated password testing activity.
 

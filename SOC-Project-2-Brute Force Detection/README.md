@@ -110,12 +110,16 @@ RDP-Brute-Force-Investigation
 ├── README.md
 │
 ├── Screenshots
-│   ├── kali_hydra_command.png
-│   ├── kali_hydra_result.png
-│   ├── splunk_failed_logons.png
-│   ├── splunk_successful_logon.png
-│   ├── splunk_attack_timeline.png
-│   └── splunk_bruteforce_detection_query.png
+│   ├── 01a_hydra_command.png
+│   ├── 01b_hydra_password_found.png
+│   ├── 02_failed_rdp_logons_event_4625.png
+│   ├── 03_failed_login_analysis_splunk.png
+│   ├── 04_successful_rdp_login_event_4624.png
+│   ├── 05_event_4672_special_privileges.png
+│   ├── 06_splunk_bruteforce_detection_query.png
+│   ├── 07_rdp_attack_timeline.png
+│   └── 08_incident_summary.png
+
 │
 ├── Evidence
 │   ├── timeline.md
@@ -241,7 +245,7 @@ analyst
 
 Findings:
 
-- 21 failed RDP authentication attempts detected
+- 20 failed RDP authentication attempts detected
 - Same source IP used for all attempts
 - Same account targeted
 - Successful authentication occurred after failed attempts
@@ -324,7 +328,7 @@ index=windows sourcetype="WinEventLog:Security"
 |------|----------|-------------|
 | 08:08:42 - 08:23:08 | 4625 | Multiple failed RDP authentication attempts |
 | 08:23:11 | 4624 | Successful RDP authentication |
-| 08:34:10 | 4672 | Special privileges assigned |
+| 08:23:29 | 4672 | Special privileges assigned |
 
 ---
 

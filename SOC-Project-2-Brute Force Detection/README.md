@@ -74,7 +74,7 @@ The investigation followed a SOC workflow from attack simulation to incident doc
               RDP Brute Force Simulation
                          |
                          ▼
-                  Initial Triage
+                  Alert Triage
         (Review authentication activity)
                          |
                          ▼
@@ -83,7 +83,7 @@ The investigation followed a SOC workflow from attack simulation to incident doc
                          |
                          ▼
                  Log Analysis
-        (4625 Failed Logons / 4624 Success)
+        (4625 Failed Logons / 4624 Successful Logon / 4672 Privileged Logon)
                          |
                          ▼
                   IOC Extraction
@@ -141,35 +141,23 @@ RDP-Brute-Force-Investigation
 
 # Attack Simulation
 
-The RDP brute-force activity was simulated using Kali Linux Hydra against the Windows endpoint.
+The RDP brute-force activity was simulated using **Kali Linux Hydra** against the Windows endpoint to generate Windows Security Events for analysis in Splunk.
 
 ## Hydra Brute Force Command
 
-Screenshot:
+**Evidence:** [01a_hydra_command.png](Screenshots/01a_hydra_command.png)
 
-```
-1a- Kali_hydra_command.png
-
-```
-[01a_hydra_command.png](Screenshots/01a_hydra_command.png)
-
-This screenshot shows the command used to simulate repeated RDP authentication attempts.
+This screenshot shows the Hydra command used to simulate repeated RDP authentication attempts against the target Windows system.
 
 ---
 
 ## Successful Credential Discovery
 
-Screenshot:
+**Evidence:** [01b_hydra_password_found.png](Screenshots/01b_hydra_password_found.png)
 
-```
-1b- Kali_hydra_result.png
+This screenshot shows Hydra successfully identifying the valid credentials after multiple authentication attempts.
 
-```
-[01b_hydra_password_found.png](Screenshots/01b_hydra_password_found.png)
-
-This screenshot shows the result of the simulated password testing activity.
-
-The authentication attempts generated Windows Security Events that were later analyzed in Splunk.
+The simulated attack generated Windows Security Event IDs **4625 (Failed Logon)**, **4624 (Successful Logon)**, and **4672 (Special Privileges Assigned)**, which were collected and analyzed in Splunk during the investigation.
 
 ---
 
@@ -208,7 +196,7 @@ Multiple Event ID 4625 (Failed Logon)
 +
 Same Source IP
 +
-Same Account Name
+Same Target User 
 +
 RDP Authentication Activity
 ```
@@ -217,8 +205,9 @@ RDP Authentication Activity
 
 ```spl
 index=windows sourcetype="WinEventLog:Security" EventCode=4625
-| stats count by Source_IP, Account_Name
+| stats count by Source_IP, TargetUserName
 | where count >= 10
+| sort -count
 ```
 
 ### Detection Purpose
@@ -243,12 +232,13 @@ Account:
 analyst
 ```
 
-Findings:
+Investigation Findings:
 
 - 20 failed RDP authentication attempts detected
-- Same source IP used for all attempts
-- Same account targeted
-- Successful authentication occurred after failed attempts
+- All attempts originated from 192.168.109.130
+- The analyst account was repeatedly targeted
+- A successful authentication (Event ID 4624) occurred immediately after the failed attempts
+- Event ID 4672 confirmed that the authenticated session received special privileges
 
 ---
 
@@ -286,7 +276,7 @@ Source IP: 192.168.109.130
 Destination IP: 192.168.109.129
 ```
 
-The successful authentication occurred immediately after multiple failed attempts, indicating that valid credentials may have been obtained.
+The successful authentication occurred immediately after multiple failed attempts. This was followed by **Event ID 4672 (Special Privileges Assigned)**, providing additional evidence that the authenticated session received elevated privileges. Together, these events confirm that the brute-force attack resulted in a successful login.
 
 ---
 
@@ -296,8 +286,9 @@ The successful authentication occurred immediately after multiple failed attempt
 
 ```spl
 index=windows sourcetype="WinEventLog:Security" EventCode=4625
-| stats count by Source_IP, Account_Name
+| stats count by Source_IP, TargetUserName
 | where count > 10
+| sort -count
 ```
 
 ---
@@ -306,7 +297,7 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 
 ```spl
 index=windows sourcetype="WinEventLog:Security" EventCode=4624
-| table _time Account_Name Source_IP Destination_IP Logon_Type
+| table _time TargetUserName Source_IP Destination_IP Logon_Type
 ```
 
 ---
@@ -316,7 +307,7 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4624
 ```spl
 index=windows sourcetype="WinEventLog:Security"
 (EventCode=4625 OR EventCode=4624 OR EventCode=4672)
-| table _time EventCode Account_Name Source_IP Destination_IP Logon_Type
+| table _time EventCode TargetUserName Source_IP Destination_IP Logon_Type
 | sort 0 _time
 ```
 
@@ -355,12 +346,16 @@ The investigation contains:
 - MITRE ATT&CK mapping
 - Incident findings
 
+Supporting screenshots and investigation artifacts are available in the `Screenshots/` and `Evidence/` directories.
+
 ---
 
 # Conclusion
 
-The investigation confirmed a simulated RDP brute-force attack against a Windows endpoint.
+Analysis of Windows Security Event Logs confirmed a simulated RDP brute-force attack originating from 192.168.109.130. 
 
-The attacker IP `192.168.109.130` generated multiple failed authentication attempts against the `analyst` account before successfully authenticating through RDP.
+Multiple failed authentication attempts against the analyst account were followed by a successful login (Event ID 4624) and a privileged logon event (Event ID 4672). 
 
-By analyzing Windows Security Events in Splunk, the SOC analyst identified the attack source, targeted account, authentication pattern, and successful access attempt.
+Splunk enabled the analyst to reconstruct the attack timeline, identify the source IP, determine the targeted account, and document the incident.
+
+

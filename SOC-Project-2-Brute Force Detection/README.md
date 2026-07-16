@@ -287,7 +287,7 @@ The successful authentication occurred immediately after multiple failed attempt
 ```spl
 index=windows sourcetype="WinEventLog:Security" EventCode=4625
 | stats count by Source_IP, TargetUserName
-| where count > 10
+| where count >= 10
 | sort -count
 ```
 

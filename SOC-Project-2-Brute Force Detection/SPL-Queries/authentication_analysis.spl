@@ -1,0 +1,4 @@
+index=windows sourcetype="WinEventLog:Security"
+(EventCode=4624 OR EventCode=4672)
+| table _time EventCode TargetUserName Source_IP Destination_IP Logon_Type
+| sort 0 _time

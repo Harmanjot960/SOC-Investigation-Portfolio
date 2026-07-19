@@ -222,7 +222,7 @@ Observed attacker behavior included:
 - Execution policy bypass
 - Encoded PowerShell execution
 
-Detailed command analysis is available in:
+Detailed investigation analysis, commands, evidence, and MITRE ATT&CK mapping are available in:
 
 ```
 Incident-Report/incident_report.md

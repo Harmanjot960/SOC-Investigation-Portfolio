@@ -191,19 +191,18 @@ Primary Event:
 
 Sysmon Event ID 1 was used to identify:
 
-- PowerShell execution
-- Parent process
-- Executed image
-- User context
+- The execution of PowerShell (powershell.exe)
+- The full command line used to launch the process
+- Suspicious execution methods such as `-EncodedCommand` and `Invoke-Expression`
+- The parent process responsible for spawning PowerShell
+- The user account under which the process executed
 
-Example:
+Example process tree:
 
-```
-ParentImage:
+```text
 explorer.exe
-
-Image:
-powershell.exe
+    └── powershell.exe (-EncodedCommand)
+            └── powershell.exe (Invoke-Expression)
 ```
 
 ---
@@ -337,6 +336,7 @@ OR ScriptBlockText="*Invoke-Expression*"
 ```
 index=windows OR index=sysmon
 (EventCode=4624 OR EventID=4104 OR EventID=1)
+| eval User=coalesce(TargetUserName, User)
 | table _time User EventCode EventID ScriptBlockText Image ParentImage
 | sort 0 _time
 ```
@@ -345,12 +345,14 @@ index=windows OR index=sysmon
 
 # Investigation Timeline
 
-| **Time** | **Event ID** | **Description** |
-|---|---|---|
-| 08:23:11 | 4624 | Successful RDP authentication (previous investigation context) |
-| 08:23:xx | 1 | PowerShell process creation |
-| 08:23 - 08:48 | 4104 | PowerShell commands captured |
-| 08:47:xx | 1 / 4104 | Encoded PowerShell execution detected |
+# Investigation Timeline
+
+| Time | Event ID | Description |
+|------|----------|-------------|
+| 2026-07-14 08:23:11 | 4624 | Successful RDP authentication (initial access from the previous investigation) |
+| 2026-07-15 23:34:20 | 1 | PowerShell process creation detected (Sysmon Event ID 1) |
+| 2026-07-15 23:34:21 – 23:48:48 | 4104 | PowerShell Script Block Logging captured command execution |
+| 2026-07-15 23:47:49 | 1 & 4104 | Encoded PowerShell execution (`-EncodedCommand`) detected |
 
 ---
 

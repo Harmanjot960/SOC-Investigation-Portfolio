@@ -1,0 +1,9 @@
+# Detect encoded or obfuscated PowerShell activity
+
+index=windows EventID=4104
+| search ScriptBlockText="*EncodedCommand*"
+OR ScriptBlockText="*FromBase64String*"
+OR ScriptBlockText="*Unicode.GetString*"
+OR ScriptBlockText="*Invoke-Expression*"
+| table _time User ScriptBlockText
+| sort 0 _time

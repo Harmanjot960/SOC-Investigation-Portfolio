@@ -1,0 +1,7 @@
+# Correlate authentication, PowerShell, and Sysmon activity
+
+index=windows OR index=sysmon
+(EventCode=4624 OR EventID=4104 OR EventID=1)
+| eval User=coalesce(TargetUserName, User)
+| table _time User EventCode EventID ScriptBlockText Image ParentImage
+| sort 0 _time

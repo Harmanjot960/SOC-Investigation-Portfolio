@@ -352,7 +352,7 @@ index=windows OR index=sysmon
 | 2026-07-14 08:23:11 | 4624 | Successful RDP authentication (initial access from the previous investigation) |
 | 2026-07-15 23:34:20 | 1 | PowerShell process creation detected (Sysmon Event ID 1) |
 | 2026-07-15 23:34:21 – 23:48:48 | 4104 | PowerShell Script Block Logging captured command execution |
-| 2026-07-15 23:47:49 | 1 & 4104 | Encoded PowerShell execution (`-EncodedCommand`) detected |
+| 2026-07-15 23:48:45 | 1 & 4104 | Encoded PowerShell execution (`-EncodedCommand`) detected |
 
 ---
 
@@ -391,49 +391,49 @@ Supporting screenshots and investigation artifacts are available in the `Screens
 
 ## Successful RDP Authentication Context
 
-![Successful RDP Login](Screenshots/01_successful_rdp_login_event_4624.png)
+[View Screenshot](Screenshots/01_successful_rdp_login_event_4624.png)
 
 ---
 
 ## PowerShell Script Block Logging Event ID 4104
 
-![PowerShell Event 4104](Screenshots/02_powershell_script_block_event_4104.png)
+[View Screenshot](Screenshots/02_powershell_script_block_event_4104.png)
 
 ---
 
 ## Suspicious PowerShell Commands
 
-![Suspicious PowerShell Commands](Screenshots/03_suspicious_powershell_commands.png)
+[View Screenshot](Screenshots/03_suspicious_powershell_commands.png)
 
 ---
 
 ## Sysmon Process Creation Event ID 1
 
-![Sysmon Process Creation](Screenshots/04_sysmon_process_creation_event_1.png)
+[View Screenshot](Screenshots/04_sysmon_process_creation_event_1.png)
 
 ---
 
 ## Splunk PowerShell Activity Detection
 
-![PowerShell Detection](Screenshots/05_splunk_powershell_activity_detection.png)
+[View Screenshot](Screenshots/05_splunk_powershell_activity_detection.png)
 
 ---
 
 ## Encoded PowerShell Detection
 
-![Encoded Command Detection](Screenshots/06_splunk_encoded_command_detection.png)
+[View Screenshot](Screenshots/06_splunk_encoded_command_detection.png)
 
 ---
 
 ## Attack Timeline
 
-![Attack Timeline](Screenshots/07_attack_timeline.png)
+[View Screenshot](Screenshots/07_attack_timeline.png)
 
 ---
 
 ## Incident Summary
 
-![Incident Summary](Screenshots/08_incident_summary.png)
+[View Screenshot](Screenshots/08_incident_summary.png)
 
 ---
 

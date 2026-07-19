@@ -137,7 +137,8 @@ PowerShell-Post-Compromise-Investigation
 │   └── attack_mapping.md
 │
 └── Incident-Report
-    └── incident_report.md
+    ├── incident_report.md
+    └── incident-summary.md
 
 ```
 
@@ -224,9 +225,8 @@ Observed attacker behavior included:
 
 Detailed investigation analysis, commands, evidence, and MITRE ATT&CK mapping are available in:
 
-```
-Incident-Report/incident_report.md
-```
+- [Full Incident Report](Incident-Report/incident_report.md)
+- [Incident Summary](Incident-Report/incident-summary.md)
 
 ---
 
@@ -342,8 +342,6 @@ index=windows OR index=sysmon
 ```
 
 ---
-
-# Investigation Timeline
 
 # Investigation Timeline
 

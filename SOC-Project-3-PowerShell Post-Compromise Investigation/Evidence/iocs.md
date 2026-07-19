@@ -127,9 +127,10 @@ Invoke-Expression
 
 # MITRE ATT&CK Relevant Indicators
 
-| Indicator | Technique |
-|---|---|
-| powershell.exe | T1059.001 PowerShell |
-| System enumeration | T1082 System Information Discovery |
-| Network commands | T1016 Network Configuration Discovery |
-| Encoded commands | T1027 Obfuscated Files or Information |
+| Indicator / Activity | Technique | MITRE ATT&CK ID |
+|---|---|---|
+| PowerShell execution | Command and Scripting Interpreter: PowerShell | T1059.001 |
+| System enumeration | System Information Discovery | T1082 |
+| Network discovery commands | System Network Configuration Discovery | T1016 |
+| Scheduled task discovery | Scheduled Task/Job Discovery | T1053 |
+| Encoded PowerShell (-EncodedCommand, Base64) | Obfuscated Files or Information | T1027 |

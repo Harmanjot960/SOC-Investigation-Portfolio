@@ -1,0 +1,11 @@
+# Detect suspicious PowerShell commands after compromise
+# PowerShell Event ID 4104 Script Block Logging
+
+
+index=windows EventID=4104
+| search ScriptBlockText="*Get-MpPreference*"
+OR ScriptBlockText="*Get-ScheduledTask*"
+OR ScriptBlockText="*ExecutionPolicy*"
+OR ScriptBlockText="*Invoke-Expression*"
+| table _time User ScriptBlockText
+| sort 0 _time

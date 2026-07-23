@@ -36,9 +36,9 @@ Observed Activity:
 
 ---
 
-# Domains
+## Domains
 
-## authenticatoor.org
+### authenticatoor.org
 
 Description:
 
@@ -50,13 +50,13 @@ Observed Purpose:
 - Malware delivery infrastructure
 
 
-## Additional Related Domains
+### Additional Related Domains
 
 - teamviewer.com activity observed during analysis
 
 ---
 
-# Malware Artifacts
+## Malware Artifacts
 
 **Files:**
 - TeamViewer.exe

@@ -132,8 +132,9 @@ SOC-Project-4-Network-Threat-Hunting
 │   └── suricata.log
 │
 ├── Evidence
+│   ├── README.md
 │   ├── timeline.md
-│   ├── iocs.md
+│   ├── iocs.md 
 │   ├── network-analysis.md
 │   └── suricata-alerts.md
 │

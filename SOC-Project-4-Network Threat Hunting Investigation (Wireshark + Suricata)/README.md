@@ -123,7 +123,7 @@ SOC-Project-4-Network-Threat-Hunting
 ├── README.md
 │
 ├── PCAP
-│   └── 2025-01-22-traffic-analysis-exercise.pcap
+│   └── README.md
 │
 ├── Suricata
 │   ├── eve.json

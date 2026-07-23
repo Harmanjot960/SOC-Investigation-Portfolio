@@ -24,7 +24,7 @@ A packet capture (PCAP) containing the associated network activity was analyzed 
 
 ---
 
-# Incident Scenario
+## Incident Scenario
 
 A user searched for Google Authenticator and downloaded a malicious application disguised as Google Authenticator software.
 After execution, the infected workstation communicated with external attacker-controlled infrastructure.
@@ -42,7 +42,7 @@ The investigation focused on:
 
 ---
 
-# Environment
+## Environment
 
 | Component | Details |
 |-----------|---------|
@@ -58,7 +58,7 @@ The investigation focused on:
 
 ---
 
-# Lab Architecture
+## Lab Architecture
 
 The investigation used a PCAP-based analysis workflow. The captured network traffic was analyzed using Wireshark and Suricata to identify malicious activity.
 
@@ -86,7 +86,7 @@ The investigation used a PCAP-based analysis workflow. The captured network traf
 ```
 ---
 
-# Investigation Workflow
+## Investigation Workflow
 
 ```text
 PCAP
@@ -116,7 +116,7 @@ Incident Report
 ```
 ---
 
-# Project Structure
+## Project Structure
 ```text
 SOC-Project-4-Network-Threat-Hunting
 │
@@ -161,7 +161,7 @@ SOC-Project-4-Network-Threat-Hunting
 
 ---
 
-# Network Investigation
+## Network Investigation
 
 Wireshark was used to analyze the packet capture and identify malicious network activity.
 
@@ -184,9 +184,9 @@ was observed communicating with multiple suspicious external systems.
 
 ---
 
-# Malicious Infrastructure Identified
+### Malicious Infrastructure Identified
 
-## IP Address: 5.252.153.241
+#### IP Address: 5.252.153.241
 
 This IP address was identified as the primary malware delivery server and likely command-and-control (C2) infrastructure.
 
@@ -217,7 +217,7 @@ These alerts indicate:
 
 ---
 
-# PowerShell Malware Delivery
+### PowerShell Malware Delivery
 
 Network analysis identified PowerShell-based malware activity.
 
@@ -247,7 +247,7 @@ These techniques are commonly associated with malware loaders, payload execution
 
 ---
 
-# Fake TeamViewer Payload
+### Fake TeamViewer Payload
 
 The following files were downloaded during the attack:
 
@@ -277,7 +277,7 @@ Persistence
 
 ---
 
-# TLS Investigation
+### TLS Investigation
 
 A suspicious TLS connection was identified during analysis.
 
@@ -311,7 +311,7 @@ The investigation relied on:
 
 ---
 
-# Suricata Analysis
+## Suricata Analysis
 
 Suricata was executed against the PCAP:
 
@@ -321,7 +321,7 @@ suricata \
 -l Suricata/
 ```
 
-Generated files:
+### Generated files:
 
 ```text
 eve.json
@@ -331,7 +331,7 @@ suricata.log
 ```
 ---
 
-# Suricata Alerts
+## Suricata Alerts
 
 The primary alert source analyzed:
 
@@ -339,7 +339,7 @@ The primary alert source analyzed:
 fast.log
 ```
 
-## Malware Delivery
+### Malware Delivery
 
 ```text
 ET MALWARE Fake Microsoft Teams VBS Payload Inbound
@@ -351,7 +351,7 @@ Observed Behavior:
 
 ---
 
-## Command-and-Control Communication
+### Command-and-Control Communication
 
 ```text
 ET MALWARE Fake Microsoft Teams CnC Payload Request (GET)
@@ -363,7 +363,7 @@ Observed Behavior:
 
 ---
 
-## PowerShell Activity
+### PowerShell Activity
 
 ```text
 ET INFO PS1 Powershell File Request
@@ -380,7 +380,7 @@ Observed Behavior:
 
 ---
 
-## Executable Download
+### Executable Download
 
 ```text
 ET INFO PE EXE or DLL Windows file download
@@ -392,48 +392,24 @@ Observed Behavior:
 
 ---
 
-# Attack Timeline
+## Attack Timeline
 
-```text
-14:44:56
-Malicious payload delivered
+| Time     | Activity |
+| -------- | -------- |
+| 14:44:56 | Malicious payload delivered |
+| 14:45:56 | Communication with malicious server |
+| 14:45:58 | PowerShell script downloaded |
+| 14:47:01 | Additional payload retrieval |
+| 14:47:02 | Executable/DLL downloaded |
+| 14:55:08 | TeamViewer-related communication observed |
 
-        |
-        ▼
-
-14:45:56
-Communication with malicious server
-
-        |
-        ▼
-
-14:45:58
-PowerShell script downloaded
-
-        |
-        ▼
-
-14:47:01
-Additional payload retrieval
-
-        |
-        ▼
-
-14:47:02
-Executable/DLL downloaded
-
-        |
-        ▼
-
-14:55:08
-TeamViewer-related communication observed
-```
+The complete investigation timeline, including evidence sources and detection details, is available in the Evidence folder.
 
 ---
 
-# Indicators of Compromise (IOCs)
+## Indicators of Compromise (IOCs)
 
-## Malicious IP Addresses
+### Malicious IP Addresses
 
 ```text
 5.252.153.241
@@ -465,7 +441,7 @@ Observed Activity:
 - Self-signed certificate observed
 
 
-## Suspicious Domain
+### Suspicious Domain
 
 ```text
 authenticatoor.org
@@ -481,7 +457,7 @@ The domain name aligns with the reported user activity and was used to deliver t
 
 ---
 
-# MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
 | Activity | Technique | ID |
 |---|---|---|
@@ -495,7 +471,7 @@ The domain name aligns with the reported user activity and was used to deliver t
 
 ---
 
-# Key Findings
+## Key Findings
 
 The investigation confirmed:
 
@@ -509,59 +485,59 @@ The investigation confirmed:
 
 ---
 
-# Screenshots
+## Screenshots
 
-## Wireshark Protocol Hierarchy
+### Wireshark Protocol Hierarchy
 
 [View Screenshot](Screenshots/01_wireshark_protocol_hierarchy.png)
 
-## Wireshark Endpoints Analysis
+### Wireshark Endpoints Analysis
 
 [View Screenshot](Screenshots/02_wireshark_endpoints.png)
 
-## Wireshark Conversations
+### Wireshark Conversations
 
 [View Screenshot](Screenshots/03_wireshark_conversations.png)
 
-## DNS Investigation
+### DNS Investigation
 
 [View Screenshot](Screenshots/04_dns_analysis.png)
 
-## TLS SNI Analysis
+### TLS SNI Analysis
 
 [View Screenshot](Screenshots/05_tls_sni_analysis.png)
 
-## HTTP Stream Malware Download
+### HTTP Stream Malware Download
 
 [View Screenshot](Screenshots/06_http_stream_malware_download.png)
 
-## HTTP Stream Powershell Obfuscated Powershell Payload
+### HTTP Stream Powershell Obfuscated Powershell Payload
 
 [View Screenshot](Screenshots/07_http_stream_powershell_payload.png)
 
-## TLS Certificate Analysis
+### TLS Certificate Analysis
 
 [View Screenshot](Screenshots/08_tls_self_signed_certificate.png)
 
-## Suricata IDS Alerts
+### Suricata IDS Alerts
 
 [View Screenshot](Screenshots/09_suricata_fast_log_alerts.png)
 
-## VirusTotal Reputation Analysis
+### VirusTotal Reputation Analysis
 
 [View Screenshot](Screenshots/10_malicious_ip_reputation.png)
 
-## Attack Timeline
+### Attack Timeline
 
 [View Screenshot](Screenshots/11_attack_timeline.png)
 
-## Incident Summary
+### Incident Summary
 
 [View Screenshot](Screenshots/12_incident_summary.png)
 
 ---
 
-# Conclusion
+## Conclusion
 
 This project demonstrates a SOC analyst workflow for investigating malware infections using network telemetry.
 

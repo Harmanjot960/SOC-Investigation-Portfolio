@@ -491,6 +491,7 @@ The domain name aligns with the reported user activity and was used to deliver t
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
 | HTTP C2 Communication | Application Layer Protocol: Web Protocols | T1071.001 |
 | Startup Persistence | Boot or Logon Autostart Execution | T1547.001 |
+| Fake Application Naming | Masquerading | T1036 |
 
 ---
 

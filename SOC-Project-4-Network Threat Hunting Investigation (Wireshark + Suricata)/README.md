@@ -142,12 +142,14 @@ SOC-Project-4-Network-Threat-Hunting
 │   ├── 02_wireshark_endpoints.png
 │   ├── 03_wireshark_conversations.png
 │   ├── 04_dns_analysis.png
-│   ├── 05_http_stream_powershell_payload.png
-│   ├── 06_tls_self_signed_certificate.png
-│   ├── 07_suricata_fast_log_alerts.png
-│   ├── 08_malicious_ip_reputation.png
-│   ├── 09_attack_timeline.png
-│   └── 10_incident_summary.png
+│   ├── 05_tls_sni_analysis.png 
+│   ├── 06_http_stream_malware_download.png
+│   ├── 07_http_stream_powershell_payload.png
+│   ├── 08_tls_self_signed_certificate.png 
+│   ├── 09_suricata_fast_log_alerts.png
+│   ├── 10_malicious_ip_reputation.png
+│   ├── 11_attack_timeline.png
+│   └── 12_incident_summary.png
 │
 ├── MITRE-ATT&CK
 │   └── attack_mapping.md
@@ -327,7 +329,6 @@ fast.log
 stats.log
 suricata.log
 ```
-
 ---
 
 # Suricata Alerts
@@ -513,50 +514,49 @@ The investigation confirmed:
 
 [View Screenshot](Screenshots/01_wireshark_protocol_hierarchy.png)
 
-
 ## Wireshark Endpoints Analysis
 
 [View Screenshot](Screenshots/02_wireshark_endpoints.png)
-
 
 ## Wireshark Conversations
 
 [View Screenshot](Screenshots/03_wireshark_conversations.png)
 
-
 ## DNS Investigation
 
 [View Screenshot](Screenshots/04_dns_analysis.png)
 
+## TLS SNI Analysis
 
-## HTTP Stream Analysis
+[View Screenshot](Screenshots/05_tls_sni_analysis.png)
 
-[View Screenshot](Screenshots/05_http_stream_powershell_payload.png)
+## HTTP Stream Malware Download
 
+[View Screenshot](Screenshots/06_http_stream_malware_download.png)
+
+## HTTP Stream Powershell Obfuscated Powershell Payload
+
+[View Screenshot](Screenshots/07_http_stream_powershell_payload.png)
 
 ## TLS Certificate Analysis
 
-[View Screenshot](Screenshots/06_tls_self_signed_certificate.png)
-
+[View Screenshot](Screenshots/08_tls_self_signed_certificate.png)
 
 ## Suricata IDS Alerts
 
-[View Screenshot](Screenshots/07_suricata_fast_log_alerts.png)
-
+[View Screenshot](Screenshots/09_suricata_fast_log_alerts.png)
 
 ## VirusTotal Reputation Analysis
 
-[View Screenshot](Screenshots/08_malicious_ip_reputation.png)
-
+[View Screenshot](Screenshots/10_malicious_ip_reputation.png)
 
 ## Attack Timeline
 
-[View Screenshot](Screenshots/09_attack_timeline.png)
-
+[View Screenshot](Screenshots/11_attack_timeline.png)
 
 ## Incident Summary
 
-[View Screenshot](Screenshots/10_incident_summary.png)
+[View Screenshot](Screenshots/12_incident_summary.png)
 
 ---
 

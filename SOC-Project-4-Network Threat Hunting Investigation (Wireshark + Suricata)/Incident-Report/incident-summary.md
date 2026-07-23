@@ -1,38 +1,28 @@
-# Incident Summary
+### Incident Summary
 
-| Field | Details |
-|------|---------|
-| Incident Type | Malware Infection |
-| Affected Host | 10.1.17.215 |
-| Domain | BLUEMOONTUESDAY |
-| Tools | Wireshark + Suricata |
-| Severity | High |
-| Status | CONFIRMED |
+| Incident Type       | Host        | Domain           | Tools                  | Severity | Status    |
+| ------------------- | ----------- | ---------------- | ---------------------- | -------- | --------- |
+| Malware Infection   | 10.1.17.215 | BLUEMOONTUESDAY  | Wireshark + Suricata   | High     | CONFIRMED |
 
 ---
 
-## Key Findings
+#### Key Findings
 
-| Category | Finding |
-|---------|---------|
-| Initial Access | Fake Google Authenticator Application |
-| Malware Delivery | PowerShell Payload |
-| C2 Communication | 5.252.153.241 |
-| Payloads | TeamViewer Components |
-| Persistence | Startup Shortcut |
+| Initial Access                 | Malware Delivery        | C2 Communication | Payloads              | Persistence              |
+| ----------------------------- | ----------------------- | ---------------- | --------------------- | ------------------------ |
+| Fake Google Authenticator App | PowerShell Payload      | 5.252.153.241    | TeamViewer Components | Startup Shortcut         |
 
 ---
 
-## Network Evidence
+#### Network Evidence
 
-- Malicious Domain: authenticatoor.org
-- Payload Server: 5.252.153.241
-- Suspicious TLS: 45.125.66.32
-- Payload Hosting: 82.221.136.26
+| Malicious Domain    | Payload Server | Suspicious TLS | Payload Hosting |
+| ------------------- | -------------- | -------------- | --------------- |
+| authenticatoor.org  | 5.252.153.241 | 45.125.66.32   | 82.221.136.26   |
 
 ---
 
-## Final Assessment
+#### Final Assessment
 
 Confirmed malware infection involving:
 
@@ -42,4 +32,5 @@ Confirmed malware infection involving:
 - Additional malware retrieval
 - Persistence attempt
 
-Evidence collected using Wireshark packet analysis and Suricata IDS detection.
+Evidence collected using Wireshark packet analysis and Suricata IDS detection. 
+

@@ -4,16 +4,16 @@
 
 This project demonstrates a Security Operations Center (SOC) investigation of a malware infection using network traffic analysis.
 
-A user reported downloading a suspicious application disguised as a Google Authenticator-related file. After execution, the compromised workstation began communicating with external malicious infrastructure.
+A user reported downloading a suspicious application disguised as a legitimate Google Authenticator-related file. After execution, the compromised workstation began communicating with attacker-controlled infrastructure.
 
 A packet capture (PCAP) containing the associated network activity was analyzed to identify:
 
+- Malware download activity
 - Malicious network communications
 - Command-and-control (C2) infrastructure
-- Malware download activity
 - PowerShell-based payload delivery
 - Suspicious executable downloads
-- Indicators of compromise (IOCs)
+- Indicators of Compromise (IOCs)
 
 ## Tools Used
 
@@ -26,8 +26,7 @@ A packet capture (PCAP) containing the associated network activity was analyzed 
 
 # Incident Scenario
 
-A user searched for Google Authenticator and downloaded a malicious application disguised as legitimate software.
-
+A user searched for Google Authenticator and downloaded a malicious application disguised as Google Authenticator software.
 After execution, the infected workstation communicated with external attacker-controlled infrastructure.
 
 The investigation focused on:
@@ -102,7 +101,7 @@ PCAP
 Traffic Analysis
  |
  ▼
-Threat Identification
+Threat Hunting
  |
  ▼
 Protocol Investigation
@@ -226,43 +225,33 @@ These alerts indicate:
 
 Network analysis identified PowerShell-based malware activity.
 
-The attack flow:
+Attack flow:
 
-```text
 Victim Host
-     |
-     ▼
+      │
+      ▼
 HTTP Request to Malicious Server
-     |
-     ▼
+      │
+      ▼
 PowerShell Script Download
-     |
-     ▼
+      │
+      ▼
 Additional Payload Retrieval
-```
-# PowerShell Malware Delivery Analysis
 
-The downloaded PowerShell content contained suspicious behaviors:
+The downloaded PowerShell content contained the following suspicious behaviors:
 
-```text
-Invoke-Expression (IEX)
-FromBase64String()
-DownloadString()
-DownloadFile()
-```
+- Invoke-Expression (IEX)
+- FromBase64String()
+- DownloadString()
+- DownloadFile()
 
-These techniques are commonly associated with:
-
-- Malware loaders
-- Payload execution
-- Obfuscation
-- Defense evasion
+These techniques are commonly associated with malware loaders, payload execution, obfuscation, and defense evasion.
 
 ---
 
 # Fake TeamViewer Payload
 
-The attacker downloaded multiple files:
+The following files were downloaded during the attack:
 
 ```text
 TeamViewer.exe
@@ -271,7 +260,7 @@ Teamviewer_Resource_fr.dll
 pas.ps1
 ```
 
-The attacker used legitimate software names to disguise malicious activity.
+The downloaded files used legitimate software names to disguise malicious activity.
 
 Attack chain:
 
@@ -316,7 +305,17 @@ Observed characteristics:
 - Certificate identity matched an IP address
 - No legitimate organization information
 
-This behavior is commonly associated with suspicious malware infrastructure.
+Self-signed certificates are commonly observed in malicious infrastructure, although they may also be used in legitimate environments.
+
+Because the traffic was encrypted, payload contents could not be directly inspected.
+
+The investigation relied on:
+
+- TLS certificate metadata
+- IP reputation
+- Network behavior
+- Related HTTP activity
+- Suricata detections
 
 ---
 
@@ -355,7 +354,7 @@ fast.log
 ET MALWARE Fake Microsoft Teams VBS Payload Inbound
 ```
 
-Indicates:
+Observed Behavior:
 
 - Initial malicious payload delivery
 
@@ -367,7 +366,7 @@ Indicates:
 ET MALWARE Fake Microsoft Teams CnC Payload Request (GET)
 ```
 
-Indicates:
+Observed Behavior:
 
 - Communication with malware infrastructure
 
@@ -383,7 +382,7 @@ ET HUNTING Generic Powershell DownloadFile Command
 ET HUNTING Generic Powershell DownloadString Command
 ```
 
-Indicates:
+Observed Behavior:
 
 - PowerShell script delivery
 - Additional payload retrieval
@@ -396,7 +395,7 @@ Indicates:
 ET INFO PE EXE or DLL Windows file download
 ```
 
-Indicates:
+Observed Behavior:
 
 - Windows executable or DLL retrieval
 
@@ -449,7 +448,7 @@ TeamViewer-related communication observed
 5.252.153.241
 ```
 
-Purpose:
+Observed Activity:
 
 - Malware C2 communication
 - Payload delivery infrastructure
@@ -459,16 +458,17 @@ Purpose:
 82.221.136.26
 ```
 
-Purpose:
+Observed Activity:
 
-- Suspicious binary hosting infrastructure
-
+- Associated with suspicious binary hosting
+- Historical malicious associations observed through threat intelligence
+- Potential payload hosting infrastructure
 
 ```text
 45.125.66.32
 ```
 
-Purpose:
+Observed Activity:
 
 - Suspicious TLS communication
 - Self-signed certificate observed
@@ -482,9 +482,11 @@ authenticatoor.org
 
 Reason:
 
-- Typosquatted domain resembling "Authenticator"
+- Typosquatting domain impersonating **Google Authenticator**
 - Associated with fake authentication software
-- Possible malware delivery infrastructure
+- Potential malware delivery infrastructure
+
+The domain name aligns with the reported user activity and was used to deliver the malicious application.
 
 ---
 
@@ -515,13 +517,66 @@ The investigation confirmed:
 
 ---
 
+# Screenshots
+
+## Wireshark Protocol Hierarchy
+
+[View Screenshot](Screenshots/01_wireshark_protocol_hierarchy.png)
+
+
+## Wireshark Endpoints Analysis
+
+[View Screenshot](Screenshots/02_wireshark_endpoints.png)
+
+
+## Wireshark Conversations
+
+[View Screenshot](Screenshots/03_wireshark_conversations.png)
+
+
+## DNS Investigation
+
+[View Screenshot](Screenshots/04_dns_analysis.png)
+
+
+## HTTP Stream Analysis
+
+[View Screenshot](Screenshots/05_http_stream_powershell_payload.png)
+
+
+## TLS Certificate Analysis
+
+[View Screenshot](Screenshots/06_tls_self_signed_certificate.png)
+
+
+## Suricata IDS Alerts
+
+[View Screenshot](Screenshots/07_suricata_fast_log_alerts.png)
+
+
+## VirusTotal Reputation Analysis
+
+[View Screenshot](Screenshots/08_malicious_ip_reputation.png)
+
+
+## Attack Timeline
+
+[View Screenshot](Screenshots/09_attack_timeline.png)
+
+
+## Incident Summary
+
+[View Screenshot](Screenshots/10_incident_summary.png)
+
+---
+
 # Conclusion
 
 This project demonstrates a SOC analyst workflow for investigating malware infections using network telemetry.
 
 Wireshark provided packet-level visibility, while Suricata detected malicious network behavior and generated IDS alerts.
 
-The reconstructed attack chain:
+The investigation reconstructed the following attack sequence:
 
 ```text
 Malicious Download

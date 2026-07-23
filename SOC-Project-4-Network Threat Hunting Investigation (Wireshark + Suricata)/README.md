@@ -4,7 +4,7 @@
 
 This project demonstrates a Security Operations Center (SOC) investigation of a malware infection using network traffic analysis.
 
-A user reported downloading a suspicious application disguised as a legitimate Google Authenticator-related file. After execution, the compromised workstation began communicating with attacker-controlled infrastructure.
+A user searched for Google Authenticator and downloaded a malicious application masquerading as legitimate Google Authenticator software. After execution, the compromised workstation began communicating with attacker-controlled infrastructure.
 
 A packet capture (PCAP) containing the associated network activity was analyzed to identify:
 
@@ -68,23 +68,17 @@ The investigation used a PCAP-based analysis workflow. The captured network traf
         ---------------------------
         |                         |
         ▼                         ▼
-
     Wireshark                 Suricata
  Packet Analysis          IDS Detection
 
         |                         |
         ▼                         ▼
-
  Network Evidence        Security Alerts
-
         \                    /
          \                  /
-
           Threat Investigation
-
                  |
                  ▼
-
       IOC Extraction
       Timeline Analysis
       MITRE ATT&CK Mapping
@@ -192,7 +186,7 @@ was observed communicating with multiple suspicious external systems.
 
 ## IP Address: 5.252.153.241
 
-This IP address was identified as the primary malware delivery and command-and-control (C2) infrastructure.
+This IP address was identified as the primary malware delivery server and likely command-and-control (C2) infrastructure.
 
 Suricata detected:
 
@@ -227,16 +221,18 @@ Network analysis identified PowerShell-based malware activity.
 
 Attack flow:
 
+```text
 Victim Host
-      │
-      ▼
+    │
+    ▼
 HTTP Request to Malicious Server
-      │
-      ▼
+    │
+    ▼
 PowerShell Script Download
-      │
-      ▼
+    │
+    ▼
 Additional Payload Retrieval
+```
 
 The downloaded PowerShell content contained the following suspicious behaviors:
 
@@ -260,27 +256,21 @@ Teamviewer_Resource_fr.dll
 pas.ps1
 ```
 
-The downloaded files used legitimate software names to disguise malicious activity.
+The downloaded files used legitimate software names to disguise malicious activity. The downloaded PowerShell script also created a shortcut (TeamViewer.lnk) in the Windows Startup folder that pointed to C:\ProgramData\huo\TeamViewer.exe. This behavior indicates an attempt to establish persistence by automatically executing the malware when a user logs on.
 
 Attack chain:
 
 ```text
 PowerShell Downloader
-
-        |
+        │
         ▼
-
-TeamViewer Components Downloaded
-
-        |
+Downloads TeamViewer Components
+        │
         ▼
-
-Additional Payload Execution
-
-        |
+Creates Startup Shortcut
+        │
         ▼
-
-Persistence / Remote Access
+Persistence
 ```
 
 ---
@@ -580,25 +570,17 @@ The investigation reconstructed the following attack sequence:
 
 ```text
 Malicious Download
-
         |
         ▼
-
 C2 Communication
-
         |
         ▼
-
 PowerShell Payload Delivery
-
         |
         ▼
-
 Additional Malware Download
-
         |
         ▼
-
 Persistence / Remote Access
 ```
 

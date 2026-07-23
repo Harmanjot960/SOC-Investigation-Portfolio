@@ -1,44 +1,45 @@
 # Incident Summary
 
-## Summary
+| Field | Details |
+|------|---------|
+| Incident Type | Malware Infection |
+| Affected Host | 10.1.17.215 |
+| Domain | BLUEMOONTUESDAY |
+| Tools | Wireshark + Suricata |
+| Severity | High |
+| Status | CONFIRMED |
 
-A malware infection was identified on workstation 10.1.17.215 after a user downloaded a fake Google Authenticator application.
-
-Network analysis revealed communication with attacker-controlled infrastructure and multi-stage payload delivery.
+---
 
 ## Key Findings
 
-- Malicious HTTP communication with 5.252.153.241
-- PowerShell payload download
-- Fake Microsoft Teams/TeamViewer related malware activity
-- Executable and DLL downloads
-- Suspicious TLS certificate communication
+| Category | Finding |
+|---------|---------|
+| Initial Access | Fake Google Authenticator Application |
+| Malware Delivery | PowerShell Payload |
+| C2 Communication | 5.252.153.241 |
+| Payloads | TeamViewer Components |
+| Persistence | Startup Shortcut |
 
+---
 
-## Severity
+## Network Evidence
 
-High
+- Malicious Domain: authenticatoor.org
+- Payload Server: 5.252.153.241
+- Suspicious TLS: 45.125.66.32
+- Payload Hosting: 82.221.136.26
 
+---
 
-## Affected System
+## Final Assessment
 
-Host:
+Confirmed malware infection involving:
 
-10.1.17.215
+- Malicious application download
+- PowerShell payload execution
+- C2 communication
+- Additional malware retrieval
+- Persistence attempt
 
-
-## Attack Techniques
-
-- User Execution
-- PowerShell
-- Ingress Tool Transfer
-- Command and Control
-
-
-## Recommended Actions
-
-- Isolate infected host
-- Block malicious IP addresses
-- Remove malicious files
-- Investigate persistence mechanisms
-- Reset affected credentials
+Evidence collected using Wireshark packet analysis and Suricata IDS detection.

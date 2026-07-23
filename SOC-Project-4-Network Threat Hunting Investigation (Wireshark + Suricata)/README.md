@@ -126,13 +126,13 @@ SOC-Project-4-Network-Threat-Hunting
 │   └── README.md
 │
 ├── Suricata
+│   ├── README.md
 │   ├── eve.json
 │   ├── fast.log
 │   ├── stats.log
 │   └── suricata.log
 │
 ├── Evidence
-│   ├── README.md
 │   ├── timeline.md
 │   ├── iocs.md 
 │   ├── network-analysis.md

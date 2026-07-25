@@ -25,10 +25,9 @@ The investigation identified:
 - Unauthorized account creation
 - Windows service persistence
 
-
 ---
 
-# Tools Used
+## Tools Used
 
 - Sysmon
 - Windows Event Viewer
@@ -36,10 +35,9 @@ The investigation identified:
 - VirusTotal (threat intelligence)
 - MITRE ATT&CK
 
-
 ---
 
-# Investigation Source
+## Investigation Source
 
 This investigation was based on a TryHackMe Windows incident response scenario.
 
@@ -54,7 +52,7 @@ The investigation was independently analyzed using SOC workflows:
 
 ---
 
-# Incident Scenario
+## Incident Scenario
 
 A user opened a malicious Microsoft Word document:
 
@@ -70,7 +68,7 @@ The attacker used PowerShell to download additional payloads, established persis
 
 ---
 
-# Environment
+## Environment
 
 | Component | Details |
 |-----------|---------|
@@ -85,7 +83,7 @@ The attacker used PowerShell to download additional payloads, established persis
 
 ---
 
-# Investigation Workflow
+## Investigation Workflow
 
 ```text
 Malicious Word Document
@@ -114,7 +112,7 @@ Incident Report
 
 ---
 
-# Attack Chain
+## Attack Chain
 
 ```text
 Malicious Word Document
@@ -181,7 +179,7 @@ Persistence        (C2 Commands)
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 SOC-Project-5-Windows-Endpoint-Incident-Response
@@ -238,7 +236,7 @@ SOC-Project-5-Windows-Endpoint-Incident-Response
 
 ---
 
-# Evidence Organization
+## Evidence Organization
 
 | Directory | Purpose |
 |-----------|---------|
@@ -252,9 +250,9 @@ SOC-Project-5-Windows-Endpoint-Incident-Response
 
 ---
 
-# Key Findings
+## Key Findings
 
-## Initial Access
+### Initial Access
 
 A malicious Word document exploited:
 
@@ -275,7 +273,7 @@ PowerShell.exe
 ```
 
 
-## Malware Delivery
+### Malware Delivery
 
 The attacker downloaded additional payloads from:
 
@@ -294,7 +292,7 @@ final.exe
 ```
 
 
-## Command and Control
+### Command and Control
 
 The attacker used:
 
@@ -309,7 +307,7 @@ for:
 - Malware communication
 
 
-## Network Pivoting
+### Network Pivoting
 
 `ch.exe` was identified as Chisel.
 
@@ -320,7 +318,7 @@ The attacker created a reverse SOCKS tunnel:
 ```
 
 
-## Remote Access
+### Remote Access
 
 WinRM activity was confirmed through:
 
@@ -335,7 +333,7 @@ TCP port:
 ```
 
 
-## Privilege Escalation
+### Privilege Escalation
 
 The attacker used:
 
@@ -350,7 +348,7 @@ NT AUTHORITY\SYSTEM
 ```
 
 
-## Persistence
+### Persistence
 
 The attacker created:
 
@@ -372,29 +370,27 @@ Payload:
 C:\ProgramData\final.exe
 ```
 
-
 ---
 
-# Indicators of Compromise
+## Indicators of Compromise
 
-## Domains
+### Domains
 
-### Payload Delivery
+**Payload Delivery**
 
 ```text
 phishteam.xyz
 ```
 
-### Command and Control
+**Command and Control**
 
 ```text
 resolvecyber.xyz
 ```
 
-
 ---
 
-## Network Indicators
+### Network Indicators
 
 ```text
 167.71.199.191:8080
@@ -407,7 +403,7 @@ Chisel reverse SOCKS tunnel endpoint used for remote access and network pivoting
 ```
 ---
 
-## Malicious Files
+### Malicious Files
 
 ```text
 free_magicules.doc
@@ -423,10 +419,9 @@ spf.exe
 final.exe
 ```
 
-
 ---
 
-## Persistence Artifacts
+### Persistence Artifacts
 
 Startup Folder:
 
@@ -446,47 +441,48 @@ Payload:
 C:\ProgramData\final.exe
 ```
 
+---
+
+## MITRE ATT&CK Mapping
+
+| **Technique** | **ID** | **Description** |
+| --------------------------------------- | --------- | -------------------------------------------- |
+| Exploitation for Client Execution       | T1203     | Follina vulnerability exploitation           |
+| PowerShell                              | T1059.001 | Malicious PowerShell execution               |
+| Obfuscated Files or Information         | T1027     | Base64 encoded commands                      |
+| Ingress Tool Transfer                   | T1105     | Payload downloads                            |
+| Startup Folder Persistence              | T1547.001 | Automatic execution at login                 |
+| Web Protocols                           | T1071.001 | HTTP communication                           |
+| Proxy                                   | T1090     | Chisel reverse SOCKS tunnel                  |
+| Windows Remote Management               | T1021.006 | WinRM remote access                          |
+| Exploitation for Privilege Escalation   | T1068     | PrintSpoofer privilege escalation            |
+| Create Account                          | T1136.001 | Local administrator account creation         |
+| Account Manipulation                    | T1098.007 | Added account to local Administrators group  |
+| Windows Service                          | T1543.003 | Service persistence                          |
+| System Information Discovery            | T1082     | Host reconnaissance                          |
+| Account Discovery                       | T1087     | User and administrator account enumeration   |
+| Credentials from Files                  | T1552.001 | Credentials discovered from sensitive file   |
+
 
 ---
 
-# MITRE ATT&CK Mapping
+## Incident Response Recommendations
 
-| Technique | ID | Description |
-|-----------|----|-------------|
-| Exploitation for Client Execution | T1203 | Follina vulnerability exploitation |
-| PowerShell | T1059.001 | Malicious PowerShell execution |
-| Obfuscated Files or Information | T1027 | Encoded commands |
-| Ingress Tool Transfer | T1105 | Payload downloads |
-| Startup Folder Persistence | T1547.001 | Automatic execution at login |
-| Web Protocols | T1071.001 | HTTP communication |
-| Proxy | T1090 | Chisel reverse tunnel |
-| Windows Remote Management | T1021.006 | WinRM access |
-| Exploitation for Privilege Escalation | T1068 | PrintSpoofer privilege escalation |
-| Create Account | T1136.001 | Local administrator creation |
-| Windows Service | T1543.003 | Service persistence |
-| System Information Discovery | T1082 | Host reconnaissance |
-| Account Discovery | T1087 | Credential/account enumeration |
-
-
----
-
-# Incident Response Recommendations
-
-## Containment
+### Containment
 
 - Isolate the compromised endpoint.
 - Block malicious domains and IP addresses.
 - Disable unauthorized accounts.
 
 
-## Investigation
+### Investigation
 
 - Review Sysmon process, file, DNS, and network events.
 - Search other endpoints for matching indicators.
 - Review authentication logs for additional access.
 
 
-## Remediation
+### Remediation
 
 - Remove malicious files.
 - Remove Startup Folder persistence.
@@ -495,7 +491,7 @@ C:\ProgramData\final.exe
 - Patch vulnerable systems against Follina exploitation.
 
 
-## Detection Improvements
+### Detection Improvements
 
 Monitor for:
 
@@ -510,7 +506,7 @@ Monitor for:
 
 ---
 
-# Conclusion
+## Conclusion
 
 This investigation demonstrates a complete SOC incident response workflow from initial compromise detection to attacker persistence.
 

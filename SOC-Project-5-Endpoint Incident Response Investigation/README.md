@@ -227,8 +227,7 @@ SOC-Project-5-Windows-Endpoint-Incident-Response
 │   └── 15_attack_timeline.png
 |
 ├── Incident-Report
-│   ├── incident-report.md
-│   └── incident-summary.md
+│   └── incident-report.md
 |
 └── MITRE-ATT&CK
     └── attack-mapping.md

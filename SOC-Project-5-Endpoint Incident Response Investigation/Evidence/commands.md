@@ -127,6 +127,7 @@ net localgroup administrators shion /add
 
 Evidence:
 
+- Sysmon Event ID 1 — Command-line execution
 - Windows Security Event ID 4720
 - Windows Security Event ID 4732
 

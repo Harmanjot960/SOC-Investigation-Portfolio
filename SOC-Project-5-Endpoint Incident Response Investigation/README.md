@@ -217,7 +217,7 @@ SOC-Project-5-Windows-Endpoint-Incident-Response
 │   ├── 03_payload_download.png
 │   ├── 04_startup_folder_persistence.png
 │   ├── 05_dns_resolution.png
-│   ├── 06_network_connection.png
+│   ├── 06_sysmon_c2_connection.png
 │   ├── 07_wireshark_encoded_command.png
 │   ├── 08_cyberchef_decoded_command.png
 │   ├── 09_chisel_tunnel_connection.png
@@ -321,7 +321,7 @@ for:
 Evidence:
 
 - [05_dns_resolution.png](Screenshots/05_dns_resolution.png)
-- [06_network_connection.png](Screenshots/06_network_connection.png)
+- [06_sysmon_c2_connection.png](Screenshots/06_sysmon_c2_connection.png)
 - [07_wireshark_encoded_command.png](Screenshots/07_wireshark_encoded_command.png)
 - [08_cyberchef_decoded_command.png](Screenshots/08_cyberchef_decoded_command.png)
   

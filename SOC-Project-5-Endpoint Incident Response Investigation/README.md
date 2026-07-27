@@ -4,7 +4,7 @@
 
 This project demonstrates a SOC endpoint incident response investigation of a compromised Windows workstation.
 
-The investigation reconstructs the attacker lifecycle from initial access to SYSTEM-level compromise by correlating:
+The investigation reconstructs the attack lifecycle from initial access to SYSTEM-level compromise by correlating:
 
 - Sysmon telemetry
 - Windows Security Event Logs
@@ -32,6 +32,7 @@ The investigation identified:
 - Sysmon
 - Windows Event Viewer
 - Wireshark (network traffic validation)
+- CyberChef (command decoding)
 - VirusTotal (threat intelligence)
 - MITRE ATT&CK
 
@@ -47,6 +48,8 @@ The investigation was independently analyzed using SOC workflows:
 - Network traffic investigation
 - Timeline reconstruction
 - IOC extraction
+- Threat intelligence validation
+- Command decoding and analysis
 - MITRE ATT&CK classification
 
 
@@ -108,7 +111,7 @@ MITRE ATT&CK Mapping
         ▼
 Incident Report
 ```
-
+The investigation reconstructed the attack lifecycle across 13 phases, documented in the Incident Report, from initial access through persistence.
 
 ---
 
@@ -154,7 +157,6 @@ Persistence        (C2 Commands)
                         |
                         ▼
               WinRM Remote Access
-                 TCP 5985
                         |
                         ▼
           spf.exe + final.exe
@@ -271,7 +273,12 @@ msdt.exe
       ▼
 PowerShell.exe
 ```
+Evidence:
 
+- [01_malicious_document_execution.png](Screenshots/01_malicious_document_execution.png)
+- [02_follina_msdt_execution.png](Screenshots/02_follina_msdt_execution.png)
+  
+  
 
 ### Malware Delivery
 
@@ -291,6 +298,11 @@ spf.exe
 final.exe
 ```
 
+Evidence:
+
+- [03_payload_download.png](Screenshots/03_payload_download.png)
+
+  
 
 ### Command and Control
 
@@ -306,6 +318,14 @@ for:
 - Remote attacker instructions
 - Malware communication
 
+Evidence:
+
+- [05_dns_resolution.png](Screenshots/05_dns_resolution.png)
+- [06_network_connection.png](Screenshots/06_network_connection.png)
+- [07_wireshark_encoded_command.png](Screenshots/07_wireshark_encoded_command.png)
+- [08_cyberchef_decoded_command.png](Screenshots/08_cyberchef_decoded_command.png)
+  
+
 
 ### Network Pivoting
 
@@ -316,6 +336,10 @@ The attacker created a reverse SOCKS tunnel:
 ```text
 167.71.199.191:8080
 ```
+Evidence:
+
+- [09_chisel_tunnel_connection.png](Screenshots/09_chisel_tunnel_connection.png)
+  
 
 
 ### Remote Access
@@ -325,6 +349,10 @@ WinRM activity was confirmed through:
 ```text
 wsmprovhost.exe
 ```
+Evidence:
+
+- [10_winrm_wsmprovhost_execution.png](Screenshots/10_winrm_wsmprovhost_execution.png)
+  
 
 
 ### Privilege Escalation
@@ -337,13 +365,20 @@ spf.exe
 
 identified as PrintSpoofer, a known Windows privilege escalation utility frequently abused by attackers to obtain SYSTEM-level privileges.
 
-VirusTotal analysis supported the identification of the binary as PrintSpoofer and confirmed its malicious characteristics.
+VirusTotal analysis supported the identification of the binary as PrintSpoofer, confirmed malicious characteristics through security vendor detections, and provided additional threat intelligence validation.
 
 The successful execution of PrintSpoofer allowed the attacker to execute final.exe with SYSTEM privileges, resulting in the following security context:
 
 ```text
 NT AUTHORITY\SYSTEM
 ```
+
+Evidence:
+
+- [11_printspoofer_execution.png](Screenshots/11_printspoofer_execution.png)
+- [12_system_privilege_confirmation.png](Screenshots/12_system_privilege_confirmation.png)
+- [16_virustotal_analysis.png](Screenshots/16_virustotal_analysis.png)
+
 
 
 ### Persistence
@@ -354,7 +389,7 @@ The attacker created:
 shion
 ```
 
-as an administrator account.
+as an administrator account. The account was created after privilege escalation and was used as a persistence mechanism.
 
 A malicious Windows service was installed:
 
@@ -368,6 +403,14 @@ Payload:
 C:\ProgramData\final.exe
 ```
 
+Evidence:
+
+- [04_startup_folder_persistence.png](Screenshots/04_startup_folder_persistence.png)
+- [13_user_account_creation.png](Screenshots/13_user_account_creation.png)
+- [14_administrator_group_addition.png](Screenshots/14_administrator_group_addition.png)
+- [15_windows_service_creation.png](Screenshots/15_windows_service_creation.png)
+
+  
 ---
 
 ## Indicators of Compromise

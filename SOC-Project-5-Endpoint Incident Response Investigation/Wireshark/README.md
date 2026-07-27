@@ -112,4 +112,4 @@ The Wireshark investigation was correlated with:
 - Windows Security Events
 
 Detailed analysis:
-[network-analysis.md](Wireshark/network-analysis.md)
+[network-analysis.md](../Wireshark/network-analysis.md)

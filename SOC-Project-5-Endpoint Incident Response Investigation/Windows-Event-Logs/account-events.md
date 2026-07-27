@@ -28,9 +28,9 @@ This created a persistent user account that could be used for future access.
 
 Evidence:
 
-- Windows Security Event ID 4720
+- Sysmon Event ID 1 — Command execution
+- Windows Security Event ID 4720 — User Account Created
 - Command execution timeline
-- Sysmon process telemetry
 
 MITRE ATT&CK:
 
@@ -64,10 +64,8 @@ Local Administrators Group
 
 This provided the attacker with administrative privileges.
 
-Evidence:
-
-- Windows Security Event ID 4732
-- Command execution analysis
+- Sysmon Event ID 1 — Command execution
+- Windows Security Event ID 4732 — Member Added to Local Security Group
 - Timeline correlation
 
 MITRE ATT&CK:

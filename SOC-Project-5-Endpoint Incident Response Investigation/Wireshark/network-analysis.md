@@ -24,18 +24,6 @@ HTTP
 Port 80
 ```
 
-Observed requests:
-
-```text
-http://phishteam.xyz/02dcf07/
-
-http://phishteam.xyz/02dcf07/index.html
-
-http://phishteam.xyz/02dcf07/update.zip
-
-http://phishteam.xyz/02dcf07/first.exe
-```
-
 The attacker used this infrastructure to deliver the initial malware payloads.
 
 MITRE ATT&CK:
@@ -48,17 +36,41 @@ T1105 - Ingress Tool Transfer
 
 ## Payload Downloads
 
-Additional attacker tools were downloaded from:
+The attacker used the same infrastructure:
 
 ```text
 phishteam.xyz
 ```
 
-Observed files:
+to download all attacker-controlled payloads:
 
 ```text
+update.zip
+
+first.exe
+
 ch.exe
 
+spf.exe
+
+final.exe
+```
+
+Download activity occurred in multiple stages.
+
+Initial delivery stage:
+
+```text
+update.zip
+
+first.exe
+
+ch.exe
+```
+
+Later during the WinRM session:
+
+```text
 spf.exe
 
 final.exe
@@ -205,8 +217,6 @@ During the post-compromise phase, the attacker accessed the endpoint through:
 
 ```text
 Windows Remote Management
-
-TCP 5985
 ```
 
 Observed activity:

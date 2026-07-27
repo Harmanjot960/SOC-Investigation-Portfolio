@@ -47,7 +47,6 @@ Chisel Reverse SOCKS Tunnel
         |
         ▼
 WinRM Remote Access
-(TCP 5985)
         |
         ▼
 Privilege Escalation
@@ -193,6 +192,7 @@ Evidence:
 - Sysmon Event ID 3
 - Sysmon Event ID 22 — DNS Query
 - Wireshark HTTP analysis
+- CyberChef command decoding
 
 ---
 
@@ -275,12 +275,6 @@ Using discovered credentials, the attacker accessed the system through:
 Windows Remote Management
 ```
 
-Port:
-
-```text
-TCP 5985
-```
-
 Observed process:
 
 ```text
@@ -319,6 +313,7 @@ Evidence:
 
 - Sysmon Event ID 1
 - Command-line analysis
+- VirusTotal analysis
 
 ---
 

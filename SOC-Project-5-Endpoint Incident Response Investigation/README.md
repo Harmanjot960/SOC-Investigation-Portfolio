@@ -210,21 +210,22 @@ SOC-Project-5-Windows-Endpoint-Incident-Response
 │   └── network-analysis.md
 |
 ├── Screenshots
-│   ├── 01_follina_process_chain.png
-│   ├── 02_powershell_execution.png
-│   ├── 03_startup_folder_persistence.png
-│   ├── 04_sysmon_file_creation.png
-│   ├── 05_sysmon_network_connection.png
-│   ├── 06_dns_resolution.png
-│   ├── 07_chisel_tunnel_connection.png
-│   ├── 08_winrm_wsmprovhost_execution.png
-│   ├── 09_printspoofer_execution.png
-│   ├── 10_system_privilege_confirmation.png
-│   ├── 11_user_account_creation.png
-│   ├── 12_administrator_group_addition.png
-│   ├── 13_windows_service_creation.png
-│   ├── 14_virustotal_analysis.png
-│   └── 15_attack_timeline.png
+│   ├── 01_malicious_document_execution.png
+│   ├── 02_follina_msdt_execution.png
+│   ├── 03_payload_download.png
+│   ├── 04_startup_folder_persistence.png
+│   ├── 05_dns_resolution.png
+│   ├── 06_network_connection.png
+│   ├── 07_wireshark_encoded_command.png
+│   ├── 08_cyberchef_decoded_command.png
+│   ├── 09_chisel_tunnel_connection.png
+│   ├── 10_winrm_wsmprovhost_execution.png
+│   ├── 11_printspoofer_execution.png
+│   ├── 12_system_privilege_confirmation.png
+│   ├── 13_user_account_creation.png
+│   ├── 14_administrator_group_addition.png
+│   ├── 15_windows_service_creation.png
+│   └── 16_virustotal_analysis.png
 |
 ├── Incident-Report
 │   └── incident-report.md
@@ -325,12 +326,6 @@ WinRM activity was confirmed through:
 wsmprovhost.exe
 ```
 
-TCP port:
-
-```text
-5985
-```
-
 
 ### Privilege Escalation
 
@@ -340,7 +335,11 @@ The attacker used:
 spf.exe
 ```
 
-identified as PrintSpoofer to obtain:
+identified as PrintSpoofer, a known Windows privilege escalation utility frequently abused by attackers to obtain SYSTEM-level privileges.
+
+VirusTotal analysis supported the identification of the binary as PrintSpoofer and confirmed its malicious characteristics.
+
+The successful execution of PrintSpoofer allowed the attacker to execute final.exe with SYSTEM privileges, resulting in the following security context:
 
 ```text
 NT AUTHORITY\SYSTEM
@@ -402,7 +401,7 @@ Chisel reverse SOCKS tunnel endpoint used for remote access and network pivoting
 ```
 ---
 
-### Malicious Files
+### Malicious and Attacker-Deployed Files
 
 ```text
 free_magicules.doc

@@ -64,6 +64,8 @@ Local Administrators Group
 
 This provided the attacker with administrative privileges.
 
+Evidence:
+
 - Sysmon Event ID 1 — Command execution
 - Windows Security Event ID 4732 — Member Added to Local Security Group
 - Timeline correlation

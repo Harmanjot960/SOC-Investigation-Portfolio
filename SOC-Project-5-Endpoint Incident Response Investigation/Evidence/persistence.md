@@ -4,7 +4,7 @@ This document contains persistence mechanisms identified during the investigatio
 
 ---
 
-# Startup Folder Persistence
+## Startup Folder Persistence
 
 The attacker placed a malicious payload inside:
 
@@ -21,7 +21,7 @@ Evidence:
 
 ---
 
-# Local Administrator Account Persistence
+## Local Administrator Account Persistence
 
 The attacker created:
 
@@ -49,7 +49,7 @@ Member Added to Local Security Group
 
 ---
 
-# Windows Service Persistence
+## Windows Service Persistence
 
 Created service:
 
@@ -76,7 +76,7 @@ Evidence:
 
 ---
 
-# Persistence Summary
+## Persistence Summary
 
 Identified persistence mechanisms:
 

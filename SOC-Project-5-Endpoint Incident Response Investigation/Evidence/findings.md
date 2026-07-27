@@ -2,13 +2,13 @@
 
 ---
 
-# Attacker Infrastructure Separation
+## Attacker Infrastructure Separation
 
 The investigation identified three separate attacker infrastructure roles.
 
 ---
 
-## Payload Delivery
+### Payload Delivery
 
 ```text
 phishteam.xyz
@@ -26,7 +26,7 @@ final.exe
 
 ---
 
-## Command and Control
+### Command and Control
 
 ```text
 resolvecyber.xyz
@@ -40,7 +40,7 @@ Used for:
 
 ---
 
-## Network Pivot Infrastructure
+### Network Pivot Infrastructure
 
 ```text
 167.71.199.191:8080
@@ -56,7 +56,7 @@ for reverse SOCKS tunneling.
 
 ---
 
-# Important Timeline Finding
+## Important Timeline Finding
 
 Initial assumption:
 
@@ -79,7 +79,7 @@ Evidence:
 
 ---
 
-# Final Attack Outcome
+## Final Attack Outcome
 
 The attacker achieved:
 

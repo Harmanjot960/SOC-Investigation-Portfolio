@@ -43,12 +43,6 @@ to confirm attacker access.
 
 The attacker used discovered credentials to access the system through:
 
-```text
-Windows Remote Management (WinRM)
-
-TCP 5985
-```
-
 Related endpoint activity:
 
 ```text

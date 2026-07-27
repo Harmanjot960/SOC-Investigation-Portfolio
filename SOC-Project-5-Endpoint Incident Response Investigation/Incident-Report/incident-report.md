@@ -287,7 +287,7 @@ The attacker executed:
 spf.exe
 ```
 
-identified as PrintSpoofer.
+identified as PrintSpoofer, which executed final.exe with SYSTEM privileges.
 
 Command:
 

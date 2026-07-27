@@ -55,12 +55,19 @@ The investigation identified communication with:
 phishteam.xyz
 ```
 
-Used for downloading:
+**Observed payload-related files:**
+
+Initial delivery:
 
 ```text
 update.zip
 first.exe
 ch.exe
+```
+
+Later WinRM session download:
+
+```text
 spf.exe
 final.exe
 ```

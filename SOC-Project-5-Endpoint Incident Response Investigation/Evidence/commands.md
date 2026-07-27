@@ -4,7 +4,7 @@ This document contains attacker commands and observed execution activity.
 
 ---
 
-# Follina Execution Chain
+## Follina Execution Chain
 
 Observed execution:
 
@@ -20,7 +20,7 @@ PowerShell.exe
 
 ---
 
-# PowerShell Activity
+## PowerShell Activity
 
 Observed:
 
@@ -41,7 +41,7 @@ Evidence:
 
 ---
 
-# Payload Downloads
+## Payload Downloads
 
 Payload delivery infrastructure:
 
@@ -67,7 +67,7 @@ Evidence:
 
 ---
 
-# Chisel Execution
+## Chisel Execution
 
 Binary:
 
@@ -89,7 +89,7 @@ Tunnel endpoint:
 
 ---
 
-# PrintSpoofer Execution
+## PrintSpoofer Execution
 
 Binary:
 
@@ -111,7 +111,7 @@ NT AUTHORITY\SYSTEM
 
 ---
 
-# Account Creation Commands
+## Account Creation Commands
 
 Observed activity:
 
@@ -133,7 +133,7 @@ Evidence:
 
 ---
 
-# Windows Service Creation
+## Windows Service Creation
 
 Observed:
 

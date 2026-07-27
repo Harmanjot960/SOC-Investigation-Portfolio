@@ -12,7 +12,7 @@ A Security Operations Center (SOC) investigation was initiated after suspicious 
 
 Analysis of endpoint telemetry and network traffic confirmed that the workstation had been compromised through a malicious Microsoft Word document exploiting the Follina vulnerability (CVE-2022-30190).
 
-Following successful exploitation, the attacker executed PowerShell commands to retrieve multiple payloads, established persistence, communicated with external infrastructure, performed host reconnaissance, discovered credentials, created a Chisel reverse SOCKS tunnel, authenticated through WinRM, escalated privileges using PrintSpoofer, created a local administrator account, and installed a malicious Windows service.
+Following successful exploitation, the attacker executed PowerShell commands to retrieve multiple payloads, established persistence, communicated with external infrastructure, performed host reconnaissance, discovered credentials stored in a sensitive file, created a Chisel reverse SOCKS tunnel, authenticated through WinRM, escalated privileges using PrintSpoofer, created a local administrator account, and installed a malicious Windows service.
 
 The investigation reconstructed the complete attacker lifecycle by correlating Sysmon telemetry, Windows Security Event Logs, and Wireshark network traffic.
 
@@ -31,8 +31,8 @@ The incident was classified as a confirmed Windows endpoint compromise with succ
 | Affected Host | TEMPEST |
 | Initial Vector | Malicious Microsoft Word Document |
 | Exploit | Follina (CVE-2022-30190) |
-| Evidence Sources | Sysmon, Windows Security Event Logs, Wireshark |
-| Analysis Tools | Sysmon, Event Viewer, Wireshark, VirusTotal |
+| Evidence Sources | Sysmon, Windows Security Event Logs, Wireshark, Threat Intelligence |
+| Analysis Tools | Sysmon, Event Viewer, Wireshark, CyberChef, VirusTotal |
 | Investigation Focus | Endpoint Telemetry and Network Correlation |
 
 ---
@@ -221,7 +221,7 @@ Recovered account:
 infernotempest
 ```
 
-These credentials were later used for remote authentication.
+These credentials were later used to authenticate through WinRM during the remote access phase.
 
 MITRE ATT&CK
 
@@ -261,8 +261,6 @@ Using the discovered credentials and the established tunnel, the attacker authen
 
 ```text
 WinRM
-
-TCP 5985
 ```
 
 Evidence:
@@ -287,7 +285,7 @@ The attacker executed:
 spf.exe
 ```
 
-identified as PrintSpoofer, which executed final.exe with SYSTEM privileges.
+identified as PrintSpoofer, which was used to execute `final.exe` with SYSTEM privileges.
 
 Command:
 
@@ -309,7 +307,34 @@ T1068 - Exploitation for Privilege Escalation
 
 ---
 
-### Phase 10 — Payload Investigation
+### Phase 10 — Threat Intelligence Validation
+
+VirusTotal analysis was performed on `spf.exe`, the executable identified as PrintSpoofer and used during the privilege escalation stage of the attack.
+
+**File**
+
+```text
+spf.exe
+```
+
+**SHA256**
+
+```text
+8524fbc0d73e711e69d60c64f1f1b7bef35c986705880643dd4d5e17779e586d
+```
+
+**Detection**
+
+```text
+52 / 66 security vendors detected the file as malicious
+```
+
+The VirusTotal results supported the identification of `spf.exe` as PrintSpoofer, a known Windows privilege escalation utility used to obtain SYSTEM-level privileges during the compromise.
+
+---
+
+
+### Phase 11 — Payload Investigation
 
 Timeline correlation confirmed that:
 
@@ -334,7 +359,7 @@ This conclusion was confirmed by correlating:
 
 ---
 
-### Phase 11 — Administrative Persistence
+### Phase 12 — Administrative Persistence
 
 The attacker created:
 
@@ -348,7 +373,7 @@ using:
 net user shion <password> /add
 ```
 
-The account was then added to the local Administrators group.
+The account was then added to the local Administrators group. The account was created after the initial WinRM access and was used as a persistence mechanism.
 
 Evidence:
 
@@ -365,7 +390,7 @@ T1098.007 - Additional Local or Domain Groups
 
 ---
 
-### Phase 12 — Service Persistence
+### Phase 13 — Service Persistence
 
 The attacker created the Windows service:
 

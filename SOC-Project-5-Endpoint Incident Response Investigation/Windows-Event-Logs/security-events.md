@@ -41,7 +41,7 @@ to confirm attacker access.
 
 ## WinRM Authentication
 
-The attacker used discovered credentials to access the system through:
+The attacker used discovered credentials to access the system through WinRM.
 
 Related endpoint activity:
 

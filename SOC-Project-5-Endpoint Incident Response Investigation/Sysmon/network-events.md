@@ -117,12 +117,6 @@ The attacker used:
 Windows Remote Management
 ```
 
-Port:
-
-```text
-TCP 5985
-```
-
 Evidence:
 
 - Network connection telemetry

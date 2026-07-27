@@ -2,9 +2,9 @@
 
 ---
 
-# Malicious Domains
+## Malicious Domains
 
-## Payload Delivery Infrastructure
+### Payload Delivery Infrastructure
 
 ```text
 phishteam.xyz
@@ -27,7 +27,7 @@ final.exe
 
 ---
 
-## Command and Control Infrastructure
+### Command and Control Infrastructure
 
 ```text
 resolvecyber.xyz
@@ -52,9 +52,9 @@ HTTP Port 80
 
 ---
 
-# Network Indicators
+## Network Indicators
 
-## Chisel Tunnel Endpoint
+### Chisel Tunnel Endpoint
 
 ```text
 167.71.199.191:8080
@@ -74,7 +74,7 @@ Used for:
 
 ---
 
-# Malicious Files
+## Malicious Files
 
 ```text
 free_magicules.doc
@@ -92,7 +92,7 @@ final.exe
 
 ---
 
-# Persistence Indicators
+## Persistence Indicators
 
 Startup Folder:
 
@@ -114,7 +114,7 @@ C:\ProgramData\final.exe
 
 ---
 
-# Created Account
+## Created Account
 
 ```text
 shion

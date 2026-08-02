@@ -257,7 +257,6 @@ Get-ADComputer
 
 - Sysmon Event ID 1
 - PowerShell logs
-- Active Directory events
 
 #### MITRE ATT&CK
 

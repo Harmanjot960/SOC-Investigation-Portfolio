@@ -219,7 +219,6 @@ The attacker attempted to extract credentials from LSASS memory using credential
 
 #### Tools Observed
 
-- mimikatz.exe
 - procdump.exe
 
 #### Detection
@@ -272,32 +271,28 @@ The attacker used SMB administrative shares and PsExec for remote execution acro
 
 #### SMB Activity
 
-```
-\\HOST\ADMIN$
-```
+`\\THM-SQL-SRV\ADMIN$`
 
-#### Evidence
+**Evidence**
 
 - Event ID 5140 — Network Share Access
 - Event ID 5145 — Detailed File Share Access
 - Event ID 4624 — Logon Events
 
-### PsExec Activity
+#### PsExec Activity
 
-```
-PsExec.exe \\TARGET
-```
+`C:\Tools\PsExec.exe \\THM-SQL-SRV cmd /c "<remote command>"`
 
-#### Evidence
+**Evidence**
 
 - Event ID 7045 — Service Installation
 - PSEXESVC
-- Sysmon Event ID 1
+- Sysmon Event ID 1 — Process Creation
 
-#### MITRE ATT&CK
+### MITRE ATT&CK
 
 - T1021.002 — SMB/Windows Admin Shares
-- T1569.002 — PsExec
+- T1569.002 — Service Execution
 
 ---
 

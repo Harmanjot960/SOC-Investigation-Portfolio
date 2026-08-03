@@ -49,6 +49,10 @@ Evidence:
 
 - The attacker attempted to remove recovery options and forensic evidence.
 
+Evidence:
+
+- Sysmon Event ID 1 — Process Creation
+
 Observed:
 
 - vssadmin delete shadows /all /quiet

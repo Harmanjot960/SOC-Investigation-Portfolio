@@ -285,6 +285,8 @@ wevtutil cl Security
 
 The attacker used the compromised account `maria.garcia` to remotely deploy the ransomware payload (`fixer.exe`) across multiple domain systems using Windows Management Instrumentation Command-line (WMIC).
 
+Subsequent telemetry identified a later ransomware deployment stage in which a different compromised account (`maria.garcia`) was used to remotely deploy the ransomware payload via WMIC.
+
  #### Process Execution Chain
 
 ```text
@@ -345,7 +347,7 @@ The investigation identified:
 - IIS web shell execution
 - Command execution through CMD
 - LSASS credential dumping attempts
-- Active Directory reconnaissance
+- Active Di.rectory reconnaissance
 - SMB administrative share access
 - PsExec lateral movement
 - Privileged credential usage

@@ -4,7 +4,7 @@
 
 This document contains Active Directory lateral movement activity observed during the ransomware investigation.
 
-The attacker used SMB administrative shares and PsExec to move between systems in the domain environment.
+The attacker accessed SMB administrative shares and PsExec to support lateral movement and remote execution activity.
 
 ---
 

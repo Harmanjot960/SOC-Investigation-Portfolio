@@ -95,6 +95,9 @@ CMD & PowerShell Execution
 LSASS Credential Dumping
       |
       ▼
+Privileged Credential Logon (luke.sullivan)
+      |
+      ▼
 Active Directory Discovery
       |
       ▼
@@ -104,7 +107,7 @@ SMB Admin Share Access
 PsExec Lateral Movement
       |
       ▼
-Privileged Domain Credential Usage
+Privileged Credential Usage (maria.garcia)
       |
       ▼
 Ransomware Preparation
@@ -141,12 +144,18 @@ SOC-Project-6-Ransomware-Investigation
 │   ├── 02_webshell_process_creation.png
 │   ├── 03_lsass_credential_dumping.png
 │   ├── 04_procdump_execution.png
-│   ├── 05_active_directory_discovery.png
-│   ├── 06_smb_admin_share_access.png
-│   ├── 07_psexec_remote_execution.png
-│   ├── 08_privileged_domain_credentials.png
-│   ├── 09_wmic_remote_execution.png
-│   └── 10_remote_payload_creation.png
+│   ├── 05_luke_sullivan_privileged_logon.png
+│   ├── 06_powershell_active_directory_discovery.png
+│   ├── 07_active_directory_discovery_commands.png
+│   ├── 08_smb_admin_share_access.png
+│   ├── 09_lateral_movement_source_host.png
+│   ├── 10_psexec_remote_execution.png
+│   ├── 11_psexec_service_installation.png
+│   ├── 12_maria_garcia_privileged_credential_usage.png
+│   ├── 13_vssadmin_shadow_copy_deletion.png
+│   ├── 14_wevtutil_log_clearing.png
+│   ├── 15_wmic_remote_execution.png
+│   └── 16_remote_payload_creation.png
 │
 ├── Sysmon
 │   ├── process-events.md
@@ -169,69 +178,87 @@ SOC-Project-6-Ransomware-Investigation
 └── MITRE-ATT&CK
     └── attack-mapping.md
 ```
-# Investigation Findings
+## Investigation Findings
 
-## Initial Access — IIS Web Shell Execution
+### Initial Access — IIS Web Shell Execution
 
 The attacker gained initial access through a compromised IIS web server and obtained command execution through a web shell.
 
 The web server process spawned command-line activity, indicating successful exploitation and remote command execution.
 
-### Evidence
+ #### Evidence
 
 Process execution chain:
 
-```
+```text
 w3wp.exe
-    |
-    ▼
-cmd.exe
-    |
-    ▼
-powershell.exe
+│
+└── cmd.exe
+    │
+    └── Command Execution
 ```
 
-### Detection
+ #### Detection
 
 - IIS logs
 - Sysmon Event ID 1 — Process Creation
 
-### MITRE ATT&CK
+ #### MITRE ATT&CK
 
 - T1505.003 — Web Shell
 
 ---
 
-## Credential Access — LSASS Credential Dumping
+### Credential Access — LSASS Credential Dumping
 
 After gaining execution access, the attacker attempted to extract credentials from LSASS memory.
 
 Credential dumping activity was identified through suspicious process access attempts against the LSASS process.
 
-### Tools Observed
+ #### Tools Observed
 
 ```
 procdump.exe
 ```
 
-### Detection
+ #### Detection
 
 - Sysmon Event ID 1 — Process Creation
 - Sysmon Event ID 10 — Process Access
 
-### MITRE ATT&CK
+ #### MITRE ATT&CK
 
 - T1003.001 — LSASS Memory
 
 ---
 
-## Active Directory Discovery
+### Privileged Credential Logon
+
+Following credential dumping, the attacker authenticated using the compromised domain account `luke.sullivan`, receiving special privileges required for administrative activity across the environment.
+
+Observed Account
+```
+luke.sullivan
+```
+
+ #### Detection
+
+- Event ID 4624 — Successful Logon
+- Event ID 4672 — Special Privileges Assigned to New Logon
+
+ #### MITRE ATT&CK
+
+- T1078 — Valid Accounts
+
+---
+
+### Active Directory Discovery
 
 The attacker performed domain reconnaissance to identify users, groups, and available domain resources.
 
 These commands allowed the attacker to understand the Active Directory environment and identify privileged accounts.
 
-### Commands Observed
+ #### Commands Observed
 
 ```
 nltest
@@ -247,13 +274,13 @@ Get-ADUser
 Get-ADComputer
 ```
 
-### Detection
+ #### Detection
 
 - Sysmon Event ID 1 — Process Creation
 - PowerShell logs
 - Active Directory events
 
-### MITRE ATT&CK
+ #### MITRE ATT&CK
 
 - T1087 — Account Discovery
 - T1069.002 — Permission Groups Discovery
@@ -261,13 +288,13 @@ Get-ADComputer
 
 ---
 
-## Lateral Movement — SMB and PsExec
+### Lateral Movement — SMB and PsExec
 
 The attacker used SMB administrative shares and PsExec to move laterally across the environment.
 
 Administrative share access provided a method to transfer files and execute commands on remote systems.
 
-### SMB Activity
+ ### SMB Activity
 
 Example:
 
@@ -275,7 +302,7 @@ Example:
 \\THM-SQL-SRV\ADMIN$
 ```
 
-### Evidence
+ #### Detection
 
 - Event ID 5140 — Network Share Access
 - Event ID 5145 — Detailed File Share Access
@@ -283,37 +310,59 @@ Example:
 
 ---
 
-### PsExec Remote Execution
+ ### PsExec Remote Execution
 
 The attacker used PsExec for remote command execution.
 
-#### Commands Observed
+ #### Commands Observed
 
 ```
 C:\Tools\PsExec.exe \THM-SQL-SRV cmd /c "net localgroup administrators"
 C:\Tools\PsExec.exe -accepteula \THM-SQL-SRV cmd /c "hostname & whoami & ipconfig"
 ```
 
-#### Evidence
+ #### Detection
 
 - Event ID 7045 — Service Installation
 - PSEXESVC service creation
 - Sysmon Event ID 1 — Process Creation
 
-#### MITRE ATT&CK
+ #### MITRE ATT&CK
 
 - T1021.002 — SMB/Windows Admin Shares
 - T1569.002 — Service Execution
 
 ---
 
-## WMIC Remote Ransomware Deployment
+### Ransomware Preparation
 
-The attacker used the compromised account `maria.garcia` to remotely deploy the ransomware payload (`fixer.exe`) across multiple systems using Windows Management Instrumentation Command-line (WMIC).
+Before ransomware deployment, the attacker attempted to reduce recovery capability and remove forensic evidence.
 
-The activity originated from the Domain Controller and leveraged WMIC remote process creation to execute the ransomware payload on multiple hosts.
+ #### Commands Observed
+```
+vssadmin.exe delete shadows
+wevtutil.exe cl Security
+```
 
-### Attack Chain
+ #### Detection
+
+- Sysmon Event ID 1 — Process Creation
+- Security Event ID 4688 — Process Creation
+
+ #### MITRE ATT&CK
+
+- T1490 — Inhibit System Recovery
+- T1070.001 — Clear Windows Event Logs
+
+---
+
+### WMIC Remote Ransomware Deployment
+
+After gaining administrative access during lateral movement, the attacker used another compromised privileged account, `maria.garcia`, to perform remote ransomware deployment.
+
+The attacker used the compromised account `maria.garcia` to remotely deploy the ransomware payload (`fixer.exe`) across multiple systems using Windows Management Instrumentation Command-line (WMIC). The activity originated from the Domain Controller and leveraged WMIC remote process creation to execute the ransomware payload on multiple hosts.
+
+ #### Attack Chain
 
 ```text
 updater.exe
@@ -331,7 +380,7 @@ Remote Process Creation
 C:\Windows\fixer.exe
 ```
 
-### Evidence
+ #### Evidence
 
 **Sysmon Event ID 1 — Process Creation**
 
@@ -356,51 +405,45 @@ tsm-prod-05
 tsm-prod-06
 ```
 
+ #### Detection
+
+- Sysmon Event ID 1 — Process Creation
+- Sysmon Event ID 11 — File Creation
+- Windows Security Event ID 4624 — Successful Logon
+- Windows Security Event ID 4672 — Special Privileges Assigned to New Logon
+
+ #### MITRE ATT&CK
+
+- T1047 — Windows Management Instrumentation
+- T1078 — Valid Accounts
+
+---
+
 ### Ransomware Payload Creation
+
+The ransomware payload (`fixer.exe`) was created on the target systems through command-line execution. WMIC was used to remotely execute the deployment process across multiple hosts.
 
 **Sysmon Event ID 11 — File Creation**
 
 ```text
 Image:
-powershell.exe
+cmd.exe
 
 TargetFilename:
 C:\Windows\fixer.exe
 ```
 
-### Detection
+ #### Detection
 
 - Sysmon Event ID 1 — Process Creation
 - Sysmon Event ID 11 — File Creation
 - Command-line logging
 - Authentication events
 
-### MITRE ATT&CK
+ #### MITRE ATT&CK
 
 - T1078 — Valid Accounts
 - T1047 — Windows Management Instrumentation
-
----
-
-## Ransomware Preparation
-
-Before ransomware deployment, the attacker attempted to reduce recovery capability and remove forensic evidence.
-
-### Commands Observed
-```
-vssadmin.exe delete shadows
-wevtutil.exe cl Security
-```
-
-### Detection
-
-- Sysmon Event ID 1 — Process Creation
-- Security Event ID 4688 — Process Creation
-
-### MITRE ATT&CK
-
-- T1490 — Inhibit System Recovery
-- T1070.001 — Clear Windows Event Logs
 
 ---
 
@@ -543,17 +586,15 @@ Monitor for:
 
 ## Conclusion
 
-This investigation demonstrates how SOC analysts detect and investigate ransomware-related activity by correlating endpoint telemetry, Windows security events, and Active Directory activity.
-
 The investigation identified:
 
 - Initial access through an IIS web shell.
 - Command execution through CMD and PowerShell.
-- LSASS credential dumping attempts.
+- LSASS credential dumping and privileged credential acquisition.
 - Active Directory reconnaissance.
 - SMB and PsExec lateral movement.
-- Use of privileged domain credentials.
-- WMIC-based remote payload deployment.
-- Ransomware preparation activity through recovery and log manipulation.
+- Privileged credential usage for ransomware deployment.
+- Ransomware preparation through shadow copy deletion and event log clearing.
+- WMIC-based remote payload deployment across multiple systems.
 
 The project highlights the importance of detecting attacker behavior before ransomware execution and limiting the impact of domain-wide compromise through early investigation and response.

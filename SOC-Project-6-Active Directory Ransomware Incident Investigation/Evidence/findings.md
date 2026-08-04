@@ -2,40 +2,40 @@
 
 ## Initial Access
 
-Finding:
+### Finding:
 
 The attacker obtained command execution through a compromised IIS web server.
 
-Evidence:
-
+### Evidence:
+```text
 w3wp.exe
  |
  ▼
 cmd.exe
-
+```
 
 ## Credential Dumping
 
-Finding:
+### Finding:
 
 The attacker attempted LSASS credential extraction using procdump64.exe.
 
-Evidence:
-
+### Evidence:
+```
 TargetImage:
 lsass.exe
 
 SourceImage:
 procdump64.exe
-
+```
 
 ## Lateral Movement
 
-Finding:
+### Finding:
 
 The attacker used SMB administrative shares and PsExec to execute commands remotely.
 
-Evidence:
+### Evidence:
 
 - ADMIN$ access
 - PSEXESVC service creation
@@ -44,11 +44,11 @@ Evidence:
 
 ## Ransomware Deployment Attempt
 
-Finding:
+### Finding:
 
-The attacker used WMIC with compromised credentials to remotely create fixer.exe on multiple hosts.
+The attacker used the compromised account maria.garcia with WMIC remote process creation to deploy fixer.exe across multiple hosts.
 
-Affected hosts:
+### Affected hosts:
 
 - tsm-prod-01
 - tsm-prod-02
@@ -58,6 +58,6 @@ Affected hosts:
 - tsm-prod-06
 
 
-Impact:
+### Impact:
 
 Ransomware execution and encryption impact were not confirmed.

@@ -427,7 +427,7 @@ The ransomware payload (`fixer.exe`) was created on the target systems through c
 
 ```text
 Image:
-cmd.exe
+powershell.exe
 
 TargetFilename:
 C:\Windows\fixer.exe

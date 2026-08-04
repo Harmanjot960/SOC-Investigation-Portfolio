@@ -8,13 +8,13 @@ Account activity was analyzed to identify compromised credentials, privileged ac
 
 ---
 
-# Compromised Account Usage
+## Compromised Account Usage
 
-## Description
+### Description
 
 The attacker used the account `luke.sullivan` for remote authentication and administrative activity.
 
-## Evidence
+### Evidence
 
 Observed authentication:
 
@@ -45,7 +45,7 @@ Authentication Type:
 Kerberos
 ```
 
-## Findings
+### Findings
 
 The account was used to access multiple systems during lateral movement.
 
@@ -55,13 +55,13 @@ MITRE ATT&CK:
 
 ---
 
-# Active Directory Discovery
+## Active Directory Discovery
 
-## Description
+### Description
 
 The attacker enumerated domain accounts and privileged groups.
 
-## Commands Observed
+### Commands Observed
 
 ```text
 net user /domain
@@ -75,13 +75,13 @@ Get-ADUser
 Get-ADComputer
 ```
 
-## Detection
+### Detection
 
 - Sysmon Event ID 1 — Process Creation
 - PowerShell logging
 - Active Directory events
 
-## Findings
+### Findings
 
 The attacker gathered information about domain users, groups, and computers.
 

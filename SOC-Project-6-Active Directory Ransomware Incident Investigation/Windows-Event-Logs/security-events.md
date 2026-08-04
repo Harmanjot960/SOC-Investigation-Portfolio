@@ -8,19 +8,19 @@ Security events were analyzed to identify authentication activity, SMB access, l
 
 ---
 
-# Successful Logon Activity
+## Successful Logon Activity
 
-## Description
+### Description
 
 The attacker used compromised credentials to authenticate to multiple systems across the domain.
 
-## Detection
+### Detection
 
 Windows Security Event ID 4624 — Successful Logon
 
-## Evidence
+### Evidence
 
-Splunk Query:
+**Splunk Query:**
 
 ```spl
 index=win EventCode=4624 Source_Network_Address="10.5.50.12" user="luke.sullivan"
@@ -28,7 +28,7 @@ index=win EventCode=4624 Source_Network_Address="10.5.50.12" user="luke.sullivan
 | sort _time
 ```
 
-Observed Activity:
+**Observed Activity:**
 
 ```text
 User:
@@ -46,7 +46,7 @@ Authentication:
 Kerberos
 ```
 
-Affected Systems:
+**Affected Systems:**
 
 ```text
 THM-SQL-SRV
@@ -56,28 +56,28 @@ THM-DEV-WS
 THM-SHR-SRV
 ```
 
-## Findings
+### Findings
 
 The logon activity confirmed the use of compromised credentials for remote access.
 
-MITRE ATT&CK:
+### MITRE ATT&CK:
 
 - T1078 — Valid Accounts
 
 ---
 
-# SMB Administrative Share Access
+## SMB Administrative Share Access
 
-## Description
+### Description
 
 The attacker accessed Windows administrative shares as part of lateral movement.
 
-## Detection
+### Detection
 
 - Event ID 5140 — Network Share Access
 - Event ID 5145 — Detailed File Share Access
 
-## Evidence
+### Evidence
 
 Splunk Query:
 
@@ -115,27 +115,27 @@ THM-SHR-SRV
 THM-SQL-SRV
 ```
 
-## Findings
+### Findings
 
 The attacker used administrative shares to support remote execution and file transfer activity.
 
-MITRE ATT&CK:
+### MITRE ATT&CK:
 
 - T1021.002 — SMB/Windows Admin Shares
 
 ---
 
-# PsExec Service Installation
+## PsExec Service Installation
 
-## Description
+### Description
 
 PsExec created a temporary service on the remote system to execute commands.
 
-## Detection
+### Detection
 
 Windows Security Event ID 7045 — Service Installation
 
-## Evidence
+### Evidence
 
 Splunk Query:
 
@@ -162,10 +162,10 @@ Account:
 LocalSystem
 ```
 
-## Findings
+### Findings
 
 The service creation confirmed PsExec remote execution on the target system.
 
-MITRE ATT&CK:
+### MITRE ATT&CK:
 
 - T1569.002 — Service Execution

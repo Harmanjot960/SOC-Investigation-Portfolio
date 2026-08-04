@@ -203,6 +203,11 @@ w3wp.exe
 - IIS logs
 - Sysmon Event ID 1 — Process Creation
 
+ #### Screenshot Evidence
+
+- [01_iis_web_shell_execution.png](Screenshots/01_iis_web_shell_execution.png)
+- [02_webshell_process_creation.png](Screenshots/02_webshell_process_creation.png)
+
  #### MITRE ATT&CK
 
 - T1505.003 — Web Shell
@@ -226,6 +231,11 @@ procdump.exe
 - Sysmon Event ID 1 — Process Creation
 - Sysmon Event ID 10 — Process Access
 
+ #### Screenshot Evidence
+
+- [03_lsass_credential_dumping.png](Screenshots/03_lsass_credential_dumping.png)
+- [04_procdump_execution.png](Screenshots/04_procdump_execution.png)
+
  #### MITRE ATT&CK
 
 - T1003.001 — LSASS Memory
@@ -245,6 +255,10 @@ luke.sullivan
 
 - Event ID 4624 — Successful Logon
 - Event ID 4672 — Special Privileges Assigned to New Logon
+
+ #### Screenshot Evidence
+
+- [05_luke_sullivan_privileged_logon.png](Screenshots/05_luke_sullivan_privileged_logon.png)
 
  #### MITRE ATT&CK
 
@@ -280,6 +294,11 @@ Get-ADComputer
 - PowerShell logs
 - Active Directory events
 
+ #### Screenshot Evidence
+
+- [06_powershell_active_directory_discovery.png](Screenshots/06_powershell_active_directory_discovery.png)
+- [07_active_directory_discovery_commands.png](Screenshots/07_active_directory_discovery_commands.png)
+
  #### MITRE ATT&CK
 
 - T1087 — Account Discovery
@@ -308,6 +327,11 @@ Example:
 - Event ID 5145 — Detailed File Share Access
 - Event ID 4624 — Logon Events
 
+ #### Screenshot Evidence
+
+- [08_smb_admin_share_access.png](Screenshots/08_smb_admin_share_access.png)
+- [09_lateral_movement_source_host.png](Screenshots/09_lateral_movement_source_host.png)
+
 ---
 
  ### PsExec Remote Execution
@@ -326,6 +350,11 @@ C:\Tools\PsExec.exe -accepteula \THM-SQL-SRV cmd /c "hostname & whoami & ipconfi
 - Event ID 7045 — Service Installation
 - PSEXESVC service creation
 - Sysmon Event ID 1 — Process Creation
+
+ #### Screenshot Evidence
+
+- [10_psexec_remote_execution.png](Screenshots/10_psexec_remote_execution.png)
+- [11_psexec_service_installation.png](Screenshots/11_psexec_service_installation.png)
 
  #### MITRE ATT&CK
 
@@ -348,6 +377,11 @@ wevtutil.exe cl Security
 
 - Sysmon Event ID 1 — Process Creation
 - Security Event ID 4688 — Process Creation
+
+ #### Screenshot Evidence
+
+- [13_vssadmin_shadow_copy_deletion.png](Screenshots/13_vssadmin_shadow_copy_deletion.png)
+- [14_wevtutil_log_clearing.png](Screenshots/14_wevtutil_log_clearing.png)
 
  #### MITRE ATT&CK
 
@@ -412,6 +446,11 @@ tsm-prod-06
 - Windows Security Event ID 4624 — Successful Logon
 - Windows Security Event ID 4672 — Special Privileges Assigned to New Logon
 
+ #### Screenshot Evidence
+
+- [12_maria_garcia_privileged_credential_usage.png](Screenshots/12_maria_garcia_privileged_credential_usage.png)
+- [15_wmic_remote_execution.png](Screenshots/15_wmic_remote_execution.png)
+
  #### MITRE ATT&CK
 
 - T1047 — Windows Management Instrumentation
@@ -439,6 +478,10 @@ C:\Windows\fixer.exe
 - Sysmon Event ID 11 — File Creation
 - Command-line logging
 - Authentication events
+
+ #### Screenshot Evidence
+
+- [16_remote_payload_creation.png](Screenshots/16_remote_payload_creation.png)
 
  #### MITRE ATT&CK
 

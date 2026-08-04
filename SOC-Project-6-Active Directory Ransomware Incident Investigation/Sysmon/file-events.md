@@ -12,7 +12,7 @@ File creation events were analyzed to identify attacker payload deployment, susp
 
 ### Description
 
-The attacker created the ransomware payload (`fixer.exe`) on target systems before remote execution.
+The attacker remotely deployed and created the ransomware payload (fixer.exe) on target systems using WMIC remote process creation.
 
 ### Detection
 
@@ -47,7 +47,7 @@ The file `fixer.exe` was created on affected systems and later executed through 
 MITRE ATT&CK:
 
 - T1105 — Ingress Tool Transfer
-- T1486 — Data Encrypted for Impact
+- T1047 — Windows Management Instrumentation
 
 ---
 

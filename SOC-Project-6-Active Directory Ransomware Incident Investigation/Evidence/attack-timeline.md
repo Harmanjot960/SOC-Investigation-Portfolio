@@ -6,7 +6,8 @@
 - Web shell activity identified through IIS logs and Sysmon process creation.
 - w3wp.exe spawned cmd.exe to execute attacker commands.
 
-Evidence:
+**Evidence:**
+
 - IIS logs
 - Sysmon Event ID 1
 
@@ -15,28 +16,36 @@ Evidence:
 
 - The attacker attempted LSASS credential dumping using procdump64.exe.
 
-Evidence:
+**Evidence:**
+
 - Sysmon Event ID 10
 - Sysmon Event ID 1
 
+## Phase 3 — Privileged Credential Logon
 
-## Phase 3 — Active Directory Discovery
+- The attacker authenticated using the compromised account luke.sullivan after credential dumping activity.
+
+**Evidence:**
+
+- Event ID 4624 — Successful Logon
+- Event ID 4672 — Special Privileges Assigned to New Logon
+
+## Phase 4 — Active Directory Discovery
 
 - The attacker enumerated domain users, groups, and computers.
 
-Observed commands:
+**Observed commands:**
 
 - net user /domain
 - net group "Domain Admins" /domain
 - Get-ADUser
 - Get-ADComputer
 
-
-## Phase 4 — Lateral Movement
+## Phase 5 — Lateral Movement
 
 - The attacker used SMB administrative shares and PsExec for remote execution.
 
-Evidence:
+**Evidence:**
 
 - Event ID 5140
 - Event ID 5145
@@ -44,26 +53,24 @@ Evidence:
 - Event ID 7045
 - Sysmon Event ID 1
 
-
-## Phase 5 — Ransomware Preparation
+## Phase 6 — Ransomware Preparation
 
 - The attacker attempted to remove recovery options and forensic evidence.
 
-Evidence:
+**Evidence:**
 
 - Sysmon Event ID 1 — Process Creation
 
-Observed:
+**Observed commands:**
 
 - vssadmin delete shadows /all /quiet
 - wevtutil cl Security
 
+## Phase 7 — Ransomware Payload Deployment
 
-## Phase 6 — Ransomware Payload Deployment
+- The attacker used the compromised account maria.garcia and WMIC remote process creation to deploy fixer.exe across multiple systems.
 
-- The attacker used compromised credentials and WMIC remote process creation to deploy fixer.exe.
-
-Evidence:
+**Evidence:**
 
 - Sysmon Event ID 1
 - Sysmon Event ID 11

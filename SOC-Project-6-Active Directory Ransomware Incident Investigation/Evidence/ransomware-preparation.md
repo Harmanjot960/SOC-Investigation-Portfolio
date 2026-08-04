@@ -4,12 +4,12 @@ Before payload deployment, the attacker attempted to reduce recovery capability 
 
 ## Shadow Copy Deletion
 
-Command:
+### Command:
 
 vssadmin delete shadows /all /quiet
 
 
-Evidence:
+### Evidence:
 
 - Sysmon Event ID 1
 - Host: DC-01
@@ -17,12 +17,12 @@ Evidence:
 
 ## Windows Event Log Clearing
 
-Command:
+### Command:
 
 wevtutil cl Security
 
 
-Evidence:
+### Evidence:
 
 - Sysmon Event ID 1
 - Host: DC-01

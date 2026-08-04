@@ -8,13 +8,13 @@ Process events were correlated with Sysmon telemetry to identify attacker execut
 
 ---
 
-# Remote Command Execution
+## Remote Command Execution
 
-## Description
+### Description
 
 The attacker executed commands remotely using PsExec.
 
-## Evidence
+### Evidence
 
 Observed Commands:
 
@@ -28,7 +28,7 @@ Detection:
 
 - Sysmon Event ID 1 — Process Creation
 
-## Findings
+### Findings
 
 PsExec execution originated from:
 
@@ -54,13 +54,13 @@ MITRE ATT&CK:
 
 ---
 
-# Ransomware Preparation Commands
+## Ransomware Preparation Commands
 
-## Description
+### Description
 
 The attacker executed commands to reduce recovery capability and remove forensic evidence.
 
-## Evidence
+### Evidence
 
 Observed Commands:
 
@@ -74,7 +74,7 @@ Detection:
 
 - Sysmon Event ID 1 — Process Creation
 
-## Findings
+### Findings
 
 The commands indicate preparation activity before ransomware deployment.
 
@@ -85,13 +85,13 @@ MITRE ATT&CK:
 
 ---
 
-# WMIC Payload Deployment
+## WMIC Payload Deployment
 
-## Description
+### Description
 
-The attacker used WMIC to remotely execute the ransomware payload.
+The attacker used WMIC remote process creation to deploy the ransomware payload.
 
-## Evidence
+### Evidence
 
 Observed Command:
 
@@ -103,7 +103,7 @@ Detection:
 
 - Sysmon Event ID 1 — Process Creation
 
-## Findings
+### Findings
 
 WMIC was used to deploy `fixer.exe` across multiple systems.
 

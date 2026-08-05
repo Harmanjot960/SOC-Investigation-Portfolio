@@ -1,6 +1,6 @@
 # Incident Report
 
-## Cover Page
+## Incident Overview
 
 | Field | Details |
 |---|---|
@@ -8,7 +8,7 @@
 | **Incident Type** | Phishing / Malicious Attachment |
 | **Severity** | Medium |
 | **Status** | Closed |
-| **Analyst** | Harmanjot |
+| **Analyst** | HK |
 | **Investigation Date** | June 7, 2026 |
 
 ---

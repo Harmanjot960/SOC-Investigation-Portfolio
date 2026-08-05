@@ -10,7 +10,7 @@
 
 ---
 
-# Email Artifacts
+## Email Artifacts
 
 | Artifact | Value |
 |----------|-------|
@@ -23,7 +23,7 @@
 
 ---
 
-# Email Authentication
+## Email Authentication
 
 | Check | Result |
 |-------|--------|
@@ -44,7 +44,7 @@ v=DMARC1; p=quarantine; fo=1
 
 ---
 
-# Email Infrastructure
+## Email Infrastructure
 
 | Artifact | Value |
 |----------|-------|
@@ -53,7 +53,7 @@ v=DMARC1; p=quarantine; fo=1
 
 ---
 
-# Attachment Artifacts
+## Attachment Artifacts
 
 | Artifact | Value |
 |----------|-------|
@@ -72,7 +72,7 @@ v=DMARC1; p=quarantine; fo=1
 
 ---
 
-# Investigation Tools
+## Investigation Tools
 
 | Tool | Purpose |
 |------|---------|

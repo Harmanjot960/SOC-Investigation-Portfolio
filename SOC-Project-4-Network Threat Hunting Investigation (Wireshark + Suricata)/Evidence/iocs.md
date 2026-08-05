@@ -49,11 +49,6 @@ Observed Purpose:
 - Fake authentication software distribution
 - Malware delivery infrastructure
 
-
-### Additional Related Domains
-
-- teamviewer.com activity observed during analysis
-
 ---
 
 ## Malware Artifacts
@@ -65,7 +60,30 @@ Observed Purpose:
 - pas.ps1
 - TeamViewer.lnk
 
-**Persistence Location:**
+**Persistence Artifact:**
 ```
-C:\Users\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+TeamViewer.lnk
 ```
+
+**Observed Location:**
+```
+%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
+```
+
+**Referenced Executable:**
+```
+C:\ProgramData\huo\TeamViewer.exe
+```
+
+**Observed Activity:**
+
+- Startup shortcut created by the PowerShell payload
+- Shortcut configured to execute TeamViewer.exe during user logon
+- Persistence behavior identified through malware payload analysis
+
+
+
+
+
+
+

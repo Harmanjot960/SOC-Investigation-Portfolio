@@ -48,8 +48,7 @@ Splunk was used to analyze Windows Security Events and identify:
 
 Screenshots and supporting investigation evidence are stored in:
 
-```
-Screenshots/
-Evidence/
-SPL-Queries/
-```
+
+- [Screenshots](../Screenshots/)
+- [Evidence](./)
+- [SPL-Queries](../SPL-Queries/)

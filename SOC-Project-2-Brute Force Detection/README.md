@@ -288,31 +288,31 @@ Together, these events indicate that the brute-force attack successfully comprom
 
 ## Screenshots
 
-### 1. Hydra Brute Force Command
+### - Hydra Brute Force Command
 - [01a_hydra_command.png](Screenshots/01a_hydra_command.png)
 
-### 2. Hydra Password Discovery
+### - Hydra Password Discovery
 - [01b_hydra_password_found.png](Screenshots/01b_hydra_password_found.png)
 
-### 3. Failed RDP Logons (Event ID 4625)
+### - Failed RDP Logons (Event ID 4625)
 - [02_failed_rdp_logons_event_4625.png](Screenshots/02_failed_rdp_logons_event_4625.png)
 
-### 4. Failed Login Analysis in Splunk
+### - Failed Login Analysis in Splunk
 - [03_failed_login_analysis_splunk.png](Screenshots/03_failed_login_analysis_splunk.png)
 
-### 5. Successful RDP Logon (Event ID 4624)
+### - Successful RDP Logon (Event ID 4624)
 - [04_successful_rdp_login_event_4624.png](Screenshots/04_successful_rdp_login_event_4624.png)
 
-### 6. Special Privileges Assigned (Event ID 4672)
+### - Special Privileges Assigned (Event ID 4672)
 - [05_event_4672_special_privileges.png](Screenshots/05_event_4672_special_privileges.png)
 
-### 7. Splunk Brute Force Detection Query
+### - Splunk Brute Force Detection Query
 - [06_splunk_bruteforce_detection_query.png](Screenshots/06_splunk_bruteforce_detection_query.png)
 
-### 8. RDP Attack Timeline
+### - RDP Attack Timeline
 - [07_rdp_attack_timeline.png](Screenshots/07_rdp_attack_timeline.png)
 
-### 9. Investigation Summary
+### - Investigation Summary
 - [08_incident_summary.png](Screenshots/08_incident_summary.png)
 
 ---

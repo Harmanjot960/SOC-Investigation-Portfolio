@@ -1,4 +1,4 @@
-# Incident Report — Malware Infection Investigation
+# Incident Report — Network Threat Hunting Investigation
 
 ## Incident Title
 Malware Infection Investigation Using Wireshark and Suricata

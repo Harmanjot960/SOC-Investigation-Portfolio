@@ -1,7 +1,6 @@
 # Incident Report — Malware Infection Investigation
 
 ## Incident Title
-
 Malware Infection Investigation Using Wireshark and Suricata
 
 ---
@@ -39,7 +38,7 @@ The incident was classified as a confirmed malware infection based on network ev
 | Investigation Type | Network Threat Hunting |
 | Affected Host | 10.1.17.215 |
 | Network Range | 10.1.17.0/24 |
-| Domain | bluemoontuesday.com |
+| AD Domain | BLUEMOONTUESDAY |
 | Domain Controller | 10.1.17.2 - WIN-GSH54QLW48D |
 | Analysis Platform | Kali Linux |
 | Evidence Source | PCAP |
@@ -96,7 +95,7 @@ Further investigation focused on:
 
 ---
 
-## Endpoint Analysis
+### Endpoint Analysis
 
 Wireshark endpoint analysis identified the primary systems involved in the network activity.
 
@@ -119,7 +118,7 @@ The investigation did not determine maliciousness based solely on traffic volume
 
 ---
 
-## Conversation Analysis
+### Conversation Analysis
 
 Wireshark Conversations analysis was used to identify the primary communication relationships between internal and external hosts.
 
@@ -157,13 +156,13 @@ DNS analysis identified a suspicious domain associated with the malware activity
 
 The domain appears to mimic legitimate authentication software branding and may represent a typosquatting attempt targeting users searching for Google Authenticator.
 
-Characteristics:
+**Characteristics:**
 
 - Similar spelling to Google Authenticator
 - Potential typosquatting behavior
 - Associated with suspicious malware activity
 
-DNS resolution:
+**DNS resolution:**
 
 ```text
 authenticatoor.org
@@ -191,7 +190,7 @@ Although TLS encryption prevented inspection of the packet payload contents, SNI
 
 HTTP stream analysis identified malicious payload delivery.
 
-Observed requests included:
+**Observed requests included:**
 
 `GET /api/file/get-file/29842.ps1`
 
@@ -200,11 +199,8 @@ The response contained PowerShell content.
 The downloaded script contained suspicious functionality including:
 
 `Invoke-Expression`
-
 `FromBase64String()`
-
 `DownloadString()`
-
 `DownloadFile()`
 
 These techniques are commonly associated with:
@@ -259,7 +255,7 @@ Persistence was identified through malware content analysis. Actual endpoint exe
 
 Suricata was used to analyze the PCAP and provide IDS-based detection of suspicious network activity.
 
-Suricata provides:
+**Suricata provides:**
 
 - Signature-based malware detection
 - Known malicious pattern identification
@@ -296,7 +292,7 @@ The following Suricata alerts were observed during the investigation:
 | 14:45:58 | PowerShell payload requested | PS1 request detected |
 | 14:47:01 | PowerShell downloader activity | DownloadString/DownloadFile |
 | 14:47:02 | Executable/DLL download | PE download detection |
-| 14:55:08 | TeamViewer-related communication | Remote access activity |
+| 14:55:08 | TeamViewer-related communication observed | TeamViewer-related network activity |
 
 ---
 
@@ -304,7 +300,7 @@ The following Suricata alerts were observed during the investigation:
 
 | Technique | ID | Evidence |
 | --- | --- | --- |
-| User Execution | T1204 | User executed fake authentication software |
+| User Execution: Malicious File  | T1204.002 | User executed fake authentication software |
 | PowerShell | T1059.001 | PowerShell payload execution |
 | Ingress Tool Transfer | T1105 | Malware downloads |
 | Obfuscated Files or Information | T1027 | Base64 and PowerShell obfuscation |
@@ -325,25 +321,23 @@ The investigation confirmed the following:
 - Additional malware components were retrieved
 - Persistence behavior was identified
 
-### Potential impact includes:
+**Potential impact includes:**
 
 - Unauthorized remote access
 - Additional malware installation
-- Credential theft
+- Potential credential theft
 - Continued attacker access
 
 ---
 
 ## Recommendations
 
-| Priority | Recommendation |
-| --- | --- |
-| High | Isolate affected workstation (`10.1.17.215`) |
-| High | Block malicious indicators: `5.252.153.241`, `82.221.136.26`, `45.125.66.32`, `authenticatoor.org` |
-| High | Perform endpoint investigation including process analysis, persistence review, and malware removal |
-| Medium | Reset credentials if compromise is suspected |
-| Medium | Review DNS and proxy logs for additional affected systems |
-| Low | Monitor for similar fake software campaigns |
+- Isolate affected workstation (`10.1.17.215`) 
+- Block malicious indicators: `5.252.153.241`, `82.221.136.26`, `45.125.66.32`, `authenticatoor.org` 
+- Perform endpoint investigation including process analysis, persistence review, and malware removal 
+- Reset credentials if compromise is suspected 
+- Review DNS and proxy logs for additional affected systems 
+- Monitor for similar fake software campaigns 
 
 ---
 
@@ -355,20 +349,20 @@ Network evidence demonstrated:
 
 ```text
 Malicious Application Download
-            |
-            ▼
+        |
+        ▼
 DNS Resolution
-            |
-            ▼
-TLS Communication
-            |
-            ▼
+        |
+        ▼
+HTTP/TLS Communication
+        |
+        ▼
 PowerShell Payload Delivery
-            |
-            ▼
+        |
+        ▼
 Additional Malware Downloads
-            |
-            ▼
+        |
+        ▼
 Persistence Attempt
 ```
 

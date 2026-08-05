@@ -6,39 +6,23 @@ This project demonstrates a Security Operations Center (SOC) investigation of a 
 
 A user searched for Google Authenticator and downloaded a malicious application masquerading as legitimate Google Authenticator software. After execution, the compromised workstation began communicating with attacker-controlled infrastructure.
 
-A packet capture (PCAP) containing the associated network activity was analyzed to identify:
-
-- Malware download activity
-- Malicious network communications
-- Command-and-control (C2) infrastructure
-- PowerShell-based payload delivery
-- Suspicious executable downloads
-- Indicators of Compromise (IOCs)
-
-## Tools Used
-
-- Wireshark
-- Suricata IDS
-- VirusTotal
-- MITRE ATT&CK
+A packet capture (PCAP) containing the associated network activity was analyzed using Wireshark and Suricata to identify malicious activity, attacker infrastructure, and indicators of compromise (IOCs).
 
 ---
 
 ## Incident Scenario
 
-A user searched for Google Authenticator and downloaded a malicious application disguised as Google Authenticator software.
-After execution, the infected workstation communicated with external attacker-controlled infrastructure.
+After execution of the malicious Google Authenticator application, the infected workstation generated suspicious network activity.
 
-The investigation focused on:
+The SOC analyst investigated:
 
-- Network conversations
-- Suspicious IP addresses
-- DNS activity
-- HTTP traffic
-- TLS certificates
-- Malware downloads
+- Malicious network communications
+- DNS and HTTP activity
+- Suspicious external infrastructure
+- Malware and executable downloads
 - PowerShell payload delivery
-- Command-and-control activity
+- TLS certificate information
+- Indicators of Compromise (IOCs)
 
 ---
 
@@ -55,6 +39,31 @@ The investigation focused on:
 | Domain Controller | 10.1.17.2 |
 | Network Range | 10.1.17.0/24 |
 | AD Environment | BLUEMOONTUESDAY |
+
+---
+
+## Investigation Source
+
+This investigation was performed in a personal SOC Home Lab using a packet capture (PCAP) from a simulated malware infection.
+
+Wireshark, Suricata, and VirusTotal were used to analyze network traffic, identify malicious infrastructure, validate indicators of compromise, and reconstruct the attack timeline.
+
+**PCAP Source:**
+
+2025-01-22-traffic-analysis-exercise.pcap  
+Malware Traffic Analysis — https://www.malware-traffic-analysis.net/
+
+---
+
+## Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| Wireshark | Packet analysis |
+| Suricata | IDS alert generation |
+| VirusTotal | Threat intelligence |
+| Kali Linux | Analysis platform |
+| MITRE ATT&CK | Technique mapping |
 
 ---
 
@@ -156,15 +165,22 @@ SOC-Project-4-Network-Threat-Hunting
 │   └── attack_mapping.md
 │
 └── Incident-Report
-    ├── incident_report.md
-    └── incident-summary.md
+    └── incident_report.md
 ```
 
 ---
 
 ## Network Investigation
 
-Wireshark was used to analyze the packet capture and identify malicious network activity.
+Wireshark and Suricata were used to analyze the packet capture and identify malicious network activity.
+
+The compromised workstation:
+
+```text
+10.1.17.215
+```
+
+was observed communicating with suspicious external infrastructure.
 
 The investigation included:
 
@@ -174,83 +190,81 @@ The investigation included:
 - DNS inspection
 - HTTP stream analysis
 - TLS certificate inspection
-
-The compromised workstation:
-
-```text
-10.1.17.215
-```
-
-was observed communicating with multiple suspicious external systems.
+- Suricata alert correlation
 
 ---
 
-### Malicious Infrastructure Identified
+### Malicious Infrastructure
 
-#### IP Address: 5.252.153.241
+The compromised host communicated with:
 
-This IP address was identified as the primary malware delivery server and likely command-and-control (C2) infrastructure.
+```text
+5.252.153.241
+```
 
-Suricata detected:
+Suricata generated alerts associated with malware delivery, PowerShell activity, and suspicious external communication.
+
+**Detected alerts:**
 
 ```text
 ET MALWARE Fake Microsoft Teams CnC Payload Request (GET)
-```
-
-Additional Suricata detections:
-
-```text
 ET INFO PS1 Powershell File Request
-
 ET HUNTING Generic Powershell DownloadString Command
-
 ET HUNTING Generic Powershell DownloadFile Command
-
 ET INFO PE EXE or DLL Windows file download
 ```
 
-These alerts indicate:
+These detections indicate:
 
-- Malware C2 communication
-- PowerShell script delivery
-- Additional payload retrieval
-- Second-stage malware downloads
+* Malware payload delivery
+* PowerShell-based download activity
+* Additional payload retrieval
+* Possible C2 communication
 
 ---
 
-### PowerShell Malware Delivery
+## Attack Chain
 
-Network analysis identified PowerShell-based malware activity.
-
-Attack flow:
+Network analysis identified the following malware delivery sequence:
 
 ```text
 Victim Host
-    │
+    |
     ▼
-HTTP Request to Malicious Server
-    │
+Malicious Google Authenticator Application Download
+    |
     ▼
-PowerShell Script Download
-    │
+PowerShell Payload Delivery
+    |
     ▼
-Additional Payload Retrieval
+Additional Malware Retrieval
+    |
+    ▼
+Fake TeamViewer Components Downloaded
+    |
+    ▼
+Startup Folder Persistence Established
+    |
+    ▼
+C2 Communication
 ```
 
-The downloaded PowerShell content contained the following suspicious behaviors:
+The downloaded PowerShell content contained suspicious functions:
 
-- Invoke-Expression (IEX)
-- FromBase64String()
-- DownloadString()
-- DownloadFile()
+```text
+Invoke-Expression
+FromBase64String()
+DownloadString()
+DownloadFile()
+```
 
-These techniques are commonly associated with malware loaders, payload execution, obfuscation, and defense evasion.
+These behaviors are commonly associated with malware execution, payload delivery, obfuscation, and defense evasion.
 
 ---
 
-### Fake TeamViewer Payload
+## Downloaded Malware Artifacts
 
-The following files were downloaded during the attack:
+The investigation identified the following downloaded files:
 
 ```text
 TeamViewer.exe
@@ -259,56 +273,45 @@ Teamviewer_Resource_fr.dll
 pas.ps1
 ```
 
-The downloaded files used legitimate software names to disguise malicious activity. The downloaded PowerShell script also created a shortcut (TeamViewer.lnk) in the Windows Startup folder that pointed to C:\ProgramData\huo\TeamViewer.exe. This behavior indicates an attempt to establish persistence by automatically executing the malware when a user logs on.
+The attacker used legitimate software names to disguise malicious activity.
 
-Attack chain:
+The PowerShell script created a Startup folder shortcut:
 
 ```text
-PowerShell Downloader
-        │
-        ▼
-Downloads TeamViewer Components
-        │
-        ▼
-Creates Startup Shortcut
-        │
-        ▼
-Persistence
+TeamViewer.lnk
 ```
+
+which executed:
+
+```text
+C:\ProgramData\huo\TeamViewer.exe
+```
+
+This behavior indicates persistence through automatic execution during user logon.
 
 ---
 
-### TLS Investigation
+## TLS Investigation
 
-A suspicious TLS connection was identified during analysis.
+Encrypted TLS communication was identified during the investigation.
 
 Certificate details:
 
 ```text
-Common Name:
+Certificate Type:
 Self-signed certificate
 
 Certificate Identity:
-45.125.66.32: Self-signed certificate
+45.125.66.32
 ```
 
-Observed characteristics:
+**Observed characteristics:**
 
-- Self-signed certificate
-- Certificate identity matched an IP address
-- No legitimate organization information
-
-Self-signed certificates are commonly observed in malicious infrastructure, although they may also be used in legitimate environments.
-
-Because the traffic was encrypted, payload contents could not be directly inspected.
-
-The investigation relied on:
-
-- TLS certificate metadata
-- IP reputation
-- Network behavior
-- Related HTTP activity
-- Suricata detections
+* Self-signed certificate
+* Identity matched an IP address
+* No trusted certificate authority validation was observed.
+  
+Due to encryption, payload contents could not be directly inspected. TLS metadata, network behavior, and Suricata detections were used for correlation.
 
 ---
 
@@ -322,7 +325,7 @@ suricata \
 -l Suricata/
 ```
 
-### Generated files:
+Generated logs:
 
 ```text
 eve.json
@@ -330,9 +333,6 @@ fast.log
 stats.log
 suricata.log
 ```
----
-
-## Suricata Alerts
 
 The primary alert source analyzed:
 
@@ -340,56 +340,129 @@ The primary alert source analyzed:
 fast.log
 ```
 
-### Malware Delivery
+**Observed Suricata detections included:**
 
-```text
-ET MALWARE Fake Microsoft Teams VBS Payload Inbound
-```
+- Fake Microsoft Teams malware communication
+- PowerShell script download activity
+- DownloadString / DownloadFile behavior
+- Executable and DLL file retrieval
 
-Observed Behavior:
+These findings correlated with Wireshark analysis and confirmed malware delivery activity and suspicious external communication.
 
-- Initial malicious payload delivery
-
----
-
-### Command-and-Control Communication
-
-```text
-ET MALWARE Fake Microsoft Teams CnC Payload Request (GET)
-```
-
-Observed Behavior:
-
-- Communication with malware infrastructure
 
 ---
 
-### PowerShell Activity
+## Indicators of Compromise (IOCs)
+
+### Malicious IP Addresses
 
 ```text
-ET INFO PS1 Powershell File Request
-
-ET HUNTING Generic Powershell DownloadFile Command
-
-ET HUNTING Generic Powershell DownloadString Command
+5.252.153.241
 ```
 
-Observed Behavior:
+**Observed Activity:**
 
-- PowerShell script delivery
-- Additional payload retrieval
+- Malware C2 communication
+- Payload delivery infrastructure
+
+
+```text
+82.221.136.26
+```
+
+**Observed Activity:**
+
+- Associated with suspicious binary hosting
+- Historical malicious associations observed through threat intelligence
+- Potential payload hosting infrastructure
+
+```text
+45.125.66.32
+```
+
+**Observed Activity:**
+
+- Suspicious TLS communication
+- Self-signed certificate observed
+
+
+### Suspicious Domain
+
+```text
+authenticatoor.org
+```
+
+**Reason:**
+
+- Typosquatting domain impersonating **Google Authenticator**
+- Associated with fake authentication software
+- Potential malware delivery infrastructure
+
+The domain name aligns with the reported user activity and was used to deliver the malicious application.
 
 ---
 
-### Executable Download
 
-```text
-ET INFO PE EXE or DLL Windows file download
-```
+## Investigation Summary
 
-Observed Behavior:
+The investigation identified a malware infection involving a fake Google Authenticator application and suspicious network activity from the compromised workstation.
 
-- Windows executable or DLL retrieval
+A detailed investigation report is available here: [Incident Report](Incident-Report/incident_report.md)
+
+---
+
+
+## Key Findings
+
+The investigation confirmed:
+
+- Fake Google Authenticator malware delivery
+- Communication with attacker-controlled infrastructure
+- PowerShell-based payload delivery
+- Multi-stage malware downloads
+- Startup folder persistence through fake TeamViewer components
+- Suspicious TLS communication
+  
+---
+
+## Screenshots
+
+### 1. Wireshark Protocol Hierarchy
+- [01_wireshark_protocol_hierarchy.png](Screenshots/01_wireshark_protocol_hierarchy.png)
+
+### 2. Wireshark Endpoints Analysis
+- [02_wireshark_endpoints.png](Screenshots/02_wireshark_endpoints.png)
+
+### 3. Wireshark Conversations
+- [03_wireshark_conversations.png](Screenshots/03_wireshark_conversations.png)
+
+### 4. DNS Investigation
+- [04_dns_analysis.png](Screenshots/04_dns_analysis.png)
+
+### 5. TLS SNI Analysis
+- [05_tls_sni_analysis.png](Screenshots/05_tls_sni_analysis.png)
+
+### 6. HTTP Stream Malware Download
+- [06_http_stream_malware_download.png](Screenshots/06_http_stream_malware_download.png)
+
+### 7. HTTP Stream Obfuscated PowerShell Payload
+- [07_http_stream_powershell_payload.png](Screenshots/07_http_stream_powershell_payload.png)
+
+### 8. TLS Certificate Analysis
+- [08_tls_self_signed_certificate.png](Screenshots/08_tls_self_signed_certificate.png)
+
+### 9. Suricata IDS Alerts
+- [09_suricata_fast_log_alerts.png](Screenshots/09_suricata_fast_log_alerts.png)
+
+### 10. VirusTotal Reputation Analysis
+- [10_malicious_ip_reputation.png](Screenshots/10_malicious_ip_reputation.png)
+
+### 11. Attack Timeline
+- [11_attack_timeline.png](Screenshots/11_attack_timeline.png)
+
+### 12. Incident Summary
+- [12_incident_summary.png](Screenshots/12_incident_summary.png)
+
 
 ---
 
@@ -408,158 +481,26 @@ The complete investigation timeline, including evidence sources and detection de
 
 ---
 
-## Indicators of Compromise (IOCs)
-
-### Malicious IP Addresses
-
-```text
-5.252.153.241
-```
-
-Observed Activity:
-
-- Malware C2 communication
-- Payload delivery infrastructure
-
-
-```text
-82.221.136.26
-```
-
-Observed Activity:
-
-- Associated with suspicious binary hosting
-- Historical malicious associations observed through threat intelligence
-- Potential payload hosting infrastructure
-
-```text
-45.125.66.32
-```
-
-Observed Activity:
-
-- Suspicious TLS communication
-- Self-signed certificate observed
-
-
-### Suspicious Domain
-
-```text
-authenticatoor.org
-```
-
-Reason:
-
-- Typosquatting domain impersonating **Google Authenticator**
-- Associated with fake authentication software
-- Potential malware delivery infrastructure
-
-The domain name aligns with the reported user activity and was used to deliver the malicious application.
-
----
 
 ## MITRE ATT&CK Mapping
 
 | Activity | Technique | ID |
 |---|---|---|
-| Malicious File Execution | User Execution | T1204 |
+| Malicious Application Execution | User Execution: Malicious File | T1204.002 |
 | PowerShell Execution | Command and Scripting Interpreter: PowerShell | T1059.001 |
 | Payload Download | Ingress Tool Transfer | T1105 |
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
-| HTTP C2 Communication | Application Layer Protocol: Web Protocols | T1071.001 |
+| HTTP C2 Communication | Application Layer Protocol: Web Protocols | T1071.001
 | Startup Persistence | Boot or Logon Autostart Execution | T1547.001 |
 | Fake Application Naming | Masquerading | T1036 |
 
 ---
 
-## Key Findings
-
-The investigation confirmed:
-
-- Malware infection on host `10.1.17.215`
-- Communication with malicious infrastructure
-- PowerShell-based payload delivery
-- Multi-stage malware downloads
-- Fake TeamViewer deployment
-- Suspicious TLS communication
-- Command-and-control activity
-
----
-
-## Screenshots
-
-### Wireshark Protocol Hierarchy
-
-[View Screenshot](Screenshots/01_wireshark_protocol_hierarchy.png)
-
-### Wireshark Endpoints Analysis
-
-[View Screenshot](Screenshots/02_wireshark_endpoints.png)
-
-### Wireshark Conversations
-
-[View Screenshot](Screenshots/03_wireshark_conversations.png)
-
-### DNS Investigation
-
-[View Screenshot](Screenshots/04_dns_analysis.png)
-
-### TLS SNI Analysis
-
-[View Screenshot](Screenshots/05_tls_sni_analysis.png)
-
-### HTTP Stream Malware Download
-
-[View Screenshot](Screenshots/06_http_stream_malware_download.png)
-
-### HTTP Stream Powershell Obfuscated Powershell Payload
-
-[View Screenshot](Screenshots/07_http_stream_powershell_payload.png)
-
-### TLS Certificate Analysis
-
-[View Screenshot](Screenshots/08_tls_self_signed_certificate.png)
-
-### Suricata IDS Alerts
-
-[View Screenshot](Screenshots/09_suricata_fast_log_alerts.png)
-
-### VirusTotal Reputation Analysis
-
-[View Screenshot](Screenshots/10_malicious_ip_reputation.png)
-
-### Attack Timeline
-
-[View Screenshot](Screenshots/11_attack_timeline.png)
-
-### Incident Summary
-
-[View Screenshot](Screenshots/12_incident_summary.png)
-
----
 
 ## Conclusion
 
 This project demonstrates a SOC analyst workflow for investigating malware infections using network telemetry.
 
 Wireshark provided packet-level visibility, while Suricata detected malicious network behavior and generated IDS alerts.
-
-The investigation reconstructed the following attack sequence:
-
-```text
-Malicious Download
-        |
-        ▼
-C2 Communication
-        |
-        ▼
-PowerShell Payload Delivery
-        |
-        ▼
-Additional Malware Download
-        |
-        ▼
-Persistence / Remote Access
-```
 
 The collected evidence was analyzed, documented, and mapped to MITRE ATT&CK techniques as part of an incident response investigation.

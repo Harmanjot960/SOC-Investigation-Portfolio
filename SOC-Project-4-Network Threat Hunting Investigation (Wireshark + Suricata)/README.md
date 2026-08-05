@@ -442,10 +442,10 @@ The investigation confirmed:
 - [05_tls_sni_analysis.png](Screenshots/05_tls_sni_analysis.png)
 
 ### 6. HTTP Stream Malware Download
-- [06_http_stream_malware_download.png](Screenshots/06_http_stream_malware_download.png)
+- [06_http_stream_malware_download.png](Screenshots/06_http_stream_malware_payload_delivery.png)
 
 ### 7. HTTP Stream Obfuscated PowerShell Payload
-- [07_http_stream_powershell_payload.png](Screenshots/07_http_stream_powershell_payload.png)
+- [07_http_stream_powershell_payload.png](Screenshots/07_http_stream_obfuscated_powershell_payload.png)
 
 ### 8. TLS Certificate Analysis
 - [08_tls_self_signed_certificate.png](Screenshots/08_tls_self_signed_certificate.png)

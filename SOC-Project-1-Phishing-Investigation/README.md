@@ -23,7 +23,7 @@ The email was escalated to the SOC for investigation to determine whether it was
 
 ---
 
-# Investigation Objectives
+## Investigation Objectives
 
 - Analyze email headers and message source
 - Investigate sender and reply-to information
@@ -92,6 +92,40 @@ Incident Classification
 
 ---
 
+## Project Structure
+
+Detailed investigation materials:
+
+```
+SOC-Project-1-Phishing-Investigation/
+│
+├── Screenshots/
+│   ├── 01_email_opened_thunderbird.png
+│   ├── 02_message_source_headers.png
+│   ├── 03_mxtoolbox_header_analysis.png
+│   ├── 04_spf_dmarc_results.png
+│   ├── 05_whois_lookup.png
+│   ├── 06_attachment_details.png
+│   ├── 07_sha256_generation.png
+│   └── 08_virustotal_analysis.png
+│
+├── Evidence/
+│   ├── artifacts.md
+│   ├── iocs.md
+│   └── timeline.md
+│
+├── Threat-Intelligence/
+│   └── threat_intelligence.md
+│
+├── MITRE-ATT&CK/
+│   └── mitre_mapping.md
+│
+└── Incident-Report/
+    └── Incident_Report.pdf
+```
+
+---
+
 ## Key Findings
 
 The investigation identified multiple indicators of a phishing attempt:
@@ -121,11 +155,11 @@ The attachment was analyzed using VirusTotal after calculating its SHA256 hash.
 Detailed file analysis and threat intelligence results are available in:
 
 - `Evidence/artifacts.md`
+  [- Email artifacts and attachment analysis](Evidence/artifacts.md)
 - `Evidence/iocs.md`
+[- Indicators of Compromise (IOCs)](Evidence/iocs.md)
 - `Threat-Intelligence/virustotal_analysis.md`
--  [Email Artifacts](Evidence/artifacts.md)
-- [Indicators of Compromise (IOCs)](Evidence/iocs.md)
-- [VirusTotal Analysis](Threat-Intelligence/virustotal_analysis.md)
+[- Threat intelligence results](Threat-Intelligence/threat_intelligence.md)
 
 ---
 
@@ -197,7 +231,7 @@ The investigation confirmed that the email contained a malicious attachment; how
 
 ---
 
-## Recommended Actions
+## Incident Response Recommendations
 
 - Quarantine the malicious email
 - Block identified sender infrastructure
@@ -208,32 +242,6 @@ The investigation confirmed that the email contained a malicious attachment; how
 
 ---
 
-# Supporting Documentation
-
-Detailed investigation materials:
-
-```
-SOC-Project-1-Phishing-Investigation/
-
-├── Screenshots/
-│
-├── Evidence/
-│   ├── artifacts.md
-│   ├── iocs.md
-│   └── timeline.md
-│
-├── Threat-Intelligence/
-│   └── threat_intelligence.md
-│
-├── MITRE-ATT&CK/
-│   └── mitre_mapping.md
-│
-└── Incident-Report/
-    └── Incident_Report.pdf
-```
-
----
-
-# Final Summary
+## Conclusion
 
 This project demonstrates a SOC analyst workflow for investigating a phishing email, including email header analysis, authentication validation, malicious attachment investigation, IOC extraction, threat intelligence analysis, and incident reporting.

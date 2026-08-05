@@ -12,24 +12,22 @@ PowerShell Script Block Logging (Event ID 4104) and Sysmon Process Creation (Eve
 
 ---
 
-# Incident Scenario
+## Incident Scenario
 
 After successful authentication, a Windows workstation generated suspicious PowerShell activity.
 
 The SOC analyst investigated:
 
 - PowerShell execution activity
-- Commands executed by the attacker
-- Host enumeration activity
-- User and network discovery
-- Security configuration checks
-- Persistence discovery
-- PowerShell execution policy bypass
+- Attacker-executed PowerShell commands
+- Host, user, and network discovery activity
+- Security configuration and persistence checks
+- PowerShell execution policy bypass attempts
 - Encoded PowerShell execution
 
 ---
 
-# Environment
+## Environment
 
 | **Component** | **Details** |
 | -------------------- | ----------------------------- |
@@ -43,38 +41,47 @@ The SOC analyst investigated:
 
 ---
 
+## Investigation Source
+
+This investigation was performed in a personal SOC Home Lab following a simulated RDP compromise scenario.
+
+The Windows endpoint was previously accessed through RDP authentication activity. Post-compromise PowerShell execution was then analyzed using PowerShell Script Block Logging, Sysmon telemetry, and Splunk.
+
+---
+
+## Tools Used
+
+| Tool | Purpose |
+|------|---------|
+| Splunk Enterprise | Log collection, detection, and investigation |
+| Windows Event Viewer | Event log validation |
+| PowerShell Logging | Captured executed PowerShell commands |
+| Sysmon | Process creation monitoring |
+| MITRE ATT&CK | Technique mapping |
+
+---
+
 # Lab Architecture
 
 ```
-Windows Endpoint
-DESKTOP-SHNKQPV
-        |
+Windows Endpoint (DESKTOP-SHNKQPV)
         |
         ▼
-PowerShell Script Block Logging
-(Event ID 4104)
-
+PowerShell Script Block Logging (Event ID 4104)
         |
         ▼
-
-Sysmon Process Monitoring
-(Event ID 1)
-
+Sysmon Process Monitoring (Event ID 1)
         |
         ▼
-
 Splunk SIEM
-
         |
         ▼
-
-PowerShell Investigation
-and Detection
+PowerShell Investigation and Detection
 ```
 
 ---
 
-# Investigation Flow
+## Investigation Workflow
 
 The investigation followed a SOC workflow from endpoint activity detection to incident documentation.
 
@@ -106,7 +113,7 @@ Incident Report
 
 ---
 
-# Supporting Documents
+## Project Structure 
 
 ```
 PowerShell-Post-Compromise-Investigation
@@ -137,16 +144,15 @@ PowerShell-Post-Compromise-Investigation
 │   └── attack_mapping.md
 │
 └── Incident-Report
-    ├── incident_report.md
-    └── incident-summary.md
+    └── incident_report.md
 
 ```
 
 ---
 
-# Data Sources
+## Data Sources
 
-## PowerShell Operational Logs
+### 1. PowerShell Operational Logs
 
 **Sourcetype**
 
@@ -154,7 +160,7 @@ PowerShell-Post-Compromise-Investigation
 WinEventLog:Microsoft-Windows-PowerShell/Operational
 ```
 
-Primary Event:
+**Primary Event:**
 
 | **Event ID** | **Description** |
 |---|---|
@@ -162,7 +168,7 @@ Primary Event:
 
 Event ID 4104 records the actual PowerShell commands executed by the user.
 
-Examples:
+**Examples:**
 
 ```
 Get-MpPreference
@@ -176,7 +182,7 @@ Set-ExecutionPolicy Bypass
 
 ---
 
-## Sysmon Logs
+### 2. Sysmon Logs
 
 **Sourcetype**
 
@@ -184,7 +190,7 @@ Set-ExecutionPolicy Bypass
 XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
 ```
 
-Primary Event:
+**Primary Event:**
 
 | **Event ID** | **Description** |
 |---|---|
@@ -198,7 +204,7 @@ Sysmon Event ID 1 was used to identify:
 - The parent process responsible for spawning PowerShell
 - The user account under which the process executed
 
-Example process tree:
+**Example process tree:**
 
 ```text
 explorer.exe
@@ -208,7 +214,7 @@ explorer.exe
 
 ---
 
-# Investigation Summary
+## Investigation Summary
 
 The investigation identified suspicious PowerShell activity on the Windows endpoint.
 
@@ -223,90 +229,13 @@ Observed attacker behavior included:
 - Execution policy bypass
 - Encoded PowerShell execution
 
-Detailed investigation analysis, commands, evidence, and MITRE ATT&CK mapping are available in:
-
-- [Full Incident Report](Incident-Report/incident_report.md)
-- [Incident Summary](Incident-Report/incident-summary.md)
+A detailed investigation report is available here: [Incident Report](Incident-Report/incident_report.md)
 
 ---
 
-# Key Findings
+## Splunk Investigation
 
-## PowerShell Reconnaissance Activity
-
-The attacker performed host discovery using commands including:
-
-```
-$PSVersionTable
-
-Get-Date
-
-Get-Location
-
-hostname
-
-whoami
-
-Get-ComputerInfo
-```
-
-These commands provided information about the compromised system and user context.
-
----
-
-## Security and Persistence Discovery
-
-The attacker queried security settings and persistence locations:
-
-```
-Get-MpPreference
-
-Get-ScheduledTask
-
-HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
-```
-
-This activity may indicate reconnaissance before additional attacker actions.
-
----
-
-## Defense Evasion Activity
-
-The attacker attempted to bypass PowerShell restrictions:
-
-```
-Set-ExecutionPolicy Bypass -Scope Process
-```
-
-Execution policy bypass is commonly observed during malicious PowerShell activity.
-
----
-
-## Encoded PowerShell Execution
-
-The attacker executed an obfuscated PowerShell command:
-
-```
-powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA
-```
-
-The command used Base64 decoding techniques:
-
-```
-FromBase64String()
-
-Unicode.GetString()
-
-Invoke-Expression
-```
-
-Encoded PowerShell is commonly associated with command obfuscation and defense evasion.
-
----
-
-# Splunk Investigation
-
-## Detect Suspicious PowerShell Commands
+### Detect Suspicious PowerShell Commands
 
 ```
 index=windows EventID=4104
@@ -319,7 +248,7 @@ OR ScriptBlockText="*Invoke-Expression*"
 
 ---
 
-## Detect Encoded PowerShell
+### Detect Encoded PowerShell
 
 ```
 index=windows EventID=4104
@@ -331,7 +260,7 @@ OR ScriptBlockText="*Invoke-Expression*"
 
 ---
 
-## PowerShell Attack Timeline
+### Reconstruct Attack Timeline
 
 ```
 index=windows OR index=sysmon
@@ -343,7 +272,100 @@ index=windows OR index=sysmon
 
 ---
 
-# Investigation Timeline
+## Key Findings
+
+### PowerShell Reconnaissance Activity
+
+The attacker performed host discovery using commands including:
+
+```
+$PSVersionTable
+Get-Date
+Get-Location
+hostname
+whoami
+Get-ComputerInfo
+```
+
+These commands provided information about the compromised system and user context.
+
+---
+
+### Security and Persistence Discovery
+
+The attacker queried security settings and persistence locations:
+
+```
+Get-MpPreference
+Get-ScheduledTask
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+```
+
+This activity may indicate reconnaissance before additional attacker actions.
+
+---
+
+### Defense Evasion Activity
+
+The attacker attempted to bypass PowerShell restrictions:
+
+```
+Set-ExecutionPolicy Bypass -Scope Process
+```
+
+Execution policy bypass is commonly observed during malicious PowerShell activity.
+
+---
+
+### Encoded PowerShell Execution
+
+The attacker executed an obfuscated PowerShell command:
+
+```
+powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA
+```
+
+The command used Base64 decoding techniques:
+
+```
+FromBase64String()
+Unicode.GetString()
+Invoke-Expression
+```
+
+Encoded PowerShell is commonly associated with command obfuscation and defense evasion.
+
+---
+
+## Screenshots
+
+### 1. Successful RDP Authentication Context
+- [01_successful_rdp_login_event_4624.png](Screenshots/01_successful_rdp_login_event_4624.png)
+
+### 2. PowerShell Script Block Logging Event ID 4104
+- [02_powershell_script_block_event_4104.png](Screenshots/02_powershell_script_block_event_4104.png)
+
+### 3. Suspicious PowerShell Commands
+- [03_suspicious_powershell_commands.png](Screenshots/03_suspicious_powershell_commands.png)
+
+### 4. Sysmon Process Creation Event ID 1
+- [04_sysmon_process_creation_event_1.png](Screenshots/04_sysmon_process_creation_event_1.png)
+
+### 5. Splunk PowerShell Activity Detection
+- [05_splunk_powershell_activity_detection.png](Screenshots/05_splunk_powershell_activity_detection.png)
+
+### 6. Encoded PowerShell Detection
+- [06_splunk_encoded_command_detection.png](Screenshots/06_splunk_encoded_command_detection.png)
+
+### 7. Attack Timeline
+- [07_attack_timeline.png](Screenshots/07_attack_timeline.png)
+
+### 8. Incident Summary
+- [08_incident_summary.png](Screenshots/08_incident_summary.png)
+
+---
+
+## Investigation Timeline
 
 | Time | Event ID | Description |
 |------|----------|-------------|
@@ -354,7 +376,7 @@ index=windows OR index=sysmon
 
 ---
 
-# MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
 | **Activity** | **Technique** | **ID** |
 |---|---|---|
@@ -362,11 +384,10 @@ index=windows OR index=sysmon
 | System Discovery | System Information Discovery | T1082 |
 | Network Discovery | System Network Configuration Discovery | T1016 |
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
-| Persistence Discovery | Scheduled Task Discovery | T1053 |
 
 ---
 
-# Evidence Collected
+## Evidence Collected
 
 The investigation contains:
 
@@ -381,61 +402,15 @@ The investigation contains:
 - MITRE ATT&CK mapping
 - Investigation documentation
 
-Supporting screenshots and investigation artifacts are available in the `Screenshots/` and `Evidence/` directories.
+Supporting investigation artifacts are available in the `Evidence/` directory.
+
+- [artifacts.md](Evidence/artifacts.md)
+- [iocs.md](Evidence/iocs.md)
+- [timeline.md](Evidence/timeline.md)
 
 ---
 
-# Screenshots
-
-## Successful RDP Authentication Context
-
-[View Screenshot](Screenshots/01_successful_rdp_login_event_4624.png)
-
----
-
-## PowerShell Script Block Logging Event ID 4104
-
-[View Screenshot](Screenshots/02_powershell_script_block_event_4104.png)
-
----
-
-## Suspicious PowerShell Commands
-
-[View Screenshot](Screenshots/03_suspicious_powershell_commands.png)
-
----
-
-## Sysmon Process Creation Event ID 1
-
-[View Screenshot](Screenshots/04_sysmon_process_creation_event_1.png)
-
----
-
-## Splunk PowerShell Activity Detection
-
-[View Screenshot](Screenshots/05_splunk_powershell_activity_detection.png)
-
----
-
-## Encoded PowerShell Detection
-
-[View Screenshot](Screenshots/06_splunk_encoded_command_detection.png)
-
----
-
-## Attack Timeline
-
-[View Screenshot](Screenshots/07_attack_timeline.png)
-
----
-
-## Incident Summary
-
-[View Screenshot](Screenshots/08_incident_summary.png)
-
----
-
-# Conclusion
+## Conclusion
 
 Analysis of PowerShell Script Block Logging and Sysmon telemetry identified suspicious post-compromise activity on the Windows endpoint.
 

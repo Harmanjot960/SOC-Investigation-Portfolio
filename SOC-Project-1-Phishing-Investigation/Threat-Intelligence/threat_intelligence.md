@@ -8,9 +8,9 @@ The investigation focused on identifying known malicious indicators using public
 
 ---
 
-# Infrastructure Analysis
+## Infrastructure Analysis
 
-## Originating IP Address
+### Originating IP Address
 
 | Indicator | Value |
 |-----------|-------|
@@ -23,11 +23,12 @@ The originating IP address was identified from the earliest `Received` header an
 
 ---
 
-# Email Authentication
+## Email Authentication
 
-## SPF
+### SPF
 
 **Result:** Fail
+**Source:** Email header analysis and MXToolbox validation
 
 ```
 spf=fail smtp.mailfrom=mutawamarine.com
@@ -37,21 +38,21 @@ SPF validation failed because the sending server was not authorized to send emai
 
 ---
 
-## DMARC
+### DMARC
 
 **Result:** Unknown
-
+**Source:** Email header analysis 
 ```
 dmarc=unknown
 ```
 
-A DMARC policy existed for the domain, but a valid authentication result could not be established for the email.
+The email did not contain a confirmed DMARC authentication result. A DMARC policy record existed for the sender domain, but the message could not be validated as passing or failing DMARC.
 
 ---
 
-# Malware Analysis
+## Malware Analysis
 
-## Attachment
+### Attachment
 
 | Artifact | Value |
 |----------|-------|
@@ -70,16 +71,15 @@ The attachment archive contained a Windows executable file.
 | File Type | Win32 Executable |
 | Detection Ratio | 58 / 71 |
 
-VirusTotal identified the extracted executable as malicious, confirming that the attachment posed a significant security risk.
+VirusTotal identified the extracted executable as malicious based on multiple security vendor detections, confirming that the attachment was unsafe.
 
 ---
 
-# Threat Intelligence Summary
+## Threat Intelligence Summary
 
 The investigation identified multiple indicators consistent with a phishing campaign, including:
 
-- Unauthorized sending infrastructure
-- Failed email authentication
+- SPF authentication failure for the sending infrastructure
 - Suspicious reply-to address
 - Malicious executable embedded within the attachment
 - High-confidence malware detections from VirusTotal

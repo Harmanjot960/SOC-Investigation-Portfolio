@@ -6,7 +6,7 @@ PowerShell Post-Compromise Investigation
 
 ---
 
-# Host Information
+## Host Information
 
 | Type | Value |
 |---|---|
@@ -16,18 +16,18 @@ PowerShell Post-Compromise Investigation
 
 ---
 
-# User Information
+## User Information
 
 | Type | Value |
 |---|---|
-| User Account | Analyst |
+| User Account | analyst |
 | Context | Interactive PowerShell activity |
 
 ---
 
-# Observed Processes
+## Observed Processes
 
-## PowerShell Execution
+### PowerShell Execution
 
 | Field | Value |
 |---|---|
@@ -37,53 +37,43 @@ PowerShell Post-Compromise Investigation
 
 ---
 
-# Suspicious Commands Observed
+## Suspicious Commands Observed
 
-## Discovery Commands
+### Discovery Commands
 
 ```
 whoami
-
 hostname
-
 Get-ComputerInfo
-
 Get-Location
-
 Get-Date
 ```
 
 ---
 
-## User Discovery
+### User Discovery
 
 ```
 Get-LocalUser
-
 Get-LocalGroup
-
 $env:USERNAME
 ```
 
 ---
 
-## Network Discovery
+### Network Discovery
 
 ```
 Get-NetIPAddress
-
 Get-NetAdapter
-
 Get-NetRoute
-
 ipconfig
-
 Test-NetConnection
 ```
 
 ---
 
-## Security Reconnaissance
+### Security Reconnaissance
 
 ```
 Get-MpPreference
@@ -91,7 +81,7 @@ Get-MpPreference
 
 ---
 
-## Persistence Discovery
+### Persistence Discovery
 
 ```
 Get-ScheduledTask
@@ -101,7 +91,7 @@ HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
 
 ---
 
-## Defense Evasion
+### Defense Evasion
 
 ```
 Set-ExecutionPolicy Bypass -Scope Process
@@ -109,30 +99,28 @@ Set-ExecutionPolicy Bypass -Scope Process
 
 ---
 
-## Obfuscated PowerShell
+### Obfuscated PowerShell
 
-Observed indicators:
+**Observed indicators:**
 
 ```
 -EncodedCommand
-
 FromBase64String
-
 Unicode.GetString
-
 Invoke-Expression
 ```
 
 ---
 
-# MITRE ATT&CK Relevant Indicators
+## MITRE ATT&CK Relevant Indicators
 
-# MITRE ATT&CK Relevant Indicators
-
-| Activity | Technique | MITRE ATT&CK ID |
+| Activity | Technique | ID |
 |---|---|---|
 | PowerShell Execution | Command and Scripting Interpreter: PowerShell | T1059.001 |
-| System Discovery | System Information Discovery | T1082 |
+| System Information Discovery | System Information Discovery | T1082 |
 | Network Discovery | System Network Configuration Discovery | T1016 |
+| User Discovery | Account Discovery | T1087 |
+| Process Discovery | Process Discovery | T1057 |
+| Service Discovery | System Service Discovery | T1007 |
+| Security Software Discovery | Security Software Discovery | T1518.001 |
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
-| Persistence Discovery | Scheduled Task Discovery | T1053 |

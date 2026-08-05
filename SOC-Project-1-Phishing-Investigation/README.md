@@ -8,19 +8,7 @@ The objective was to analyze the email artifact, identify malicious indicators, 
 
 ---
 
-# Case Information
-
-| Field | Details |
-|------|---------|
-| Source | TryHackMe SOC Level 1 - Greenholt Phish |
-| Investigation Type | Phishing Email Analysis |
-| Evidence Source | Provided suspicious email sample (.eml) |
-| Email Client | Mozilla Thunderbird |
-| Analysis Environment | TryHackMe Virtual Machine |
-
----
-
-# Case Scenario
+## Case Scenario
 
 A sales executive at Greenholt PLC reported receiving a suspicious email from a known customer.
 
@@ -48,7 +36,7 @@ The email was escalated to the SOC for investigation to determine whether it was
 
 ---
 
-# Investigation Workflow
+## Investigation Workflow
 
 ```
 Suspicious Email Reported
@@ -78,7 +66,19 @@ Incident Classification
 
 ---
 
-# Tools Used
+## Case Information
+
+| Field | Details |
+|---|---|
+| Investigation Type | Phishing Email Analysis |
+| Evidence Source | Suspicious email sample (.eml) |
+| Email Client | Mozilla Thunderbird |
+| Analysis Environment | TryHackMe Virtual Machine |
+| Source | TryHackMe SOC Level 1 - Greenholt Phish |
+
+---
+
+## Tools Used
 
 | Tool | Purpose |
 |------|---------|
@@ -92,7 +92,7 @@ Incident Classification
 
 ---
 
-# Key Findings
+## Key Findings
 
 The investigation identified multiple indicators of a phishing attempt:
 
@@ -105,7 +105,7 @@ The investigation identified multiple indicators of a phishing attempt:
 
 ---
 
-# Attachment Analysis
+## Attachment Analysis
 
 The email contained the following attachment:
 
@@ -123,12 +123,43 @@ Detailed file analysis and threat intelligence results are available in:
 - `Evidence/artifacts.md`
 - `Evidence/iocs.md`
 - `Threat-Intelligence/virustotal_analysis.md`
+-  [Email Artifacts](Evidence/artifacts.md)
+- [Indicators of Compromise (IOCs)](Evidence/iocs.md)
+- [VirusTotal Analysis](Threat-Intelligence/virustotal_analysis.md)
 
 ---
 
-# MITRE ATT&CK Mapping
+## Screenshots
 
-## T1566.001 - Phishing: Spearphishing Attachment
+### 1. Email Opened in Thunderbird
+- [01_email_opened_thunderbird.png](Screenshots/01_email_opened_thunderbird.png)
+
+### 2. Email Source Headers
+- [02_message_source_headers.png](Screenshots/02_message_source_headers.png)
+
+### 3. MXToolbox Header Analysis
+- [03_mxtoolbox_header_analysis.png](Screenshots/03_mxtoolbox_header_analysis.png)
+
+### 4. SPF and DMARC Results
+- [04_spf_dmarc_results.png](Screenshots/04_spf_dmarc_results.png)
+
+### 5. WHOIS Lookup
+- [05_whois_lookup.png](Screenshots/05_whois_lookup.png)
+
+### 6. Attachment Details
+- [06_attachment_details.png](Screenshots/06_attachment_details.png)
+
+### 7. SHA256 Generation
+- [07_sha256_generation.png](Screenshots/07_sha256_generation.png)
+
+### 8. VirusTotal Analysis
+- [08_virustotal_analysis.png](Screenshots/08_virustotal_analysis.png)
+
+---
+
+## MITRE ATT&CK Mapping
+
+### T1566.001 - Phishing: Spearphishing Attachment
 
 **Evidence:**
 
@@ -136,7 +167,7 @@ A malicious attachment was delivered through email to the targeted user.
 
 ---
 
-## T1204.002 - User Execution: Malicious File
+### T1204.002 - User Execution: Malicious File
 
 **Evidence:**
 
@@ -144,9 +175,9 @@ The attack required the recipient to open the attachment and execute the embedde
 
 ---
 
-# Incident Classification
+## Incident Classification
 
-## Verdict: True Positive - Phishing Attempt
+**Verdict: True Positive - Phishing Attempt**
 
 The email was classified as malicious based on:
 
@@ -158,7 +189,7 @@ The email was classified as malicious based on:
 
 ---
 
-# Impact Assessment
+## Impact Assessment
 
 No evidence of endpoint compromise was available from the provided artifacts.
 
@@ -166,7 +197,7 @@ The investigation confirmed that the email contained a malicious attachment; how
 
 ---
 
-# Recommended Actions
+## Recommended Actions
 
 - Quarantine the malicious email
 - Block identified sender infrastructure

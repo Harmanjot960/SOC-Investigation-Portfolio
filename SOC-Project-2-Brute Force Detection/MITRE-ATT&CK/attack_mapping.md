@@ -24,7 +24,7 @@ T1110.001
 Brute Force: Password Guessing
             |
             ▼
-Valid Credentials Obtained
+Valid Credentials Used
             |
             ▼
 T1078

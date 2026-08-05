@@ -1,4 +1,4 @@
-# Incident Report — PowerShell Post-Compromise Activity
+# Incident Report — PowerShell Post-Compromise Investigation
 
 ## Executive Summary
 
@@ -10,11 +10,12 @@ PowerShell Script Block Logging (Event ID 4104), Sysmon Process Creation (Event 
 
 ---
 
-# Incident Details
+## Incident Details
 
-| Category | Details |
+| Field | Details |
 |---|---|
 | Incident Type | PowerShell Post-Compromise Activity |
+| Investigation Source | SOC Home Lab |
 | Affected Host | DESKTOP-SHNKQPV |
 | User Context | Analyst |
 | SIEM | Splunk |
@@ -22,7 +23,7 @@ PowerShell Script Block Logging (Event ID 4104), Sysmon Process Creation (Event 
 
 ---
 
-# Initial Access Context
+## Initial Access Context
 
 The investigation began after a successful RDP authentication event.
 
@@ -40,7 +41,7 @@ This event provided the starting point for analyzing post-compromise activity.
 
 ---
 
-# Investigation Timeline
+## Investigation Timeline
 
 | Time | Event | Description |
 |---|---|---|
@@ -51,11 +52,13 @@ This event provided the starting point for analyzing post-compromise activity.
 
 ---
 
-# Phase 1 — PowerShell Execution
+## Investigation Phases
+
+### Phase 1 — PowerShell Execution
 
 Sysmon Event ID 1 identified PowerShell execution.
 
-Observed:
+**Observed:**
 
 ```
 Image:
@@ -69,227 +72,174 @@ This confirmed PowerShell execution on the endpoint.
 
 ---
 
-# Phase 2 — Host Discovery
+### Phase 2 — Host Discovery
 
 The attacker performed system enumeration.
 
-Observed commands:
+**Observed commands:**
 
 ```
 $PSVersionTable
-
 Get-Date
-
 Get-Location
-
 hostname
-
 whoami
-
 Get-ComputerInfo
 ```
 
-Purpose:
+**Purpose:**
 
 - Identify operating system details
 - Determine user context
 - Collect endpoint information
 
-MITRE ATT&CK:
+**MITRE ATT&CK:**
 
-```
-T1082 - System Information Discovery
-```
+- T1082 - System Information Discovery
 
 ---
 
-# Phase 3 — User and Network Discovery
+### Phase 3 — User and Network Discovery
 
 The attacker enumerated users and network information.
 
-User discovery:
+**User discovery:**
 
 ```
 Get-LocalUser
-
 Get-LocalGroup
-
 $env:USERNAME
-
 whoami
 ```
 
-Network discovery:
+**Network discovery:**
 
 ```
 Get-NetIPAddress
-
 Get-NetAdapter
-
 Get-NetRoute
-
 ipconfig
-
 Test-NetConnection
 ```
 
-Purpose:
+**Purpose:**
 
 Understand available users, privileges, and network configuration.
 
-MITRE ATT&CK:
+**MITRE ATT&CK:**
 
-```
-T1087 - Account Discovery
-
-T1016 - System Network Configuration Discovery
-```
+- T1087 - Account Discovery
+- T1016 - System Network Configuration Discovery
 
 ---
 
-# Phase 4 — Process and Service Discovery
+### Phase 4 — Process and Service Discovery
 
-Observed commands:
+**Observed commands:**
 
 ```
 Get-Process
-
 Get-Service
 ```
 
-Purpose:
+**Purpose:**
 
 Identify running applications and Windows services.
 
-MITRE ATT&CK:
+**MITRE ATT&CK:**
 
-```
-T1057 - Process Discovery
-
-T1007 - System Service Discovery
-```
+- T1057 - Process Discovery
+- T1007 - System Service Discovery
 
 ---
 
-# Phase 5 — Security Reconnaissance
+### Phase 5 — Security Reconnaissance
 
 The attacker queried Windows Defender configuration.
 
-Command:
+**Observed Command:**
 
 ```
 Get-MpPreference
 ```
 
-Purpose:
+**Purpose:**
 
 Identify security configuration and defensive controls.
 
-MITRE ATT&CK:
+**MITRE ATT&CK:**
 
-```
-T1518.001 - Security Software Discovery
-```
+- T1518.001 - Security Software Discovery
 
 ---
 
-# Phase 6 — Persistence Discovery
+### Phase 6 — Persistence Discovery
 
-The attacker reviewed persistence locations.
+The attacker enumerated common persistence locations.
 
-Observed:
+**Observed:**
 
 ```
 Get-ScheduledTask
-
 HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
 ```
 
-Purpose:
+**Purpose:**
 
 Identify possible persistence mechanisms.
 
-MITRE ATT&CK:
-
-```
-T1053 - Scheduled Task/Job Discovery
-```
-
 ---
 
-# Phase 7 — Defense Evasion
+### Phase 7 — Defense Evasion
 
 The attacker attempted to bypass PowerShell execution restrictions.
 
-Command:
+**Observed Command:**
 
 ```
 Set-ExecutionPolicy Bypass -Scope Process
 ```
 
-This behavior is commonly observed during malicious PowerShell activity.
+This behavior can be abused by attackers to bypass PowerShell execution restrictions.
 
 ---
 
-# Phase 8 — Encoded PowerShell Execution
+### Phase 8 — Encoded PowerShell Execution
 
 Splunk detected encoded PowerShell execution activity.
 
-Observed:
+**Observed:**
 
 ```
 powershell.exe -EncodedCommand dwBoAG8AYQBtAGkA
 ```
 
-Additional decoding behavior:
+**Additional decoding behavior:**
 
 ```
 [Convert]::FromBase64String($encoded)
-
 [System.Text.Encoding]::Unicode.GetString(...)
-
 Invoke-Expression
 ```
 
 Encoded PowerShell commands are commonly used to hide command execution and evade detection.
 
-MITRE ATT&CK:
+**MITRE ATT&CK:**
 
-```
-T1027 - Obfuscated Files or Information
-```
+- T1027 - Obfuscated Files or Information
 
 ---
 
-# Detection and Analysis
+## Detection and Analysis
 
-## PowerShell Script Block Logging
+PowerShell Event ID 4104 and Sysmon Event ID 1 were correlated in Splunk to identify attacker commands, PowerShell execution activity, and process relationships.
 
-PowerShell Event ID 4104 provided visibility into executed commands.
+Observed detections included:
 
-Detected activity included:
-
-```
-Get-MpPreference
-
-Get-ScheduledTask
-
-Invoke-Expression
-
-Set-ExecutionPolicy Bypass
-
--EncodedCommand
-```
-
----
-
-## Sysmon Process Creation
-
-Sysmon Event ID 1 confirmed:
-
-- PowerShell process execution
-- Parent process relationship
-- Process activity timeline
+- Suspicious PowerShell commands
+- Execution policy bypass attempt
+- Encoded PowerShell execution
+- PowerShell process creation
 
 ---
 
@@ -303,11 +253,8 @@ Detection keywords:
 
 ```
 Get-MpPreference
-
 Get-ScheduledTask
-
 ExecutionPolicy
-
 Invoke-Expression
 ```
 
@@ -317,15 +264,13 @@ Detection keywords:
 
 ```
 EncodedCommand
-
 FromBase64String
-
 Invoke-Expression
 ```
 
 ---
 
-# Impact Assessment
+## Impact Assessment
 
 Observed activity allowed the attacker to:
 
@@ -334,14 +279,14 @@ Observed activity allowed the attacker to:
 - Enumerate processes and services
 - Review security configuration
 - Discover persistence locations
-- Attempt PowerShell restriction bypass
+- Attempt PowerShell execution policy bypass
 - Execute encoded PowerShell commands
 
 No destructive actions were observed.
 
 ---
 
-# Response Recommendations
+## Incident Response Recommendations
 
 Recommended SOC actions:
 
@@ -355,7 +300,7 @@ Recommended SOC actions:
 
 ---
 
-# MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
 | Activity | Technique | ID |
 |---|---|---|
@@ -366,12 +311,11 @@ Recommended SOC actions:
 | Process Discovery | Process Discovery | T1057 |
 | Service Discovery | System Service Discovery | T1007 |
 | Security Software Discovery | Security Software Discovery | T1518.001 |
-| Scheduled Task Discovery | Scheduled Task/Job Discovery | T1053 |
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
 
 ---
 
-# Final Assessment
+## Final Assessment
 
 The investigation confirmed suspicious PowerShell post-compromise activity on the Windows endpoint.
 

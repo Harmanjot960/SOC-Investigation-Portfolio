@@ -1,4 +1,14 @@
-# Incident Report
+# Incident Report — Phishing Email Investigation
+
+##  Executive Summary
+
+A suspicious email was reported to the Security Operations Center (SOC) for investigation. The email contained indicators commonly associated with phishing activity, including a suspicious sender, social engineering elements, and an unsolicited attachment.
+
+The attached archive was analyzed and found to contain an executable file. The executable was extracted, hashed, and analyzed using threat intelligence sources. VirusTotal analysis confirmed that the file was malicious based on multiple security vendor detections.
+
+The investigation determined that the phishing attempt was detected before user interaction. No evidence of attachment execution or endpoint compromise was identified during the investigation.
+
+---
 
 ## Incident Overview
 
@@ -10,50 +20,26 @@
 | **Status** | Closed |
 | **Analyst** | HK |
 | **Investigation Date** | June 7, 2026 |
-
----
-
-# 1. Incident Information
-
-| Field | Details |
-|---|---|
-| **Case ID** | PHISH-2026-001 |
-| **Alert Source** | User-reported suspicious email |
-| **Incident Category** | Phishing |
-| **Incident Subcategory** | Malicious Attachment |
-| **Detection Method** | Manual user escalation |
-| **Affected User** | Redacted |
-| **Investigation Status** | Closed |
+| **Alert Source** | Suspicious email reported for SOC analysis |
+| **Detection Method** | User-reported suspicious email |
 | **Final Classification** | Confirmed Phishing Attempt |
 
 ---
 
-# 2. Executive Summary
-
-A suspicious email was reported to the Security Operations Center (SOC) for investigation. The email contained indicators commonly associated with phishing activity, including a suspicious sender, social engineering elements, and an unsolicited attachment.
-
-The attached archive was analyzed and found to contain an executable file. The executable was extracted, hashed, and analyzed using threat intelligence sources. VirusTotal analysis confirmed that the file was malicious based on multiple security vendor detections.
-
-The investigation determined that the phishing attempt was detected before user interaction. No evidence of attachment execution or endpoint compromise was identified during the investigation.
-
----
-
-# 3. Alert Details
+## Alert Details
 
 | Field | Details |
 |---|---|
-| Sender Address | info@mutawamarine.com |
-| Recipient Address | webmaster@redacted.org |
-| Reply-To Address | info.mutawamarine@mail.com |
-| Subject | webmaster@redacted.org your: Transfer Reference Number:(09674321) |
-| First Received Timestamp | Wed, 10 Jun 2020 01:02:04 -0400 |
-| Final Delivery Timestamp | Wed, 10 Jun 2020 05:58:54 +0000 |
-| Attachment Name | SWT_#09674321____PDF__.CAB |
-| Attachment Type | Archive containing executable file |
+| **Sender Address** | info@mutawamarine.com |
+| **Recipient Address** | webmaster@redacted.org |
+| **Reply-To Address** | info.mutawamarine@mail.com |
+| **Subject** | webmaster@redacted.org your: Transfer Reference Number:(09674321) |
+| **First Received Timestamp** | Wed, 10 Jun 2020 01:02:04 -0400 |
+| **Final Delivery Timestamp** | Wed, 10 Jun 2020 05:58:54 +0000 |
 
 ---
 
-# 4. Initial Triage
+## Initial Assessment
 
 The initial triage process included reviewing the email content, sender information, and attachment characteristics to determine whether the message was malicious.
 
@@ -69,7 +55,7 @@ Based on the initial findings, the email was escalated for further investigation
 
 ---
 
-# 5. Investigation Methodology
+## Investigation Workflow
 
 The investigation followed a structured phishing analysis workflow:
 
@@ -84,20 +70,55 @@ The investigation followed a structured phishing analysis workflow:
 
 ---
 
-# 6. Evidence Collected
+## Email Analysis
 
-| Evidence Type | Description |
+The email headers and authentication results were analyzed to identify sender legitimacy and phishing indicators.
+
+Findings:
+
+- SPF authentication failure
+- Reply-To mismatch
+- Suspicious sender infrastructure
+- Financial transaction-themed social engineering
+
+---
+## Attachment Analysis
+
+The email contained a CAB archive attachment.
+
+| Artifact | Details |
 |---|---|
-| Email Artifact | Original phishing email (.eml) |
-| Email Headers | Sender, recipient, authentication results, routing information |
-| Attachment | Malicious archive attachment |
-| Extracted File | Executable identified from archive |
-| File Hash | SHA-256 hash generated for threat intelligence lookup |
-| Threat Intelligence | VirusTotal analysis results |
+| Filename | SWT_#09674321____PDF__.CAB |
+| Container Type | Microsoft Cabinet (CAB) archive |
+| Extracted File | SWT_#09674321__PDF.com |
+| Actual File Type | Windows executable |
 
 ---
 
-# 7. Indicators of Compromise (IOC)
+## Threat Intelligence Findings
+
+### File Analysis
+
+The extracted file was submitted to VirusTotal for reputation analysis. VirusTotal identified the file as malicious based on multiple security vendor detections.
+
+**Threat Intelligence Results**
+
+| Artifact | Value |
+|----------|-------|
+| Detection Ratio | 58 / 71 (VirusTotal) |
+| SHA256 | 05261f5a64f81a34fdde66cc82b573773e5dfa3bb5c3ccbfe2d0eef0e9d7b6c9 |
+
+### Infrastructure Analysis
+
+Infrastructure indicators associated with the phishing email were investigated using WHOIS lookup and VirusTotal.
+
+The analysis focused on the sender domain and associated IP address to identify ownership information, reputation data, and potential malicious activity.
+
+The identified infrastructure indicators were documented as part of the investigation and included in the IOC list.
+
+---
+
+## Indicators of Compromise (IOC)
 
 | Type | Indicator | Description |
 |---|---|---|
@@ -109,30 +130,7 @@ The investigation followed a structured phishing analysis workflow:
 
 ---
 
-# 8. Threat Intelligence Findings
-
-## File Analysis
-
-The attachment was extracted and an executable file was identified. A SHA-256 hash was generated for the executable and submitted to VirusTotal, where it was identified as malicious by multiple security vendors.
-
-### Extracted File
-
-| Artifact | Value |
-|----------|-------|
-| File Name | SWT_#09674321__PDF.com |
-| Actual File Type | Win32 Executable |
-| Detection Ratio | 58 / 71 (VirusTotal) |
-| SHA256 | 05261f5a64f81a34fdde66cc82b573773e5dfa3bb5c3ccbfe2d0eef0e9d7b6c9 |
-
-## Infrastructure Analysis
-
-Threat intelligence analysis was performed on available email infrastructure indicators, including sender domains and IP addresses where applicable.
-
-The analysis identified indicators associated with malicious phishing activity.
-
----
-
-# 9. MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
 | Technique ID | Technique Name | Description |
 |---|---|---|
@@ -147,7 +145,7 @@ The analysis identified indicators associated with malicious phishing activity.
 
 ---
 
-# 10. Impact Assessment
+## Impact Assessment
 
 The investigation confirmed that the email was a phishing attempt containing a malicious attachment.
 
@@ -155,7 +153,7 @@ No evidence of attachment execution or endpoint compromise was identified during
 
 ---
 
-# 11. Root Cause Analysis
+## Root Cause Analysis
 
 The incident was caused by a phishing email containing a malicious attachment designed to trick the recipient into opening a potentially harmful file.
 
@@ -163,7 +161,7 @@ The attack relied on social engineering techniques rather than exploitation of a
 
 ---
 
-# 12. Incident Classification
+## Incident Classification
 
 | Category | Classification |
 |---|---|
@@ -175,7 +173,7 @@ The attack relied on social engineering techniques rather than exploitation of a
 
 ---
 
-# 13. Recommendations
+## Recommendations
 
 - Continue user awareness training focused on phishing identification.
 - Block malicious file hashes and associated indicators where applicable.
@@ -185,7 +183,7 @@ The attack relied on social engineering techniques rather than exploitation of a
 
 ---
 
-# 14. Lessons Learned
+## Lessons Learned
 
 - Suspicious emails should be analyzed before interacting with attachments.
 - File hash analysis provides valuable threat intelligence during malware investigations.
@@ -194,7 +192,7 @@ The attack relied on social engineering techniques rather than exploitation of a
 
 ---
 
-# 15. Final Verdict
+## Conclusion
 
 The investigation confirmed a phishing attempt involving a malicious attachment.
 

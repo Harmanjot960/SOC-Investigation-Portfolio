@@ -1,72 +1,160 @@
-# Incident Report: RDP Brute Force Attack Investigation
+# Incident Report — RDP Brute Force Attack Investigation
 
-## Incident Overview
+## Executive Summary
 
-A simulated Remote Desktop Protocol (RDP) brute-force attack was conducted against a Windows endpoint. The attack was performed using Kali Linux Hydra to generate repeated authentication attempts.
+A Security Operations Center (SOC) investigation was conducted following suspicious Remote Desktop Protocol (RDP) authentication activity against a Windows endpoint.
 
-Windows Security Logs were collected and analyzed in Splunk to identify malicious authentication activity, determine the source IP, and confirm successful access.
+The attack was simulated using Kali Linux Hydra to generate repeated RDP authentication attempts. Windows Security Event Logs were collected and analyzed using Splunk to identify failed authentication patterns, determine the attack source, identify the targeted account, and confirm whether successful access occurred.
+
+The investigation confirmed multiple failed RDP authentication attempts followed by successful authentication from the same source IP. Event ID 4672 confirmed that the authenticated session received special privileges after login.
+
+The incident was classified as a confirmed simulated RDP brute-force attack resulting in successful account access.
 
 ---
 
-# Incident Details
+## Incident Overview
 
 | Field | Details |
-|-------|---------|
-| Incident Type | RDP Brute Force Attack |
+|---|---|
+| Incident Title | RDP Brute Force Attack Investigation |
+| Incident Type | Authentication Attack |
 | Severity | Medium |
+| Status | Closed |
+| Investigation Type | Windows Security Log Analysis |
 | Affected System | Windows Endpoint |
 | Hostname | DESKTOP-SHNKQPV |
 | Target IP | 192.168.109.129 |
 | Source IP | 192.168.109.130 |
 | Target Account | analyst |
 | Attack Tool | Kali Linux Hydra |
-| Protocol | Remote Desktop Protocol (RDP) |
 | SIEM Platform | Splunk |
+| Final Classification | Confirmed RDP Brute Force Attack |
 
 ---
 
-# Attack Summary
+## Initial Assessment
 
-The attacker performed multiple RDP authentication attempts against the Windows endpoint using Hydra.
+Initial analysis identified repeated RDP authentication attempts targeting the Windows endpoint.
 
-The attack generated multiple failed authentication events followed by a successful login using valid credentials.
+The following indicators were identified:
 
-Observed Windows Security Events:
+- Multiple failed authentication attempts
+- Same source IP repeatedly targeting the endpoint
+- Same user account targeted during authentication attempts
+- Successful authentication following failed attempts
+- Privileged logon activity after successful authentication
+
+Based on the authentication pattern, the activity was escalated for further investigation.
+
+---
+
+## Investigation Methodology
+
+The investigation followed a structured SOC authentication analysis workflow:
+
+- Reviewed Windows Security Event Logs collected in Splunk.
+- Identified repeated failed RDP authentication attempts.
+- Analyzed source IP and targeted user account.
+- Correlated failed and successful authentication events.
+- Reviewed Event ID 4672 for privilege assignment.
+- Reconstructed the attack timeline.
+- Extracted indicators of compromise.
+- Mapped observed activity to MITRE ATT&CK techniques.
+
+---
+
+## Evidence Collected
+
+| Evidence Type | Description |
+|---|---|
+| Windows Security Logs | Authentication events related to RDP activity |
+| Event ID 4625 | Failed RDP authentication attempts |
+| Event ID 4624 | Successful RDP authentication |
+| Event ID 4672 | Special privileges assigned after authentication |
+| Splunk Queries | Detection and investigation queries |
+| Attack Simulation | Hydra RDP brute-force activity |
+| Timeline Data | Reconstructed authentication sequence |
+
+---
+
+## Investigation Findings
+
+### RDP Brute Force Activity
+
+The investigation identified repeated failed RDP authentication attempts originating from:
+
+**Source IP**
 
 ```
-Event ID 4625 - Failed Logon
-Event ID 4624 - Successful Logon
-Event ID 4672 - Special Privileges Assigned
+192.168.109.130
 ```
 
+**Target Account**
+
+```
+analyst
+```
+
+#### Observed Activity
+
+| Event ID | Activity |
+|---|---|
+| 4625 | Multiple failed RDP authentication attempts |
+| 4624 | Successful RDP authentication |
+| 4672 | Special privileges assigned |
+
+#### Findings
+
+- 20 failed RDP authentication attempts were detected.
+- All attempts originated from `192.168.109.130`.
+- The `analyst` account was repeatedly targeted.
+- The authentication pattern matched password guessing activity.
+
 ---
 
-# Investigation Findings
+### Successful Authentication Analysis
 
-The SOC investigation identified:
+A successful RDP login was identified after multiple failed authentication attempts.
 
-- Multiple failed RDP authentication attempts from `192.168.109.130`
-- Repeated targeting of the `analyst` account
-- Successful authentication after multiple failed attempts
-- Privileged session activity after successful authentication
+#### Authentication Details
+
+```
+Event ID: 4624
+Protocol: RDP
+Logon Type: 3
+Account: analyst
+Source IP: 192.168.109.130
+Destination IP: 192.168.109.129
+```
+
+Following successful authentication, Event ID 4672 was generated:
+
+```
+Event ID: 4672
+Description: Special Privileges Assigned
+```
+
+This indicated that the authenticated session received special privileges.
 
 ---
 
-# Timeline
+## Attack Timeline
 
 | Time | Event ID | Activity |
-|------|----------|----------|
+|---|---|---|
 | 08:08:42 - 08:23:08 | 4625 | Multiple failed RDP authentication attempts |
 | 08:23:11 | 4624 | Successful RDP authentication |
 | 08:23:29 | 4672 | Special privileges assigned |
 
 ---
 
-# Detection Method
+## Detection Analysis
 
-The attack was detected using Splunk analysis of Windows Security Events.
+### Detection Logic
 
-Detection logic:
+The attack was detected through Splunk analysis of Windows Security Events.
+
+Detection criteria:
 
 ```
 Multiple Event ID 4625
@@ -78,7 +166,7 @@ Same Target User
 RDP Authentication Activity
 ```
 
-Splunk query:
+### SPL Detection Query
 
 ```spl
 index=windows sourcetype="WinEventLog:Security" EventCode=4625
@@ -89,45 +177,82 @@ index=windows sourcetype="WinEventLog:Security" EventCode=4625
 
 ---
 
-# Indicators of Compromise
+## Indicators of Compromise (IOC)
 
-| Indicator Type | Value |
-|----------------|-------|
-| Attacker IP | 192.168.109.130 |
+| Type | Indicator |
+|---|---|
+| Source IP | 192.168.109.130 |
 | Target IP | 192.168.109.129 |
-| Target Username | analyst |
+| Target Account | analyst |
 | Protocol | RDP |
 | Attack Tool | Hydra |
 
 ---
 
-# MITRE ATT&CK Mapping
+## MITRE ATT&CK Mapping
 
-| Technique | ID |
-|-----------|----|
-| Brute Force: Password Guessing | T1110.001 |
-| Valid Accounts | T1078 |
-| Remote Services: Remote Desktop Protocol | T1021.001 |
-
----
-
-# Response Recommendations
-
-Recommended SOC actions:
-
-- Block or restrict the source IP if malicious activity is confirmed
-- Review additional authentication activity from the source IP
-- Enforce strong password policies
-- Enable account lockout controls
-- Restrict unnecessary RDP exposure
-- Monitor privileged authentication events
+| Technique ID | Technique Name | Evidence |
+|---|---|---|
+| T1110.001 | Brute Force: Password Guessing | Hydra generated repeated authentication attempts against the target account |
+| T1021.001 | Remote Services: Remote Desktop Protocol | RDP was used to access the Windows endpoint |
+| T1078 | Valid Accounts | Successful authentication occurred using valid credentials |
 
 ---
 
-# Conclusion
+## Impact Assessment
+
+The investigation confirmed that the simulated brute-force attack resulted in successful authentication to the Windows endpoint.
+
+The attacker obtained access through valid credentials after repeated authentication attempts. Event ID 4672 indicated that the resulting session received special privileges.
+
+---
+
+## Root Cause Analysis
+
+The incident occurred due to weak authentication controls allowing repeated RDP authentication attempts against a user account.
+
+The attack succeeded because the attacker was able to identify valid credentials through repeated password guessing attempts.
+
+---
+
+## Incident Classification
+
+| Category | Classification |
+|---|---|
+| Incident Type | RDP Brute Force Attack |
+| Attack Method | Password Guessing |
+| Severity | Medium |
+| Outcome | Successful Authentication |
+| Status | Closed |
+
+---
+
+## Recommendations
+
+- Restrict unnecessary RDP exposure.
+- Implement account lockout policies.
+- Enforce strong password requirements.
+- Monitor repeated authentication failures.
+- Enable MFA for remote access.
+- Review privileged authentication events.
+
+---
+
+## Lessons Learned
+
+- Authentication logs provide valuable visibility into brute-force activity.
+- Correlating failed and successful logons helps identify compromised accounts.
+- SIEM-based detection improves investigation speed and accuracy.
+- Monitoring privileged logon events helps identify suspicious access.
+
+---
+
+## Conclusion
 
 The investigation confirmed a simulated RDP brute-force attack against the Windows endpoint.
 
-The attacker generated repeated failed authentication attempts before successfully authenticating with valid credentials. Splunk analysis of Windows Security Events enabled identification of the attack source, targeted account, authentication pattern, and complete attack timeline.
+Multiple failed authentication attempts from `192.168.109.130` were followed by successful login activity and privileged session assignment.
 
-The incident demonstrates the process of detecting, investigating, and documenting an authentication-based attack in a SOC environment.
+Splunk analysis enabled identification of the attack source, targeted account, authentication pattern, and complete attack timeline.
+
+**Final Outcome: RDP brute-force attack detected and successful authentication confirmed.**

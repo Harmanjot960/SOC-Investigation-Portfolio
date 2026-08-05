@@ -327,10 +327,10 @@ suricata \
 
 Generated Suricata logs:
 
-- [eve.json](Suricata/eve.json)
 - [fast.log](Suricata/fast.log)
 - [stats.log](Suricata/stats.log)
 - [suricata.log](Suricata/suricata.log)
+- [eve.json](Suricata/eve.json)
 
 
 The primary alert source analyzed:

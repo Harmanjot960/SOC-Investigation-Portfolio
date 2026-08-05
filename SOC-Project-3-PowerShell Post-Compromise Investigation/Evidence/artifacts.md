@@ -13,75 +13,70 @@ The artifacts were collected from:
 
 ---
 
-# Log Sources
+## Log Sources
 
-## PowerShell Script Block Logging
+### PowerShell Script Block Logging
 
 ```
 WinEventLog:Microsoft-Windows-PowerShell/Operational
 ```
 
-Event analyzed:
+**Event analyzed:**
 
 ```
 Event ID 4104
 ```
 
-Purpose:
+**Purpose:**
 
 Captured the actual PowerShell commands executed by the attacker.
 
 ---
 
-## Sysmon Process Monitoring
+### Sysmon Process Monitoring
 
 ```
 XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
 ```
 
-Event analyzed:
+**Event analyzed:**
 
 ```
 Event ID 1
 ```
 
-Purpose:
+**Purpose:**
 
 Confirmed PowerShell process execution and process relationships.
 
 ---
 
-# Collected Artifacts
+## Collected Artifacts
 
-## PowerShell Commands
+### PowerShell Commands
 
-Examples:
+**Examples:**
 
 ```
 Get-MpPreference
-
 Get-ScheduledTask
-
 Get-Process
-
 Get-Service
-
 Invoke-Expression
-
 Set-ExecutionPolicy Bypass
 ```
 
 ---
 
-## Process Artifacts
+### Process Artifacts
 
-Observed process:
+**Observed process:**
 
 ```
 powershell.exe
 ```
 
-Associated information:
+**Associated information:**
 
 ```
 Image:
@@ -93,23 +88,22 @@ explorer.exe
 
 ---
 
-## Encoded Command Artifact
+### Encoded Command Artifact
 
-Observed:
+**Observed:**
 
 ```
 powershell.exe -EncodedCommand
 ```
 
-Related decoding functions:
+**Related decoding functions:**
 
 ```
 FromBase64String()
-
 Unicode.GetString()
 ```
 
-Execution method:
+**Execution method:**
 
 ```
 Invoke-Expression
@@ -117,7 +111,7 @@ Invoke-Expression
 
 ---
 
-# Detection Artifacts
+## Detection Artifacts
 
 Splunk searches used:
 
@@ -129,25 +123,6 @@ EventCode=4624 - for successful Windows authentication events.
 
 ---
 
-# Evidence Files
-
-Collected evidence includes:
-
-```
-Screenshots/
-│
-├── 01_successful_rdp_login_event_4624.png
-├── 02_powershell_script_block_event_4104.png
-├── 03_suspicious_powershell_commands.png
-├── 04_sysmon_process_creation_event_1.png
-├── 05_splunk_powershell_activity_detection.png
-├── 06_splunk_encoded_command_detection.png
-├── 07_attack_timeline.png
-└── 08_incident_summary.png
-```
-
----
-
-# Final Assessment
+## Final Assessment
 
 The collected artifacts confirm post-compromise PowerShell activity involving reconnaissance, security discovery, execution policy bypass attempts, and encoded command execution.

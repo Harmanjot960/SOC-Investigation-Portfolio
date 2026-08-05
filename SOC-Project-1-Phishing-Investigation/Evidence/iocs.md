@@ -15,9 +15,9 @@ The following indicators were identified during the phishing email investigation
 
 ---
 
-# IOC Analysis Summary
+## IOC Analysis Summary
 
-## Email Indicators
+### Email Indicators
 
 The sender information contained suspicious characteristics:
 
@@ -27,7 +27,7 @@ The sender information contained suspicious characteristics:
 
 ---
 
-## File Indicators
+### File Indicators
 
 The attachment was extracted to examine its contents. The archive contained an executable (.exe) file. A SHA-256 hash of the executable was generated and submitted to VirusTotal, where it was identified as malicious by multiple security vendors.
 

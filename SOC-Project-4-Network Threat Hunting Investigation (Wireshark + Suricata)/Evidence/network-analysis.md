@@ -40,7 +40,7 @@
 
 **Certificate:**
 - Self-signed certificate
-- Lacked legitimate organization information
+- IP-based certificate identity
 
 ### DNS Activity
 

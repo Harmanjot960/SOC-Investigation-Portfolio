@@ -325,14 +325,13 @@ suricata \
 -l Suricata/
 ```
 
-Generated logs:
+Generated Suricata logs:
 
-```text
-eve.json
-fast.log
-stats.log
-suricata.log
-```
+- [eve.json](Suricata/eve.json)
+- [fast.log](Suricata/fast.log)
+- [stats.log](Suricata/stats.log)
+- [suricata.log](Suricata/suricata.log)
+
 
 The primary alert source analyzed:
 

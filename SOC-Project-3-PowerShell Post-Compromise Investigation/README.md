@@ -381,6 +381,14 @@ Encoded PowerShell is commonly associated with command obfuscation and defense e
 | **Activity** | **Technique** | **ID** |
 |---|---|---|
 | PowerShell Execution | Command and Scripting Interpreter: PowerShell | T1059.001 |
+| System Information Discovery | System Information Discovery | T1082 |
+| Network Discovery | System Network Configuration Discovery | T1016 |
+| User Discovery | Account Discovery | T1087 |
+| Process Discovery | Process Discovery | T1057 |
+| Service Discovery | System Service Discovery | T1007 |
+| Security Software Discovery | Security Software Discovery | T1518.001 |
+| PowerShell Obfuscation | Obfuscated Files or Information | T1027 |
+| PowerShell Execution | Command and Scripting Interpreter: PowerShell | T1059.001 |
 | System Discovery | System Information Discovery | T1082 |
 | Network Discovery | System Network Configuration Discovery | T1016 |
 | PowerShell Obfuscation | Obfuscated Files or Information | T1027 |

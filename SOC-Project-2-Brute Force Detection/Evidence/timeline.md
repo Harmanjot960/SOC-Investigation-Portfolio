@@ -42,7 +42,7 @@ Event ID 4625
 Failed Logons
           |
           ▼
-Valid Credentials Discovered
+Valid Credentials Used
           |
           ▼
 Event ID 4624

@@ -26,7 +26,7 @@
 | Tool Used | Kali Linux Hydra |
 | Failed Logon Event | Event ID 4625 |
 | Successful Logon Event | Event ID 4624 |
-| Privileged Logon Event | Event ID 4672 |
+| Special Privileges Assigned Event | Event ID 4672 |
 
 ---
 

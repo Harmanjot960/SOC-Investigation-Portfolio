@@ -31,7 +31,7 @@ The sequence of events indicates post-compromise PowerShell activity following s
 ---
 
 ## Attack Flow
-
+```
 Successful RDP Authentication
           |
           ▼
@@ -48,3 +48,4 @@ Execution Policy Bypass
           |
           ▼
 Encoded PowerShell Execution
+```

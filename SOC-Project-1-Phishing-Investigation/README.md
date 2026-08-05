@@ -201,11 +201,13 @@ A malicious attachment was delivered through email to the targeted user.
 
 ---
 
+### Potential Technique Not Confirmed
+
 ### T1204.002 - User Execution: Malicious File
 
 **Evidence:**
 
-The attack required the recipient to open the attachment and execute the embedded malicious file.
+The attack relied on the recipient opening the attachment and executing the embedded malicious file; however, no evidence of user interaction or attachment execution was identified during the investigation.
 
 ---
 

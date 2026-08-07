@@ -163,8 +163,7 @@ Investigation of a suspected phishing email through email artifact analysis, sen
 
 Email Analysis • VirusTotal • Threat Intelligence • MITRE ATT&CK
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-1-Phishing-Investigation)
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-1-Phishing-Investigation)
 
 ---
 
@@ -186,8 +185,7 @@ Detection and investigation of a simulated RDP brute-force attack using Windows 
 
 Splunk • SPL Queries • Windows Security Logs • Event IDs 4624, 4625, 4672
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute%20Force%20Detection)
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute%20Force%20Detection)
 
 ---
 
@@ -209,8 +207,7 @@ Investigation of suspicious PowerShell activity following attacker access, using
 
 Splunk • Sysmon • PowerShell Logging • Windows Event Logs
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-3-PowerShell%20Post-Compromise%20Investigation) 
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-3-PowerShell%20Post-Compromise%20Investigation) 
 
 ---
 
@@ -232,8 +229,7 @@ Investigation of a malware infection through packet capture analysis, identifyin
 
 Wireshark • Suricata IDS • VirusTotal • PCAP Analysis
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network%20Threat%20Hunting%20Investigation%20(Wireshark%20+%20Suricata))
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network%20Threat%20Hunting%20Investigation%20(Wireshark%20+%20Suricata))
 
 ---
 
@@ -255,8 +251,7 @@ Endpoint investigation of a compromised Windows system involving malware executi
 
 Sysmon • Windows Event Logs • PowerShell Logging • Wireshark
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-5-Endpoint%20Incident%20Response%20Investigation)
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-5-Endpoint%20Incident%20Response%20Investigation)
 
 ---
 
@@ -278,8 +273,7 @@ Investigation of a multi-stage Active Directory ransomware intrusion involving i
 
 Splunk • Sysmon • Active Directory Logs • Windows Event Logs • MITRE ATT&CK
 
-**Repository:**  
-[View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-6-Active%20Directory%20Ransomware%20Incident%20Investigation)
+**Repository:**  [View Project](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-6-Active%20Directory%20Ransomware%20Incident%20Investigation)
 
 ---
 

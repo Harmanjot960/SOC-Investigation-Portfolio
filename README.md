@@ -1,10 +1,8 @@
 # SOC Investigation Portfolio
 
-Hands-on SOC analyst investigations demonstrating practical experience in threat detection, incident response, malware analysis, network threat hunting, endpoint investigation, and Active Directory security analysis.
+This repository contains a collection of Security Operations Center (SOC) investigations completed through a personal SOC Home Lab, security labs, and publicly available security datasets.
 
-This portfolio contains security investigations completed through a personal SOC Home Lab, security labs, and publicly available security datasets.
-
-[Projects](#projects) • [Investigation Sources](#investigation-sources--lab-environments) • [Skills](#skills--technologies) • [Reports](#repository-structure)
+The projects demonstrate practical SOC analyst workflows including **alert triage, log analysis, security event investigation, evidence collection, threat hunting, endpoint and network analysis, IOC extraction and validation, threat intelligence research, detection development, incident response, MITRE ATT&CK mapping, and professional incident reporting**.
 
 ---
 
@@ -32,77 +30,39 @@ This portfolio contains security investigations completed through a personal SOC
 
 ---
 
-# Overview
-
-This repository contains a collection of Security Operations Center (SOC) investigations completed through security labs, training platforms, and publicly available security datasets.
-
-The portfolio demonstrates practical experience across:
-
-- Security monitoring
-- Alert triage
-- Threat hunting
-- Endpoint investigation
-- Network traffic analysis
-- Malware investigation
-- Incident response
-- IOC extraction and validation
-- Threat intelligence analysis
-- MITRE ATT&CK mapping
-- Technical reporting
-
-Investigations cover multiple attack scenarios:
-
-- Phishing email investigation
-- RDP brute-force detection
-- PowerShell post-compromise activity
-- Malware network threat hunting
-- Windows endpoint compromise
-- Active Directory ransomware intrusion
-
----
-
 # Investigation Methodology
 
-Each investigation follows a structured SOC workflow:
+Each investigation follows a structured SOC workflow appropriate for the incident being analyzed.
 
 ```text
 Alert / Incident Intake
-        |
+        │
         ▼
 Initial Triage
-        |
+        │
         ▼
 Evidence Collection
-        |
+        │
         ▼
 Threat Investigation
-        |
+        │
         ▼
 IOC Extraction & Validation
-        |
+        │
         ▼
 Threat Intelligence Analysis
-        |
+        │
         ▼
-Security Tool Investigation
-        |
+Security Telemetry Analysis
+        │
         ▼
 MITRE ATT&CK Mapping
-        |
+        │
         ▼
 Incident Report Documentation
 ```
 
-Additional investigation phases are included when applicable:
-
-- Packet analysis
-- Endpoint telemetry analysis
-- Malware analysis
-- IDS alert validation
-- Authentication analysis
-- Attack timeline reconstruction
-
-Detailed investigation findings, technical analysis, evidence, timelines, and MITRE ATT&CK mappings are documented in each project's **Incident Report repository**.
+Depending on the investigation, additional phases such as packet analysis, endpoint telemetry correlation, malware behavior analysis, IDS alert validation, authentication analysis, and attack timeline reconstruction are incorporated into the workflow. Detailed investigation findings, technical analysis, evidence, timelines, and MITRE ATT&CK mappings are documented in each project's **Incident Report**.
 
 ---
 
@@ -111,20 +71,15 @@ Detailed investigation findings, technical analysis, evidence, timelines, and MI
 Investigations were completed using multiple environments and security platforms.
 
 | Source | Projects |
-|---------------|----------|
-| Personal SOC Home Lab | Project 2, Project 3 |
-| Security Labs | Project 1, Project 5, Project 6 |
-| Public Malware Traffic Analysis Dataset | Project 4 |
+|--------|----------|
+| Personal SOC Home Lab | Project 2, Project 3, Project 4 |
+| TryHackMe Security Labs | Project 1, Project 5, Project 6 |
 
-The personal SOC Home Lab was used for:
+The personal SOC Home Lab was used for Windows security telemetry collection, PowerShell logging, Sysmon event analysis, Splunk investigations, detection query development, and network threat hunting using Wireshark and Suricata.
 
-- Windows security telemetry collection
-- PowerShell logging
-- Sysmon event analysis
-- Splunk investigations
-- Detection query development
+Project 4 utilized a publicly available PCAP dataset as the investigation evidence source, which was analyzed within the SOC Home Lab environment using Wireshark and Suricata.
 
-Project 4 network threat hunting was performed using a publicly available PCAP dataset analyzed with Wireshark and Suricata.
+TryHackMe Security Labs provided realistic enterprise attack scenarios involving phishing analysis, Windows endpoint compromise, and Active Directory ransomware investigations.
 
 ---
 
@@ -134,33 +89,10 @@ Project 4 network threat hunting was performed using a publicly available PCAP d
 |----------|---------------------|
 | SIEM & Log Analysis | Splunk Enterprise, SPL Queries, Windows Event Viewer, Windows Security Logs |
 | Endpoint Investigation | Sysmon, PowerShell Script Block Logging, Process Analysis, File and Registry Analysis |
-| Windows Security Telemetry | Authentication Logs, User/Group Changes, SMB Access Events, Service Creation Events |
+| Windows Security Telemetry | Authentication Logs, Privileged Access Events, User/Group Changes, SMB Access Events, Service Creation Events, Process Execution Events |
 | Network Investigation | Wireshark, PCAP Analysis, Suricata IDS, DNS Analysis, HTTP Analysis, TLS Analysis |
-| Threat Intelligence & Malware Analysis | VirusTotal, URLScan, MalwareBazaar, Hybrid Analysis, ANY.RUN, WHOIS, IP Reputation Analysis |
+| Threat Intelligence & Malware Investigation | VirusTotal, URLScan, MalwareBazaar, Hybrid Analysis, ANY.RUN, WHOIS, IP Reputation Analysis |
 | Frameworks | MITRE ATT&CK Framework |
-
----
-
-# Repository Structure
-
-Each investigation follows a consistent structure while allowing additional repositories depending on investigation requirements.
-
-| Directory | Purpose |
-|----------|---------|
-| README | Investigation overview, scenario, workflow, findings, timeline, MITRE mapping, screenshots |
-| Evidence | Investigation artifacts including IOCs, timelines, technical findings, and supporting evidence |
-| Incident Report | Complete investigation documentation including analysis, impact assessment, recommendations, and analyst conclusion |
-| MITRE ATT&CK | Mapping of observed attacker behavior to ATT&CK techniques |
-| Screenshots | Visual evidence supporting investigation findings |
-
-Additional repositories may include:
-
-- SPL Queries
-- PCAP
-- Sysmon
-- Windows Event Logs
-- Suricata
-- Threat Intelligence
 
 ---
 
@@ -192,3 +124,163 @@ The investigations include analysis of Windows security telemetry commonly used 
 - Event ID 13 — Registry Value Set
 - Event ID 15 — FileCreateStreamHash
 - Event ID 22 — DNS Query
+
+---
+
+# Repository Structure
+
+Each investigation follows a consistent structure while allowing additional repositories depending on investigation requirements.
+
+| Directory | Purpose |
+|----------|---------|
+| README | Investigation overview, scenario, lab architecture, investigation workflow, key findings, timeline, MITRE ATT&CK mapping, screenshots |
+| Evidence | Investigation artifacts including IOCs, timelines, technical findings, and supporting evidence |
+| Incident Report | Complete investigation documentation including investigation phases, evidence analysis, root cause analysis, impact assessment, recommendations, and analyst conclusion |
+| MITRE ATT&CK | Mapping of observed attacker behavior to ATT&CK techniques |
+| Screenshots | Visual evidence supporting investigation findings |
+
+Additional repositories may include **SPL Queries**, **PCAP**, **Sysmon**, **Windows Event Logs**, **Suricata**, and **Threat Intelligence**, depending on the investigation requirements.
+
+---
+
+# Projects
+
+## SOC Project 1 — Phishing Email Investigation
+
+**Focus:**  
+Investigation of a suspected phishing email through email artifact analysis, sender authentication review, attachment analysis, threat intelligence enrichment, and IOC extraction.
+
+**Skills Demonstrated:**
+
+- Email header analysis
+- SPF / DMARC validation
+- Malicious attachment investigation
+- Threat intelligence analysis
+- IOC extraction
+- Phishing incident classification
+
+**Tools:**
+
+Email Analysis • VirusTotal • Threat Intelligence • MITRE ATT&CK
+
+**Repository:**  
+[View Investigation →](https://github.com/Harmanjot960/SOC-Project-1-Phishing-Investigation)
+
+---
+
+## SOC Project 2 — RDP Brute Force Detection
+
+**Focus:**  
+Detection and investigation of a simulated RDP brute-force attack using Windows authentication telemetry and Splunk-based analysis.
+
+**Skills Demonstrated:**
+
+- Security event log analysis
+- Authentication investigation
+- Failed and successful logon correlation
+- Privileged access analysis
+- SPL detection query development
+- Attack timeline reconstruction
+
+**Tools:**
+
+Splunk • SPL Queries • Windows Security Logs • Event IDs 4624, 4625, 4672
+
+**Repository:**  
+[View Investigation →](PROJECT_LINK)
+
+---
+
+## SOC Project 3 — PowerShell Post-Compromise Investigation
+
+**Focus:**  
+Investigation of suspicious PowerShell activity following attacker access, using endpoint telemetry and Windows logging sources.
+
+**Skills Demonstrated:**
+
+- PowerShell Script Block analysis
+- Process execution investigation
+- Encoded command detection
+- Command-line analysis
+- Sysmon event correlation
+- MITRE ATT&CK technique mapping
+
+**Tools:**
+
+Splunk • Sysmon • PowerShell Logging • Windows Event Logs
+
+**Repository:**  
+[View Investigation →](PROJECT_LINK)
+
+---
+
+## SOC Project 4 — Network Threat Hunting Investigation
+
+**Focus:**  
+Investigation of a malware infection through packet capture analysis, identifying malicious communication, payload delivery, and command-and-control activity.
+
+**Skills Demonstrated:**
+
+- PCAP analysis
+- Network traffic investigation
+- DNS / HTTP / TLS analysis
+- IDS alert investigation
+- Malware communication analysis
+- IOC validation
+
+**Tools:**
+
+Wireshark • Suricata IDS • VirusTotal • PCAP Analysis
+
+**Repository:**  
+[View Investigation →](PROJECT_LINK)
+
+---
+
+## SOC Project 5 — Windows Endpoint Incident Response Investigation
+
+**Focus:**  
+Endpoint investigation of a compromised Windows system involving malware execution, persistence, credential access, and attacker activity reconstruction.
+
+**Skills Demonstrated:**
+
+- Endpoint telemetry analysis
+- Process investigation
+- Persistence detection
+- Credential access investigation
+- PowerShell analysis
+- Network artifact correlation
+
+**Tools:**
+
+Sysmon • Windows Event Logs • PowerShell Logging • Wireshark
+
+**Repository:**  
+[View Investigation →](PROJECT_LINK)
+
+---
+
+## SOC Project 6 — Active Directory Ransomware Incident Investigation
+
+**Focus:**  
+Investigation of a multi-stage Active Directory ransomware intrusion involving initial access, credential compromise, lateral movement, privilege abuse, and ransomware deployment.
+
+**Skills Demonstrated:**
+
+- Active Directory investigation
+- Authentication and privilege analysis
+- Lateral movement detection
+- SMB and PsExec analysis
+- Ransomware attack chain reconstruction
+- Incident response documentation
+
+**Tools:**
+
+Splunk • Sysmon • Active Directory Logs • Windows Event Logs • MITRE ATT&CK
+
+**Repository:**  
+[View Investigation →](PROJECT_LINK)
+
+---
+
+This portfolio demonstrates a structured, evidence-based approach to security monitoring, threat investigation, and SOC incident response across endpoint, network, and enterprise environments.

@@ -25,7 +25,7 @@ The projects demonstrate practical SOC analyst workflows including **alert triag
 | Project 2 | RDP Brute Force Detection | Splunk, Windows Security Logs, SPL | Complete |
 | Project 3 | PowerShell Post-Compromise Investigation | Splunk, Sysmon, PowerShell Logs | Complete |
 | Project 4 | Network Threat Hunting Investigation | Wireshark, Suricata, PCAP Analysis | Complete |
-| Project 5 | Windows Endpoint Incident Response | Sysmon, Windows Logs, PowerShell, Wireshark | Complete |
+| Project 5 | Windows Endpoint Incident Response Investigation | Sysmon, Windows Logs, PowerShell, Wireshark | Complete |
 | Project 6 | Active Directory Ransomware Investigation | Splunk, Sysmon, AD Logs, Windows Events | Complete |
 
 ---

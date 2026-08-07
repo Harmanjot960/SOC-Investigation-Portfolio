@@ -233,7 +233,7 @@ Investigation of a malware infection through packet capture analysis, identifyin
 Wireshark • Suricata IDS • VirusTotal • PCAP Analysis
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network%20Threat%20Hunting%20Investigation (Wireshark + Suricata))
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network%20Threat%20Hunting%20Investigation%20(Wireshark%20+%20Suricata))
 
 ---
 

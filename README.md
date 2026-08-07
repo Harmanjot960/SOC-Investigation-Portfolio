@@ -164,7 +164,7 @@ Investigation of a suspected phishing email through email artifact analysis, sen
 Email Analysis • VirusTotal • Threat Intelligence • MITRE ATT&CK
 
 **Repository:**  
-[View Investigation →](https://github.com/Harmanjot960/SOC-Project-1-Phishing-Investigation)
+[View Investigation →](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/SOC-Project-1-Phishing-Investigation)
 
 ---
 

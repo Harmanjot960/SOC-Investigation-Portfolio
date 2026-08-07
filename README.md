@@ -187,8 +187,7 @@ Detection and investigation of a simulated RDP brute-force attack using Windows 
 Splunk • SPL Queries • Windows Security Logs • Event IDs 4624, 4625, 4672
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute Force Detection)
-[**SOC-Project-2-Brute Force Detection**](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute%20Force%20Detection)
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute%20Force%20Detection)
 
 ---
 
@@ -211,7 +210,7 @@ Investigation of suspicious PowerShell activity following attacker access, using
 Splunk • Sysmon • PowerShell Logging • Windows Event Logs
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-3-PowerShell Post-Compromise Investigation) 
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-3-PowerShell%20Post-Compromise%20Investigation) 
 
 ---
 
@@ -234,7 +233,7 @@ Investigation of a malware infection through packet capture analysis, identifyin
 Wireshark • Suricata IDS • VirusTotal • PCAP Analysis
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network Threat Hunting Investigation (Wireshark + Suricata))
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-4-Network%20Threat%20Hunting%20Investigation (Wireshark + Suricata))
 
 ---
 
@@ -257,7 +256,7 @@ Endpoint investigation of a compromised Windows system involving malware executi
 Sysmon • Windows Event Logs • PowerShell Logging • Wireshark
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-5-Endpoint Incident Response Investigation)
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-5-Endpoint%20Incident%20Response%20Investigation)
 
 ---
 
@@ -280,7 +279,7 @@ Investigation of a multi-stage Active Directory ransomware intrusion involving i
 Splunk • Sysmon • Active Directory Logs • Windows Event Logs • MITRE ATT&CK
 
 **Repository:**  
-[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-6-Active Directory Ransomware Incident Investigation)
+[View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-6-Active%20Directory%20Ransomware%20Incident%20Investigation)
 
 ---
 

@@ -6,7 +6,7 @@ The projects demonstrate practical SOC analyst workflows including **alert triag
 
 ---
 
-# Skills & Technologies
+## Skills & Technologies
 
 ![SIEM](https://img.shields.io/badge/SIEM-Splunk-blue)
 ![Endpoint](https://img.shields.io/badge/Endpoint-Sysmon-orange)
@@ -17,7 +17,7 @@ The projects demonstrate practical SOC analyst workflows including **alert triag
 
 ---
 
-# Projects Overview
+## Projects Overview
 
 | Project | Investigation Focus | Tools | Status |
 |----------|---------------------|-------|--------|
@@ -30,7 +30,7 @@ The projects demonstrate practical SOC analyst workflows including **alert triag
 
 ---
 
-# Investigation Methodology
+## Investigation Methodology
 
 Each investigation follows a structured SOC workflow appropriate for the incident being analyzed.
 
@@ -66,7 +66,7 @@ Depending on the investigation, additional phases such as packet analysis, endpo
 
 ---
 
-# Investigation Sources & Lab Environments
+## Investigation Sources & Lab Environments
 
 Investigations were completed using multiple environments and security platforms.
 
@@ -83,7 +83,7 @@ TryHackMe Security Labs provided realistic enterprise attack scenarios involving
 
 ---
 
-# Tools & Technologies
+## Tools & Technologies
 
 | Category | Tools & Technologies |
 |----------|---------------------|
@@ -96,11 +96,11 @@ TryHackMe Security Labs provided realistic enterprise attack scenarios involving
 
 ---
 
-# Windows Security & Sysmon Event Coverage
+## Windows Security & Sysmon Event Coverage
 
 The investigations include analysis of Windows security telemetry commonly used by SOC analysts.
 
-## Windows Security Events
+### Windows Security Events
 
 - Event ID 4624 — Successful Logon
 - Event ID 4625 — Failed Logon
@@ -111,11 +111,11 @@ The investigations include analysis of Windows security telemetry commonly used 
 - Event ID 5145 — Detailed File Share Access
 - Event ID 7045 — Service Installation
 
-## PowerShell Logging
+### PowerShell Logging
 
 - Event ID 4104 — PowerShell Script Block Logging
 
-## Sysmon Events
+### Sysmon Events
 
 - Event ID 1 — Process Creation
 - Event ID 3 — Network Connection
@@ -127,7 +127,7 @@ The investigations include analysis of Windows security telemetry commonly used 
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 Each investigation follows a consistent structure while allowing additional repositories depending on investigation requirements.
 
@@ -143,9 +143,9 @@ Additional repositories may include **SPL Queries**, **PCAP**, **Sysmon**, **Win
 
 ---
 
-# Projects
+## Projects
 
-## SOC Project 1 — Phishing Email Investigation
+### SOC Project 1 — Phishing Email Investigation
 
 **Focus:**  
 Investigation of a suspected phishing email through email artifact analysis, sender authentication review, attachment analysis, threat intelligence enrichment, and IOC extraction.
@@ -167,7 +167,7 @@ Email Analysis • VirusTotal • Threat Intelligence • MITRE ATT&CK
 
 ---
 
-## SOC Project 2 — RDP Brute Force Detection
+### SOC Project 2 — RDP Brute Force Detection
 
 **Focus:**  
 Detection and investigation of a simulated RDP brute-force attack using Windows authentication telemetry and Splunk-based analysis.
@@ -189,7 +189,7 @@ Splunk • SPL Queries • Windows Security Logs • Event IDs 4624, 4625, 4672
 
 ---
 
-## SOC Project 3 — PowerShell Post-Compromise Investigation
+### SOC Project 3 — PowerShell Post-Compromise Investigation
 
 **Focus:**  
 Investigation of suspicious PowerShell activity following attacker access, using endpoint telemetry and Windows logging sources.
@@ -211,7 +211,7 @@ Splunk • Sysmon • PowerShell Logging • Windows Event Logs
 
 ---
 
-## SOC Project 4 — Network Threat Hunting Investigation
+### SOC Project 4 — Network Threat Hunting Investigation
 
 **Focus:**  
 Investigation of a malware infection through packet capture analysis, identifying malicious communication, payload delivery, and command-and-control activity.
@@ -233,7 +233,7 @@ Wireshark • Suricata IDS • VirusTotal • PCAP Analysis
 
 ---
 
-## SOC Project 5 — Windows Endpoint Incident Response Investigation
+### SOC Project 5 — Windows Endpoint Incident Response Investigation
 
 **Focus:**  
 Endpoint investigation of a compromised Windows system involving malware execution, persistence, credential access, and attacker activity reconstruction.
@@ -255,7 +255,7 @@ Sysmon • Windows Event Logs • PowerShell Logging • Wireshark
 
 ---
 
-## SOC Project 6 — Active Directory Ransomware Incident Investigation
+### SOC Project 6 — Active Directory Ransomware Incident Investigation
 
 **Focus:**  
 Investigation of a multi-stage Active Directory ransomware intrusion involving initial access, credential compromise, lateral movement, privilege abuse, and ransomware deployment.

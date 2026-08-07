@@ -188,6 +188,7 @@ Splunk • SPL Queries • Windows Security Logs • Event IDs 4624, 4625, 4672
 
 **Repository:**  
 [View Investigation](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute Force Detection)
+[**SOC-Project-2-Brute Force Detection**](https://github.com/Harmanjot960/SOC-Investigation-Portfolio/tree/main/SOC-Project-2-Brute%20Force%20Detection)
 
 ---
 
